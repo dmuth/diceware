@@ -110,11 +110,33 @@ function display_results() {
 } // End of display_results()
 
 
+/**
+* Return true if we are running on a mobile screen.
+*/
+function is_mobile() {
+
+	if (jQuery(window).width() < 480) {
+		return(true);
+	}
+
+	return(false);
+
+} // End of is_mobile()
+
+
 //
 // Handler when the "Roll Dice" button is clicked.  It gets the 
 // passphrase and updates the HTML with it.
 //
 jQuery("#roll_dice").on("click", function(e) {
+
+	//
+	// If we're running on an iPhone or similar, scroll down so that we can 
+	// see the dice rolls and passphrase.
+	//
+	if (is_mobile()) {
+		location.hash = "#roll_dice_button";
+	}
 
 	//
 	// Remove any old results
