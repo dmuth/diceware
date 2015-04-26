@@ -112,6 +112,9 @@ jQuery("#roll_dice").on("click", function(e) {
 				});
 
 		} else {
+			//
+			// All done with displaying dice, now display the results.
+			//
 			display_results();
 
 		}
