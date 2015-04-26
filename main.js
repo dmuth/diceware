@@ -64,6 +64,7 @@ function display_row(rows, cb) {
 
 	var duration = 250;
 	var fadein_delay = 500;
+	var fadeout_delay = 400;
 
 	if (rows.length) {
 		//
@@ -75,7 +76,7 @@ function display_row(rows, cb) {
 			.fadeIn(duration, function() {
 				display_row(rows, cb);
 			})
-			.delay(1000).fadeOut();
+			.delay(fadeout_delay).fadeOut();
 
 	} else {
 		//
@@ -90,8 +91,10 @@ function display_row(rows, cb) {
 
 /**
 * Display the actual results.
+*
+* @param cb object Optional callback to fire when done
 */
-function display_results() {
+function display_results(cb) {
 
 	jQuery(".results_words_key").hide().clone().appendTo(".results");
 	jQuery(".results_words_value").hide().clone().appendTo(".results");
@@ -99,10 +102,14 @@ function display_results() {
 	jQuery(".results_phrase_key").hide().clone().appendTo(".results");
 	jQuery(".results_phrase_value").hide().clone().appendTo(".results");
 
-	jQuery(".results_words_key").fadeIn(500, function() {
-		jQuery(".results_words_value").fadeIn(500, function() {
-		jQuery(".results_phrase_key").fadeIn(500, function() {
-		jQuery(".results_phrase_value").fadeIn(500);
+	jQuery(".results .results_words_key").fadeIn(500, function() {
+		jQuery(".results .results_words_value").fadeIn(500, function() {
+		jQuery(".results .results_phrase_key").fadeIn(500, function() {
+		jQuery(".results .results_phrase_value").fadeIn(500, function() {
+			if (cb) {
+				cb();
+			}
+		});
 		});
 		});
 		});
@@ -111,11 +118,19 @@ function display_results() {
 
 
 /**
+* Return the width of the browser window.
+*/
+function get_width() {
+	return(jQuery(window).width());
+}
+
+
+/**
 * Return true if we are running on a mobile screen.
 */
 function is_mobile() {
 
-	if (jQuery(window).width() < 480) {
+	if (get_width() <= 480) {
 		return(true);
 	}
 
@@ -130,12 +145,20 @@ function is_mobile() {
 //
 jQuery("#roll_dice").on("click", function(e) {
 
+	var target_height = 300;
+	if (is_mobile()) {
+		target_height = 1000;
+	}
+
+	jQuery(".results").animate({height: target_height}, 400);
+
 	//
 	// If we're running on an iPhone or similar, scroll down so that we can 
 	// see the dice rolls and passphrase.
 	//
 	if (is_mobile()) {
-		location.hash = "#roll_dice_button";
+		var aTag = $("a[name='roll_dice_button']");
+		$("html,body").animate({scrollTop: aTag.offset().top}, "slow");
 	}
 
 	//
@@ -201,7 +224,25 @@ jQuery("#roll_dice").on("click", function(e) {
 	//
 	// Now display those rows.
 	//
-	display_row(rows, display_results);
+	display_row(rows, function() {
+		display_results(function() {
+
+		//
+		// Set the height of this back to auto so we don't have unused space.
+		// I'm amazed that we don't see a "flash" of the results div 
+		// temporarily shrinking, but this seems to work as per what I saw 
+		// at http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height
+		//
+		// Well then.
+		//
+		var height = jQuery(".results").height();
+		jQuery(".results").css("height", "auto");
+		var new_height = jQuery(".results").height();
+		jQuery(".results").height(height);
+		jQuery(".results").animate({height: new_height}, 400);
+
+		});
+		});
 
 });
 
@@ -211,8 +252,7 @@ jQuery("#roll_dice").on("click", function(e) {
 //
 jQuery.getScript("./wordlist.js").done(
 	function(data) {
-// TEST
-		jQuery("#roll_dice").click(); // Debugging
+		//jQuery("#roll_dice").click(); // Debugging
 
 	}).fail(
 	function(jqxhr, settings, exception) {
