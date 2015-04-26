@@ -14,3 +14,12 @@ body {
 	font-size: x-large;
 }
 
+.btn.dice_button {
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.dice_num {
+	margin-top: 0px;
+}
+
