@@ -1,6 +1,6 @@
 # Diceware
 
-First, feel free to chekc out the live demo, running at [https://www.dmuth.org/diceware/](https://www.dmuth.org/diceware/)
+First, feel free to check out the live demo, running at [https://www.dmuth.org/diceware/](https://www.dmuth.org/diceware/)
 
 Weak passwords are a big flaw in computer security due to a lack of "entropy" or randomness. For example, how many times have you used the name of a pet or relative or street in a password, or perhaps the number "1". Not very random, is it? :-) Worse still, if passwords are reused between services, that increases your security risk.
 
