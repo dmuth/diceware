@@ -1,0 +1,49 @@
+
+.side {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    box-shadow:inset 0 0 40px #ccc;
+    border-radius: 40px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+.dot {
+    position:absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+    background: #444;
+    box-shadow: inset 5px 0 10px #000;
+}
+
+.dot.center {
+	/* Orders of margins are: top right bottom left */
+    margin: 39px 0 0 39px;
+}
+
+.dot.dtop {
+    margin-top: 14px;
+}
+
+.dot.dleft {
+    margin-left: 63px;
+}
+
+.dot.dright {
+    margin-left: 14px;
+}
+
+.dot.dbottom {
+    margin-top: 63px;
+}
+
+.dot.center.dleft {
+    margin: 38px 0 0 14px;
+}
+
+.dot.center.dright {
+    margin: 38px 0 0 63px;
+}
+
