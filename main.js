@@ -130,13 +130,18 @@ jQuery("#roll_dice").on("click", function(e) {
 
 	var rolls = new Array();
 	for (var i=0; i<num_dice; i++) {
-		var roll = roll_dice();
+
+		var roll = {};
+		roll.dice = roll_dice();
+		roll.word = get_word(wordlist, roll.dice.join(""));
 		rolls.push(roll);
-		passphrase.push(get_word(wordlist, roll.join("")));
+		passphrase.push(roll.word);
+
 	}
 
 	//
-	// Populate our results
+	// Populate our results by cloning the hidden base rows which 
+	// represent each die.
 	//
 	jQuery(".results_words_value").html(passphrase.join(" "));
 	jQuery(".results_phrase_value").html(passphrase.join(""));
@@ -147,17 +152,29 @@ jQuery("#roll_dice").on("click", function(e) {
 		var roll = rolls[key];
 		var row = jQuery("<div></div>");
 
-		for (key2 in roll) {
-			var die = roll[key2];
+		//
+		// Clone and append specific dice to this row.
+		//
+		for (key2 in roll.dice) {
+			var die = roll.dice[key2];
 			var classname = ".source .dice" + die;
-			jQuery(classname).clone().appendTo(row);
+			var tmp = jQuery(classname).clone().appendTo(row);
 		}
 
+		//
+		// Now append the word
+		//
+		var dice_word = jQuery(".dice_word").clone();
+		dice_word.html("\"" + roll.word + "\"");
+		row.append(dice_word);
+	
 		rows.push(row);
 
 	}
 
-
+	//
+	// Now display those rows.
+	//
 	display_row(rows, display_results);
 
 });
