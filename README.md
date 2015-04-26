@@ -12,6 +12,24 @@ For more information on Diceware:
 - [Diceware for Passphrase Generation and Other Cryptographic Applications](http://world.std.com/~reinhold/diceware.txt)
 
 
+# Running this software online
+
+I have a copy running at [https://www.dmuth.org/diceware/](https://www.dmuth.org/diceware/).
+Feel free to use it to generate your own passwords.
+
+
+# Running this software from your computer
+
+Feel free to clone this repo with `git clone https://github.com/dmuth/diceware.git` and run it
+from a local directory on your computer.
+
+
+# Will this work on an iPhone?
+
+Yep!  It should work on any mobile phone or tablet that supports Javascript, but I have only
+tested it on an iPhone 5S at this time.
+
+
 # Who built this? / Contact
 
 My name is Douglas Muth, and I am a full-time software engineer in Philadelphia, PA.
