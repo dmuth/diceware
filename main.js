@@ -56,19 +56,27 @@ jQuery(".dice_button").on("click", function(e) {
 /**
 * This function displays each dice roll.
 *
+* @param array rows Array of rows of dice rolls that we had.
+* @param object cb Our callback to fire when done
 *
 */
 function display_row(rows, cb) {
+
+	var duration = 250;
+	var fadein_delay = 500;
 
 	if (rows.length) {
 		//
 		// Display a row, then call ourselves again then done.
 		//
 		var row = rows.shift();
-		row.hide().appendTo(".results").fadeIn(500, function() {
-			jQuery(".results").append("<br clear=\"all\" />");
-			display_row(rows, cb);
-			});
+		var tmp = row.hide().appendTo(".results")
+			.delay(fadein_delay)
+			.fadeIn(duration, function() {
+				jQuery(".results").append("<br clear=\"all\" />");
+				display_row(rows, cb);
+			})
+			.delay(1000).fadeOut(duration);
 
 	} else {
 		//
