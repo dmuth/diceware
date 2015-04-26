@@ -14,17 +14,17 @@ function die_roll() {
 
 
 /**
-* Roll a die n times.
+* Roll a die 5 times.
 *
-* @return integer a 5-digit integer representing 5 dice rolls.
+* @return array an Array of 5 dice rolls
 */
 function roll_dice() {
-	var retval = 
-		String(die_roll()) + String(die_roll())
-		+ String(die_roll()) + String(die_roll())
-		+ String(die_roll())
-		;
-	retval = parseInt(retval);
+	var retval = new Array();
+	retval.push(die_roll());
+	retval.push(die_roll());
+	retval.push(die_roll());
+	retval.push(die_roll());
+	retval.push(die_roll());
 	return(retval);
 }
 
@@ -58,29 +58,87 @@ jQuery(".dice_button").on("click", function(e) {
 //
 jQuery("#roll_dice").on("click", function(e) {
 
-	jQuery(".results_words_key").hide();
-	jQuery(".results_words_value").hide();
-	jQuery(".results_phrase_key").hide();
-	jQuery(".results_phrase_value").hide();
+	//
+	// Remove any old results
+	//
+	jQuery(".results").empty();
 
+	//
+	// Make our dice rolls
+	//
 	var num_dice = jQuery(".dice_button.active").html();
 	var passphrase = new Array();
 
+	var rolls = new Array();
 	for (var i=0; i<num_dice; i++) {
 		var roll = roll_dice();
-		passphrase.push(get_word(wordlist, roll));
+		rolls.push(roll);
+		passphrase.push(get_word(wordlist, roll.join("")));
 	}
 
+	//
+	// Populate our results
+	//
 	jQuery(".results_words_value").html(passphrase.join(" "));
 	jQuery(".results_phrase_value").html(passphrase.join(""));
 
-	jQuery(".results_words_key").fadeIn(500, function() {
-		jQuery(".results_words_value").fadeIn(500, function() {
-		jQuery(".results_phrase_key").fadeIn(500, function() {
-		jQuery(".results_phrase_value").fadeIn(500);
-		});
-		});
-		});
+	var rows = new Array();
+	for (key in rolls) {
+
+		var roll = rolls[key];
+		var row = jQuery("<div></div>");
+
+		for (key2 in roll) {
+			var die = roll[key2];
+			var classname = ".source .dice" + die;
+			jQuery(classname).clone().appendTo(row);
+		}
+
+		rows.push(row);
+
+	}
+
+	//
+	// This function goes through our rows, calling itself and 
+	// displaying each row after a delay.
+	//
+	function process_row(rows) {
+
+		if (rows.length) {
+			var row = rows.shift();
+			row.hide().appendTo(".results").fadeIn(500, function() {
+				jQuery(".results").append("<br clear=\"all\" />");
+				process_row(rows);
+				});
+
+		} else {
+			display_results();
+
+		}
+
+	}
+
+	process_row(rows);
+
+	//
+	// Display the actual results
+	//
+	function display_results() {
+		jQuery(".results_words_key").hide().clone().appendTo(".results");
+		jQuery(".results_words_value").hide().clone().appendTo(".results");
+		jQuery(".results").append("<br clear=\"all\" />");
+		jQuery(".results_phrase_key").hide().clone().appendTo(".results");
+		jQuery(".results_phrase_value").hide().clone().appendTo(".results");
+
+		jQuery(".results_words_key").fadeIn(500, function() {
+			jQuery(".results_words_value").fadeIn(500, function() {
+			jQuery(".results_phrase_key").fadeIn(500, function() {
+			jQuery(".results_phrase_value").fadeIn(500);
+			});
+			});
+			});
+
+	}
 
 });
 

@@ -11,6 +11,8 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="./starter-template.css" rel="stylesheet">
 
+<!-- TEST -->
+    <link href="./dice.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,6 +51,61 @@
 	</p>
 
 
+	<!-- This row is completely hidden, but is used to hold elements 
+		that get cloned after a dice roll. -->
+	<div class="row source" style="display: none; ">
+		<div class="col-md-12" style="height: 0px; ">
+
+      <div class="side dice1" style="float: left; ">
+        <div class="dot center"></div>
+      </div>
+
+      <div class="side dice2" style="float: left; ">
+        <div class="dot dtop dleft"></div>
+        <div class="dot dbottom dright"></div>
+      </div>
+
+      <div class="side dice3" style="float: left; ">
+        <div class="dot dtop dleft"></div>
+        <div class="dot center"></div>
+        <div class="dot dbottom dright"></div>
+      </div>
+
+      <div class="side dice4" style="float: left; ">
+        <div class="dot dtop dleft"></div>
+        <div class="dot dtop dright"></div>
+        <div class="dot dbottom dleft"></div>
+        <div class="dot dbottom dright"></div>
+      </div>
+
+      <div class="side dice5" style="float: left; ">
+        <div class="dot dtop dleft"></div>
+        <div class="dot dtop dright"></div>
+        <div class="dot center"></div>
+        <div class="dot dbottom dleft"></div>
+        <div class="dot dbottom dright"></div>
+      </div>
+
+      <div class="side dice6" style="float: left; ">
+        <div class="dot dtop dleft"></div>
+        <div class="dot dtop dright"></div>
+        <div class="dot center dleft"></div>
+        <div class="dot center dright"></div>
+        <div class="dot dbottom dleft"></div>
+        <div class="dot dbottom dright"></div>
+      </div>
+
+			<span class="results_words_key" >Your words are: </span>
+			<span class="results_words_value" ></span>
+			<p/>
+
+			<span class="results_phrase_key" >Your passphrase is: </span>
+			<span class="results_phrase_value" ></span>
+			<p/>
+
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-md-12">
 
@@ -77,16 +134,8 @@
 	<p/>
 
 	<div class="row">
-		<div class="col-md-12" style="height: 100px; ">
+		<div class="col-md-12" >
 		<div class="results" >
-
-			<span class="results_words_key" style="display: none; ">Your words are:</span>
-			<span class="results_words_value" style="display: none; "></span>
-			<p/>
-
-			<span class="results_phrase_key" style="display: none; ">Your passphrase is:</span>
-			<span class="results_phrase_value" style="display: none; "></span>
-			<p/>
 
 		</div>
 		</div>
