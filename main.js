@@ -52,6 +52,57 @@ jQuery(".dice_button").on("click", function(e) {
 });
 
 
+
+/**
+* This function displays each dice roll.
+*
+*
+*/
+function display_row(rows, cb) {
+
+	if (rows.length) {
+		//
+		// Display a row, then call ourselves again then done.
+		//
+		var row = rows.shift();
+		row.hide().appendTo(".results").fadeIn(500, function() {
+			jQuery(".results").append("<br clear=\"all\" />");
+			display_row(rows, cb);
+			});
+
+	} else {
+		//
+		// All done with displaying rows, fire our callback and get outta here.
+		//
+		cb();
+
+	}
+
+} // End of display_row()
+
+
+/**
+* Display the actual results.
+*/
+function display_results() {
+
+	jQuery(".results_words_key").hide().clone().appendTo(".results");
+	jQuery(".results_words_value").hide().clone().appendTo(".results");
+	jQuery(".results").append("<br clear=\"all\" />");
+	jQuery(".results_phrase_key").hide().clone().appendTo(".results");
+	jQuery(".results_phrase_value").hide().clone().appendTo(".results");
+
+	jQuery(".results_words_key").fadeIn(500, function() {
+		jQuery(".results_words_value").fadeIn(500, function() {
+		jQuery(".results_phrase_key").fadeIn(500, function() {
+		jQuery(".results_phrase_value").fadeIn(500);
+		});
+		});
+		});
+
+} // End of display_results()
+
+
 //
 // Handler when the "Roll Dice" button is clicked.  It gets the 
 // passphrase and updates the HTML with it.
@@ -98,50 +149,8 @@ jQuery("#roll_dice").on("click", function(e) {
 
 	}
 
-	//
-	// This function goes through our rows, calling itself and 
-	// displaying each row after a delay.
-	//
-	function process_row(rows) {
 
-		if (rows.length) {
-			var row = rows.shift();
-			row.hide().appendTo(".results").fadeIn(500, function() {
-				jQuery(".results").append("<br clear=\"all\" />");
-				process_row(rows);
-				});
-
-		} else {
-			//
-			// All done with displaying dice, now display the results.
-			//
-			display_results();
-
-		}
-
-	}
-
-	process_row(rows);
-
-	//
-	// Display the actual results
-	//
-	function display_results() {
-		jQuery(".results_words_key").hide().clone().appendTo(".results");
-		jQuery(".results_words_value").hide().clone().appendTo(".results");
-		jQuery(".results").append("<br clear=\"all\" />");
-		jQuery(".results_phrase_key").hide().clone().appendTo(".results");
-		jQuery(".results_phrase_value").hide().clone().appendTo(".results");
-
-		jQuery(".results_words_key").fadeIn(500, function() {
-			jQuery(".results_words_value").fadeIn(500, function() {
-			jQuery(".results_phrase_key").fadeIn(500, function() {
-			jQuery(".results_phrase_value").fadeIn(500);
-			});
-			});
-			});
-
-	}
+	display_row(rows, display_results);
 
 });
 
@@ -151,7 +160,8 @@ jQuery("#roll_dice").on("click", function(e) {
 //
 jQuery.getScript("./wordlist.js").done(
 	function(data) {
-		//jQuery("#roll_dice").click(); // Debugging
+// TEST
+		jQuery("#roll_dice").click(); // Debugging
 
 	}).fail(
 	function(jqxhr, settings, exception) {
