@@ -73,10 +73,9 @@ function display_row(rows, cb) {
 		var tmp = row.hide().appendTo(".results")
 			.delay(fadein_delay)
 			.fadeIn(duration, function() {
-				jQuery(".results").append("<br clear=\"all\" />");
 				display_row(rows, cb);
 			})
-			.delay(1000).fadeOut(duration);
+			.delay(1000).fadeOut();
 
 	} else {
 		//
@@ -167,6 +166,11 @@ jQuery("#roll_dice").on("click", function(e) {
 		var dice_word = jQuery(".dice_word").clone();
 		dice_word.html("\"" + roll.word + "\"");
 		row.append(dice_word);
+
+		//
+		// And clear to the next line
+		//
+		row.append("<br clear=\"all\" />");
 	
 		rows.push(row);
 
