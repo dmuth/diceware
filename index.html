@@ -57,21 +57,41 @@
 		</h2>
 
 		<div class="btn-group-lg" role="group" aria-label="...">
-		<button type="button" class="btn btn-default">4</button>
-		<button type="button" class="btn btn-default">5</button>
-		<button type="button" class="btn btn-default">6</button>
-		<button type="button" class="btn btn-default">7</button>
-		<button type="button" class="btn btn-default">8</button>
+		<button type="button" class="btn btn-default dice_button">2</button>
+		<button type="button" class="btn btn-default dice_button">3</button>
+		<button type="button" class="btn btn-default dice_button active">4</button>
+		<button type="button" class="btn btn-default dice_button">5</button>
+		<button type="button" class="btn btn-default dice_button">6</button>
+		<button type="button" class="btn btn-default dice_button">7</button>
+		<button type="button" class="btn btn-default dice_button">8</button>
 		</div>
 
 		<br/>
-		<button type="button" class="btn btn-default btn-lg btn-primary">
-			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Roll Dice!
+		<button type="button" class="btn btn-default btn-lg btn-primary" id="roll_dice">
+			<span class="glyphicon glyphicon-play" aria-hidden="true" ></span> Roll Dice!
 		</button>
 
 		</div>
 
 	</div><!-- /row -->
+	<p/>
+
+	<div class="row">
+		<div class="col-md-12" style="height: 100px; ">
+		<div class="results" >
+
+			<span class="results_words_key" style="display: none; ">Your words are:</span>
+			<span class="results_words_value" style="display: none; "></span>
+			<p/>
+
+			<span class="results_phrase_key" style="display: none; ">Your passphrase is:</span>
+			<span class="results_phrase_value" style="display: none; "></span>
+			<p/>
+
+		</div>
+		</div>
+	</div><!-- /row -->
+
 
 	<div class="row" style="text-align: left;">
 		<div class="col-md-12">

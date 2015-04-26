@@ -43,8 +43,54 @@ function get_word(wordlist, index) {
 }
 
 
+//
+// Handler to mark the clicked number of dice button as active.
+//
+jQuery(".dice_button").on("click", function(e) {
+	jQuery(".dice_button").removeClass("active");
+	jQuery(e.target).addClass("active");
+});
+
+
+//
+// Handler when the "Roll Dice" button is clicked.  It gets the 
+// passphrase and updates the HTML with it.
+//
+jQuery("#roll_dice").on("click", function(e) {
+
+	jQuery(".results_words_key").hide();
+	jQuery(".results_words_value").hide();
+	jQuery(".results_phrase_key").hide();
+	jQuery(".results_phrase_value").hide();
+
+	var num_dice = jQuery(".dice_button.active").html();
+	var passphrase = new Array();
+
+	for (var i=0; i<num_dice; i++) {
+		var roll = roll_dice();
+		passphrase.push(get_word(wordlist, roll));
+	}
+
+	jQuery(".results_words_value").html(passphrase.join(" "));
+	jQuery(".results_phrase_value").html(passphrase.join(""));
+
+	jQuery(".results_words_key").fadeIn(500, function() {
+		jQuery(".results_words_value").fadeIn(500, function() {
+		jQuery(".results_phrase_key").fadeIn(500, function() {
+		jQuery(".results_phrase_value").fadeIn(500);
+		});
+		});
+		});
+
+});
+
+
+//
+// Load our wordlist.
+//
 jQuery.getScript("./wordlist.js").done(
 	function(data) {
+		//jQuery("#roll_dice").click(); // Debugging
 
 	}).fail(
 	function(jqxhr, settings, exception) {
