@@ -2,9 +2,9 @@
 .side {
     width: 100px;
     height: 100px;
-    background: #fff;
+    background: #ff2222;
     box-shadow:inset 0 0 40px #ccc;
-    border-radius: 40px;
+    border-radius: 10px;
 	margin-left: 20px;
 	margin-bottom: 20px;
 }
@@ -14,13 +14,13 @@
     width: 18px;
     height: 18px;
     border-radius: 18px;
-    background: #444;
-    box-shadow: inset 5px 0 10px #000;
+    background: white;
+    box-shadow: inset 5px 0 10px white;
 }
 
 .dot.center {
 	/* Orders of margins are: top right bottom left */
-    margin: 39px 0 0 39px;
+    margin: 39px 0 0 41px;
 }
 
 .dot.dtop {
@@ -28,11 +28,11 @@
 }
 
 .dot.dleft {
-    margin-left: 63px;
+    margin-left: 65px;
 }
 
 .dot.dright {
-    margin-left: 14px;
+    margin-left: 16px;
 }
 
 .dot.dbottom {
@@ -40,10 +40,10 @@
 }
 
 .dot.center.dleft {
-    margin: 38px 0 0 14px;
+    margin: 38px 0 0 16px;
 }
 
 .dot.center.dright {
-    margin: 38px 0 0 63px;
+    margin: 38px 0 0 65px;
 }
 
