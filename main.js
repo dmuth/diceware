@@ -246,6 +246,12 @@ jQuery("#roll_dice").on("click", function(e) {
 
 });
 
+//
+// If we're not on a mobile, bring in the GitHub ribbon.
+//
+if (!is_mobile()) {
+	jQuery("#github_ribbon").fadeIn(1000);
+}
 
 //
 // Load our wordlist.
