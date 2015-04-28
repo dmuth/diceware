@@ -28,7 +28,7 @@ tested it on an iPhone 5S at this time.
 
 # Who built this? / Contact
 
-My name is Douglas Muth, and I am a full-time software engineer in Philadelphia, PA.
+My name is Douglas Muth, and I am a software engineer in Philadelphia, PA.
 
 There are several ways to get in touch with me:
 - Email to doug.muth AT gmail DOT com or dmuth AT dmuth DOT org
