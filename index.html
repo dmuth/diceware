@@ -89,11 +89,22 @@
 		<div class="results_phrase_key" >Your passphrase is: </div>
 		<div class="results_phrase_value" ></div>
 
-		</div>
 	</div>
+
+	<div class="alert alert-danger bad_crypto" role="alert">
+	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	<span class="sr-only">Error:</span>
+	Whoa there! Your browser doesn't have the getRandomValues() function.
+	This means that dice rolls you make <em>will not be cryptogrpahically secure!</em><br/>
+	Please try another browser. Otherwise, proceed at your own risk.
+	</div>
+
+	</div> <!--/ row -->
 
 	<div class="row">
 		<div class="col-md-12">
+
+		<div class="message" ></div>
 
 		<h2 class="dice_num">
 		Number of Dice to roll:
@@ -166,9 +177,19 @@ By all means, feel free to do so.  LastPass is an excellent product and I highly
 If, on the other hand, you prefer to be able to actually remember your 
 passwords, I recommend Diceware or a similar system.
 
+
+<h3>FAQ: Are these dice roles cryptographically secure?</h3>
+
+Yes, insofar as we're using the getRandomValues() function in Javascript, and you trust that your
+browser and computer have not been compromised or otherwise tampered with.  Keep in mind that a not-so-theoretical attack
+would be for an attacker to compromise the random number generator on your computer so that
+anything that is encrypted (or passkeys generated) would be suspectible to less intense cryptoanalysis.
+
+
 <h3>FAQ: Is the source available?</h3>
 
 Yep!  You can grab a copy at <a href="https://github.com/dmuth/diceware">https://github.com/dmuth/diceware</a>
+
 
 <h3>Who built this? / Contact</h3>
 

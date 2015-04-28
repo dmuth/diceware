@@ -3,14 +3,48 @@
 */
 (function() {
 
+
+/**
+* Return true if we have a function that returns cryptographically random 
+* values. False otherwise.
+*/
+function i_can_has_good_crypto() {
+
+	if (window.crypto && window.crypto.getRandomValues) { 
+		return(true);
+	}
+
+	return(false);
+
+} // End of i_can_has_good_crypto()
+
+
 /**
 * Roll a die.
 *
 * @return integer A random number between 1 and 6, inclusive.
 */
 function die_roll() {
-	return(Math.floor(Math.random() * 6) + 1);
-} 
+
+	var retval;
+
+	if (i_can_has_good_crypto()) {
+		var a = new Uint32Array(1);
+		window.crypto.getRandomValues(a);
+		retval = (a[0] % 6) + 1;
+
+	} else {
+		//
+		// Fall back to something way less secure.  The user has already 
+		// been warned.
+		//
+		retval = Math.floor(Math.random() * 6) + 1;
+
+	}
+
+	return(retval);
+
+}  // End of die_roll()
 
 
 /**
@@ -246,11 +280,16 @@ jQuery("#roll_dice").on("click", function(e) {
 
 });
 
+
 //
 // If we're not on a mobile, bring in the GitHub ribbon.
 //
 if (!is_mobile()) {
 	jQuery("#github_ribbon").fadeIn(1000);
+}
+
+if (!i_can_has_good_crypto()) {
+	jQuery(".source .bad_crypto").clone().hide().fadeIn(800).appendTo(".message");
 }
 
 //
