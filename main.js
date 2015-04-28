@@ -325,7 +325,14 @@ if (!i_can_has_good_crypto()) {
 //
 jQuery.getScript("./wordlist.js").done(
 	function(data) {
-		//jQuery("#roll_dice").click(); // Debugging
+
+		//
+		// If "debug" is set in the GET data, roll the dice on page load.
+		// Speed up my development a bit. :-)
+		//
+		if (location.search.indexOf("debug") != -1) {
+			jQuery("#roll_dice").click(); // Debugging
+		}
 
 	}).fail(
 	function(jqxhr, settings, exception) {
