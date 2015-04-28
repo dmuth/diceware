@@ -97,8 +97,7 @@ jQuery(".dice_button").on("click", function(e) {
 function display_row(rows, cb) {
 
 	var duration = 250;
-	var fadein_delay = 500;
-	var fadeout_delay = 400;
+	var fadeout_delay = 500;
 
 	if (rows.length) {
 		//
@@ -106,11 +105,14 @@ function display_row(rows, cb) {
 		//
 		var row = rows.shift();
 		var tmp = row.hide().appendTo(".results")
-			.delay(fadein_delay)
 			.fadeIn(duration, function() {
-				display_row(rows, cb);
-			})
-			.delay(fadeout_delay).fadeOut();
+
+				jQuery(this).delay(fadeout_delay)
+					.fadeOut(fadeout_delay, function() {
+						display_row(rows, cb);
+				});
+
+			});
 
 	} else {
 		//
@@ -179,9 +181,9 @@ function is_mobile() {
 //
 jQuery("#roll_dice").on("click", function(e) {
 
-	var target_height = 300;
+	var target_height = 200;
 	if (is_mobile()) {
-		target_height = 1000;
+		target_height = 300;
 	}
 
 	jQuery(".results").animate({height: target_height}, 400);
