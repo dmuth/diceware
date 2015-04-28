@@ -96,20 +96,40 @@ jQuery(".dice_button").on("click", function(e) {
 */
 function display_row(rows, cb) {
 
-	var duration = 250;
-	var fadeout_delay = 500;
+	var fadein_duration = 250;
+	var fadeout_delay = 750;
 
 	if (rows.length) {
 		//
-		// Display a row, then call ourselves again then done.
+		// Grab a row, and hide each of the dice and the word in it.
 		//
 		var row = rows.shift();
-		var tmp = row.hide().appendTo(".results")
-			.fadeIn(duration, function() {
+		var html = row.hide().appendTo(".results");
+		html.find(".dice_element").each(function(i, value) {
+			jQuery(value).hide();
+		});
 
-				jQuery(this).delay(fadeout_delay)
-					.fadeOut(fadeout_delay, function() {
-						display_row(rows, cb);
+		//
+		// Now show the row, and loop through each element, fading in
+		// the dice and the word in sequence.
+		//
+		html.show(fadein_duration, function() {
+
+			jQuery(this).find(".dice_element").each(function(i, value) {
+				var delay = i * 100;
+				setTimeout(function() {
+					jQuery(value).show();
+				}, delay);
+
+				});
+
+			//
+			// Now fade out the entire row, and call ourselves again
+			// so we can repeat with the next row.
+			//
+			jQuery(this).delay(fadeout_delay)
+				.fadeOut(fadeout_delay, function() {
+					display_row(rows, cb);
 				});
 
 			});
@@ -183,7 +203,7 @@ jQuery("#roll_dice").on("click", function(e) {
 
 	var target_height = 200;
 	if (is_mobile()) {
-		target_height = 300;
+		target_height = 400;
 	}
 
 	jQuery(".results").animate({height: target_height}, 400);
@@ -261,6 +281,10 @@ jQuery("#roll_dice").on("click", function(e) {
 	// Now display those rows.
 	//
 	display_row(rows, function() {
+
+		//
+		// And then display the results
+		//
 		display_results(function() {
 
 		//
@@ -290,9 +314,11 @@ if (!is_mobile()) {
 	jQuery("#github_ribbon").fadeIn(1000);
 }
 
+
 if (!i_can_has_good_crypto()) {
 	jQuery(".source .bad_crypto").clone().hide().fadeIn(800).appendTo(".message");
 }
+
 
 //
 // Load our wordlist.
