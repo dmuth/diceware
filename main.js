@@ -73,6 +73,7 @@ function roll_dice() {
 */
 function get_word(wordlist, index) {
 	var retval = wordlist[index];
+	retval = retval[0].toUpperCase() + retval.slice(1);
 	return(retval);
 }
 
