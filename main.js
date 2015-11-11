@@ -99,6 +99,7 @@ function display_row(rows, cb) {
 
 	var fadein_duration = 250;
 	var fadeout_delay = 750;
+console.log(rows.length, fadein_duration, fadeout_delay);
 
 	if (rows.length) {
 		//
@@ -156,16 +157,25 @@ function display_results(cb) {
 	jQuery(".results_words_key").hide().clone().appendTo(".results");
 	jQuery(".results_words_value").hide().clone().appendTo(".results");
 	jQuery(".results").append("<br clear=\"all\" />");
+
 	jQuery(".results_phrase_key").hide().clone().appendTo(".results");
 	jQuery(".results_phrase_value").hide().clone().appendTo(".results");
+	jQuery(".results").append("<br clear=\"all\" />");
+
+	jQuery(".results_num_possible_key").hide().clone().appendTo(".results");
+	jQuery(".results_num_possible_value").hide().clone().appendTo(".results");
 
 	jQuery(".results .results_words_key").fadeIn(500, function() {
 		jQuery(".results .results_words_value").fadeIn(500, function() {
-		jQuery(".results .results_phrase_key").fadeIn(500, function() {
-		jQuery(".results .results_phrase_value").fadeIn(500, function() {
+		jQuery(".results .results_phrase_key").fadeIn(400, function() {
+		jQuery(".results .results_phrase_value").fadeIn(400, function() {
+		jQuery(".results .results_num_possible_key").fadeIn(300, function() {
+		jQuery(".results .results_num_possible_value").fadeIn(300, function() {
 			if (cb) {
 				cb();
 			}
+		});
+		});
 		});
 		});
 		});
@@ -202,7 +212,10 @@ function is_mobile() {
 //
 jQuery("#roll_dice").on("click", function(e) {
 
-	var target_height = 200;
+	//
+	// Clear out more space when mobile
+	//
+	var target_height = 300;
 	if (is_mobile()) {
 		target_height = 400;
 	}
@@ -227,6 +240,7 @@ jQuery("#roll_dice").on("click", function(e) {
 	// Make our dice rolls
 	//
 	var num_dice = jQuery(".dice_button.active").html();
+	var num_passwords = Number(Math.pow(6, (5 * num_dice)));
 	var passphrase = new Array();
 
 	var rolls = new Array();
@@ -246,6 +260,7 @@ jQuery("#roll_dice").on("click", function(e) {
 	//
 	jQuery(".results_words_value").html(passphrase.join(" "));
 	jQuery(".results_phrase_value").html(passphrase.join(""));
+	jQuery(".results_num_possible_value").html(num_passwords.toLocaleString("en"));
 
 	var rows = new Array();
 	for (key in rolls) {
