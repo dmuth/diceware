@@ -224,6 +224,8 @@ jQuery("#roll_dice").on("click", function(e) {
 	//
 	// Clear out more space when mobile
 	//
+	// In the future, I should just use a media query in CSS
+	//
 	var target_height = 300;
 	if (is_mobile()) {
 		target_height = 400;
