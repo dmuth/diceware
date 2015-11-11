@@ -93,13 +93,14 @@ jQuery(".dice_button").on("click", function(e) {
 *
 * @param array rows Array of rows of dice rolls that we had.
 * @param object cb Our callback to fire when done
+* @param integer in_fadein_duration How long before fading in a roll of dice
+* @param integer in_fadeout_delay How long before fading out the diceroll
 *
 */
-function display_row(rows, cb) {
+function display_row(rows, cb, in_fadein_duration, in_fadeout_delay) {
 
-	var fadein_duration = 250;
-	var fadeout_delay = 750;
-console.log(rows.length, fadein_duration, fadeout_delay);
+	var fadein_duration = in_fadein_duration || 250;
+	var fadeout_delay = in_fadeout_delay || 750;
 
 	if (rows.length) {
 		//
@@ -126,12 +127,20 @@ console.log(rows.length, fadein_duration, fadeout_delay);
 				});
 
 			//
+			// Decrease the delays with subsequent rolls so that users 
+			// don't get impatent. 
+			// (I know I did when rolling 8 dice!)
+			//
+			fadein_duration -= 25;
+			fadeout_delay -= 50;
+
+			//
 			// Now fade out the entire row, and call ourselves again
 			// so we can repeat with the next row.
 			//
 			jQuery(this).delay(fadeout_delay)
 				.fadeOut(fadeout_delay, function() {
-					display_row(rows, cb);
+					display_row(rows, cb, fadein_duration, fadeout_delay);
 				});
 
 			});
