@@ -199,7 +199,9 @@ I like passwords that I can remember.
 
 <h3>FAQ: Are these dice rolls cryptographically secure?</h3>
 
-Yes, insofar as we're using the getRandomValues() function in Javascript, and you trust that your
+Yes, insofar as we're using the 
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues">getRandomValues() function in Javascript</a>, 
+and you trust that your
 browser and computer have not been compromised or otherwise tampered with.  Keep in mind that a not-so-theoretical attack
 would be for an attacker to compromise the random number generator on your computer so that
 anything that is encrypted (or passkeys generated) would be suspectible to less intense cryptoanalysis.
