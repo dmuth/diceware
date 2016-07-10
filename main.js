@@ -73,7 +73,15 @@ function roll_dice() {
 */
 function get_word(wordlist, index) {
 	var retval = wordlist[index];
-	retval = retval[0].toUpperCase() + retval.slice(1);
+
+	if (retval) {
+		retval = retval[0].toUpperCase() + retval.slice(1);
+
+	} else {
+		retval = "((Word not found in wordlist)) ";
+
+	}
+
 	return(retval);
 }
 
