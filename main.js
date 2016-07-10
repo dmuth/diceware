@@ -358,7 +358,8 @@ if (!i_can_has_good_crypto()) {
 //
 // Load our wordlist.
 //
-jQuery.getScript("./wordlist.js").done(
+//jQuery.getScript("./wordlist.js").done(
+jQuery.getScript("./wordlist/wordlist.js").done(
 	function(data) {
 
 		//
