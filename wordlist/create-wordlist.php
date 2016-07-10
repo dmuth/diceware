@@ -50,6 +50,10 @@ function readWordList($filename) {
 
 	}
 
+	//
+	// Put the words in alphabetical order for my own sanity.
+	//
+	sort($retval);
 
 	fclose($fp);
 
@@ -59,12 +63,101 @@ function readWordList($filename) {
 
 
 /**
+* Turn our list of words into an array which contains the dice rolls to get 
+* those rolls as a key.
+*
+* @param array $words Our array of words
+*
+* @return array An array where the key is the diceroll and the value is the word.
+*/
+function getDiceRolls($words) {
+
+	$retval = array();
+
+	for ($i = 1; $i <= 6; $i++) {
+		for ($j = 1; $j <= 6; $j++) {
+			for ($k = 1; $k <= 6; $k++) {
+				for ($l = 1; $l <= 6; $l++) {
+					for ($m = 1; $m <= 6; $m++) {
+
+						$key = "${i}${j}${k}${l}${m}";
+						$retval[$key] = next($words);
+
+					}
+				}
+			}
+		}
+	}
+
+	return($retval);
+
+} // End of getDiceRolls()
+
+
+/**
+* Create our Javascript
+*
+* @param array $rolls Our array of rolls and the word that the roll has
+*
+* @return string Javascript which defines an array of those rolls
+*/
+function getJs($rolls) {
+
+	$retval = ""
+		. "//\n"
+		. "// Our wordlist.\n"
+		. "//\n"
+		. "// Originally obtained from https://github.com/first20hours/google-10000-english\n"
+		. "//\n"
+		. "var wordlist = {\n"
+		;
+
+	$beenhere = false;
+
+	foreach ($rolls as $key => $value) {
+
+		if ($beenhere) {
+			$retval .= ",\n";
+		}
+
+		$retval .= "\t${key}:\"${value}\"";
+
+		$beenhere = true;
+
+	}
+
+	$retval .= "\n"
+		. "};\n"
+		. "\n"
+		;
+	
+	return($retval);
+
+} // End of getJs()
+
+
+/**
 * Our main entry point.
 */
 function main() {
 
+	//
+	// Read our file
+	//
 	$filename = "google-10000-english.txt";
 	$words = readWordList($filename);
+
+	//
+	// Match words to dicerolls
+	//
+	$rolls = getDiceRolls($words);
+
+	//
+	// Get our Javascript
+	//
+	$js = getJs($rolls);
+
+	print $js;
 
 } // End of main()
 
