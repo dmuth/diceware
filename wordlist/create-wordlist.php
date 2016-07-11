@@ -71,7 +71,7 @@ function readWordListGoogle($filename) {
 * @return array An array of words
 *
 */
-function readWordListPeterNovig($filename) {
+function readWordListPeterNorvig($filename) {
 
 	$retval = array();
 
@@ -113,7 +113,7 @@ function readWordListPeterNovig($filename) {
 
 	return($retval);
 
-} // End of readWordListPeterNovig()
+} // End of readWordListPeterNorvig()
 
 
 /**
@@ -201,7 +201,7 @@ function main() {
 	//$filename = "google-10000-english.txt";
 	//$words = readWordListGoogle($filename);
 	$filename = "count_1w.txt";
-	$words = readWordListPeterNovig($filename);
+	$words = readWordListPeterNorvig($filename);
 
 	//
 	// Match words to dicerolls
