@@ -16,7 +16,7 @@ if (php_sapi_name() != "cli") {
 
 
 /**
-* Read in our wordlist and return an array with all words that 
+* Read in our wordlist from Google and return an array with all words that 
 * passed validation.
 *
 * @param string $filename The filename
@@ -24,7 +24,7 @@ if (php_sapi_name() != "cli") {
 * @return array An array of words
 *
 */
-function readWordList($filename) {
+function readWordListGoogle($filename) {
 
 	$retval = array();
 
@@ -59,7 +59,61 @@ function readWordList($filename) {
 
 	return($retval);
 
-} // End of readWordList()
+} // End of readWordListGoogle()
+
+
+/**
+* Read in our wordlist from Google and return an array with all words that 
+* passed validation.
+*
+* @param string $filename The filename
+*
+* @return array An array of words
+*
+*/
+function readWordListPeterNovig($filename) {
+
+	$retval = array();
+
+	$fp = @fopen($filename, "r");
+	if (!$fp) {
+		throw new Exception("Could not open '$filename' for reading");
+	}
+
+	$count = 0;
+	while ($line = fgets($fp)) {
+
+		$line = rtrim($line);
+		list($word, $freq) = explode("\t", $line);
+		$len = strlen($word);
+
+		//
+		// Keep all words between 5 and 8 characters
+		//
+		if ($len < 5 || $len > 8) {
+			continue;
+		}
+
+		$retval[] = $word;
+
+		$count++;
+
+		if ($count > 7776) {
+			break;
+		}
+
+	}
+
+	//
+	// Put the words in alphabetical order for my own sanity.
+	//
+	sort($retval);
+
+	fclose($fp);
+
+	return($retval);
+
+} // End of readWordListPeterNovig()
 
 
 /**
@@ -144,8 +198,10 @@ function main() {
 	//
 	// Read our file
 	//
-	$filename = "google-10000-english.txt";
-	$words = readWordList($filename);
+	//$filename = "google-10000-english.txt";
+	//$words = readWordListGoogle($filename);
+	$filename = "count_1w.txt";
+	$words = readWordListPeterNovig($filename);
 
 	//
 	// Match words to dicerolls
