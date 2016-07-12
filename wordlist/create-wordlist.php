@@ -88,9 +88,9 @@ function readWordListPeterNorvig($filename) {
 		$len = strlen($word);
 
 		//
-		// Keep all words between 5 and 8 characters
+		// Keep all words between 4 and 7 characters
 		//
-		if ($len < 5 || $len > 8) {
+		if ($len < 4 || $len > 7) {
 			continue;
 		}
 
