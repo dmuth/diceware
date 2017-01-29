@@ -377,8 +377,26 @@ Diceware.go = function() {
 				// If "debug" is set in the GET data, roll the dice on page load.
 				// Speed up my development a bit. :-)
 				//
-				if (location.search.indexOf("debug") != -1) {
-					jQuery("#roll_dice").click(); // Debugging
+				var debug = location.search.indexOf("debug");
+
+				if (debug != -1) {
+
+					//
+					// Grab our number in the GET data, sanitize it, and click the appropriate button.
+					//
+					var offset = location.search.search("=");
+					var num = location.search[offset + 1];
+					if (num < 2) {
+						num = 2;
+					} else if (num > 8) {
+						num = 8;
+					}
+
+					var id="#button-dice-" + num;
+					jQuery(id).click();
+
+					jQuery("#roll_dice").click();
+
 				}
 
 			}).fail(
