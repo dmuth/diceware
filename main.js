@@ -1,14 +1,15 @@
 /**
 * Our main Javascript file.
 */
-(function() {
+
+var Diceware = {};
 
 
 /**
 * Return true if we have a function that returns cryptographically random 
 * values. False otherwise.
 */
-function i_can_has_good_crypto() {
+Diceware.i_can_has_good_crypto = function() {
 
 	if (window.crypto && window.crypto.getRandomValues) { 
 		return(true);
@@ -24,11 +25,11 @@ function i_can_has_good_crypto() {
 *
 * @return integer A random number between 1 and 6, inclusive.
 */
-function die_roll() {
+Diceware.die_roll = function() {
 
 	var retval;
 
-	if (i_can_has_good_crypto()) {
+	if (Diceware.i_can_has_good_crypto()) {
 		var a = new Uint32Array(1);
 		window.crypto.getRandomValues(a);
 		retval = (a[0] % 6) + 1;
@@ -44,7 +45,7 @@ function die_roll() {
 
 	return(retval);
 
-}  // End of die_roll()
+} // End of die_roll()
 
 
 /**
@@ -52,13 +53,13 @@ function die_roll() {
 *
 * @return array an Array of 5 dice rolls
 */
-function roll_dice() {
+Diceware.roll_dice = function() {
 	var retval = new Array();
-	retval.push(die_roll());
-	retval.push(die_roll());
-	retval.push(die_roll());
-	retval.push(die_roll());
-	retval.push(die_roll());
+	retval.push(Diceware.die_roll());
+	retval.push(Diceware.die_roll());
+	retval.push(Diceware.die_roll());
+	retval.push(Diceware.die_roll());
+	retval.push(Diceware.die_roll());
 	return(retval);
 }
 
@@ -71,7 +72,7 @@ function roll_dice() {
 *
 * @return string The word from the dicelist
 */
-function get_word(wordlist, index) {
+Diceware.get_word = function(wordlist, index) {
 	var retval = wordlist[index];
 
 	if (retval) {
@@ -83,17 +84,8 @@ function get_word(wordlist, index) {
 	}
 
 	return(retval);
+
 }
-
-
-//
-// Handler to mark the clicked number of dice button as active.
-//
-jQuery(".dice_button").on("click", function(e) {
-	jQuery(".dice_button").removeClass("active");
-	jQuery(e.target).addClass("active");
-});
-
 
 
 /**
@@ -105,7 +97,7 @@ jQuery(".dice_button").on("click", function(e) {
 * @param integer in_fadeout_delay How long before fading out the diceroll
 *
 */
-function display_row(rows, cb, in_fadein_duration, in_fadeout_delay) {
+Diceware.display_row = function(rows, cb, in_fadein_duration, in_fadeout_delay) {
 
 	var fadein_duration = in_fadein_duration || 250;
 	var fadeout_delay = in_fadeout_delay || 750;
@@ -148,7 +140,7 @@ function display_row(rows, cb, in_fadein_duration, in_fadeout_delay) {
 			//
 			jQuery(this).delay(fadeout_delay)
 				.fadeOut(fadeout_delay, function() {
-					display_row(rows, cb, fadein_duration, fadeout_delay);
+					Diceware.display_row(rows, cb, fadein_duration, fadeout_delay);
 				});
 
 			});
@@ -169,7 +161,7 @@ function display_row(rows, cb, in_fadein_duration, in_fadeout_delay) {
 *
 * @param cb object Optional callback to fire when done
 */
-function display_results(cb) {
+Diceware.display_results = function(cb) {
 
 	jQuery(".results_words_key").hide().clone().appendTo(".results");
 	jQuery(".results_words_value").hide().clone().appendTo(".results");
@@ -204,7 +196,7 @@ function display_results(cb) {
 /**
 * Return the width of the browser window.
 */
-function get_width() {
+Diceware.get_width = function() {
 	return(jQuery(window).width());
 }
 
@@ -212,9 +204,9 @@ function get_width() {
 /**
 * Return true if we are running on a mobile screen.
 */
-function is_mobile() {
+Diceware.is_mobile = function() {
 
-	if (get_width() <= 480) {
+	if (Diceware.get_width() <= 480) {
 		return(true);
 	}
 
@@ -223,159 +215,178 @@ function is_mobile() {
 } // End of is_mobile()
 
 
-//
-// Handler when the "Roll Dice" button is clicked.  It gets the 
-// passphrase and updates the HTML with it.
-//
-jQuery("#roll_dice").on("click", function(e) {
+/**
+* Our main function when being used via the UI.  We call this to set up our jQuery hooks.
+*
+* I should probably refactor this more in the future--this function came about
+* when I changed the code from self-contained to contained in an external object
+* in preparation fro Qunit testing...
+*
+*/
+Diceware.go = function() {
 
 	//
-	// Clear out more space when mobile
+	// Handler to mark the clicked number of dice button as active.
 	//
-	// In the future, I should just use a media query in CSS
-	//
-	var target_height = 300;
-	if (is_mobile()) {
-		target_height = 400;
-	}
-
-	jQuery(".results").animate({height: target_height}, 400);
-
-	//
-	// If we're running on an iPhone or similar, scroll down so that we can 
-	// see the dice rolls and passphrase.
-	//
-	if (is_mobile()) {
-		var aTag = $("a[name='roll_dice_button']");
-		$("html,body").animate({scrollTop: aTag.offset().top}, "slow");
-	}
-
-	//
-	// Remove any old results
-	//
-	jQuery(".results").empty();
-
-	//
-	// Make our dice rolls
-	//
-	var num_dice = jQuery(".dice_button.active").html();
-	var num_passwords = Number(Math.pow(6, (5 * num_dice)));
-	var passphrase = new Array();
-
-	var rolls = new Array();
-	for (var i=0; i<num_dice; i++) {
-
-		var roll = {};
-		roll.dice = roll_dice();
-		roll.word = get_word(wordlist, roll.dice.join(""));
-		rolls.push(roll);
-		passphrase.push(roll.word);
-
-	}
-
-	//
-	// Populate our results by cloning the hidden base rows which 
-	// represent each die.
-	//
-	jQuery(".results_words_value").html(passphrase.join(" "));
-	jQuery(".results_phrase_value").html(passphrase.join(""));
-	jQuery(".results_num_possible_value").html(num_passwords.toLocaleString("en"));
-
-	var rows = new Array();
-	for (key in rolls) {
-
-		var roll = rolls[key];
-		var row = jQuery("<div></div>");
-
-		//
-		// Clone and append specific dice to this row.
-		//
-		for (key2 in roll.dice) {
-			var die = roll.dice[key2];
-			var classname = ".source .dice" + die;
-			var tmp = jQuery(classname).clone().appendTo(row);
-		}
-
-		//
-		// Now append the word
-		//
-		var dice_word = jQuery(".dice_word").clone();
-		dice_word.html("\"" + roll.word + "\"");
-		row.append(dice_word);
-
-		//
-		// And clear to the next line
-		//
-		row.append("<br clear=\"all\" />");
-	
-		rows.push(row);
-
-	}
-
-	//
-	// Now display those rows.
-	//
-	display_row(rows, function() {
-
-		//
-		// And then display the results
-		//
-		display_results(function() {
-
-		//
-		// Set the height of this back to auto so we don't have unused space.
-		// I'm amazed that we don't see a "flash" of the results div 
-		// temporarily shrinking, but this seems to work as per what I saw 
-		// at http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height
-		//
-		// Well then.
-		//
-		var height = jQuery(".results").height();
-		jQuery(".results").css("height", "auto");
-		var new_height = jQuery(".results").height();
-		jQuery(".results").height(height);
-		jQuery(".results").animate({height: new_height}, 400);
-
-		});
-		});
-
-});
-
-
-//
-// If we're not on a mobile, bring in the GitHub ribbon.
-//
-if (!is_mobile()) {
-	jQuery("#github_ribbon").fadeIn(1000);
-}
-
-
-if (!i_can_has_good_crypto()) {
-	jQuery(".source .bad_crypto").clone().hide().fadeIn(800).appendTo(".message");
-}
-
-
-//
-// Load our wordlist.
-//
-//jQuery.getScript("./wordlist.js").done(
-jQuery.getScript("./wordlist/wordlist.js").done(
-	function(data) {
-
-		//
-		// If "debug" is set in the GET data, roll the dice on page load.
-		// Speed up my development a bit. :-)
-		//
-		if (location.search.indexOf("debug") != -1) {
-			jQuery("#roll_dice").click(); // Debugging
-		}
-
-	}).fail(
-	function(jqxhr, settings, exception) {
-		console.log("Error loading Javascript:", jqxhr.status, settings, exception);
-
+	jQuery(".dice_button").on("click", function(e) {
+		jQuery(".dice_button").removeClass("active");
+		jQuery(e.target).addClass("active");
 	});
 
-})();
+
+	//
+	// Handler when the "Roll Dice" button is clicked.  It gets the 
+	// passphrase and updates the HTML with it.
+	//
+	jQuery("#roll_dice").on("click", function(e) {
+
+		//
+		// Clear out more space when mobile
+		//
+		// In the future, I should just use a media query in CSS
+		//
+		var target_height = 300;
+		if (Diceware.is_mobile()) {
+			target_height = 400;
+		}
+
+		jQuery(".results").animate({height: target_height}, 400);
+
+		//
+		// If we're running on an iPhone or similar, scroll down so that we can 
+		// see the dice rolls and passphrase.
+		//
+		if (Diceware.is_mobile()) {
+			var aTag = $("a[name='roll_dice_button']");
+			$("html,body").animate({scrollTop: aTag.offset().top}, "slow");
+		}
+
+		//
+		// Remove any old results
+		//
+		jQuery(".results").empty();
+
+		//
+		// Make our dice rolls
+		//
+		var num_dice = jQuery(".dice_button.active").html();
+		var num_passwords = Number(Math.pow(6, (5 * num_dice)));
+		var passphrase = new Array();
+
+		var rolls = new Array();
+		for (var i=0; i<num_dice; i++) {
+
+			var roll = {};
+			roll.dice = Diceware.roll_dice();
+			roll.word = Diceware.get_word(wordlist, roll.dice.join(""));
+			rolls.push(roll);
+			passphrase.push(roll.word);
+
+		}
+
+		//
+		// Populate our results by cloning the hidden base rows which 
+		// represent each die.
+		//
+		jQuery(".results_words_value").html(passphrase.join(" "));
+		jQuery(".results_phrase_value").html(passphrase.join(""));
+		jQuery(".results_num_possible_value").html(num_passwords.toLocaleString("en"));
+
+		var rows = new Array();
+		for (key in rolls) {
+
+			var roll = rolls[key];
+			var row = jQuery("<div></div>");
+
+			//
+			// Clone and append specific dice to this row.
+			//
+			for (key2 in roll.dice) {
+				var die = roll.dice[key2];
+				var classname = ".source .dice" + die;
+				var tmp = jQuery(classname).clone().appendTo(row);
+			}
+
+			//
+			// Now append the word
+			//
+			var dice_word = jQuery(".dice_word").clone();
+			dice_word.html("\"" + roll.word + "\"");
+			row.append(dice_word);
+
+			//
+			// And clear to the next line
+			//
+			row.append("<br clear=\"all\" />");
+	
+			rows.push(row);
+
+		}
+
+		//
+		// Now display those rows.
+		//
+		Diceware.display_row(rows, function() {
+
+			//
+			// And then display the results
+			//
+			Diceware.display_results(function() {
+
+			//
+			// Set the height of this back to auto so we don't have unused space.
+			// I'm amazed that we don't see a "flash" of the results div 
+			// temporarily shrinking, but this seems to work as per what I saw 
+			// at http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height
+			//
+			// Well then.
+			//
+			var height = jQuery(".results").height();
+			jQuery(".results").css("height", "auto");
+			var new_height = jQuery(".results").height();
+			jQuery(".results").height(height);
+			jQuery(".results").animate({height: new_height}, 400);
+
+			});
+			});
+
+		});
+
+
+		//
+		// If we're not on a mobile, bring in the GitHub ribbon.
+		//
+		if (!Diceware.is_mobile()) {
+			jQuery("#github_ribbon").fadeIn(1000);
+		}
+
+
+		if (!Diceware.i_can_has_good_crypto()) {
+			jQuery(".source .bad_crypto").clone().hide().fadeIn(800).appendTo(".message");
+		}
+
+
+		//
+		// Load our wordlist.
+		//
+		//jQuery.getScript("./wordlist.js").done(
+		jQuery.getScript("./wordlist/wordlist.js").done(
+			function(data) {
+
+				//
+				// If "debug" is set in the GET data, roll the dice on page load.
+				// Speed up my development a bit. :-)
+				//
+				if (location.search.indexOf("debug") != -1) {
+					jQuery("#roll_dice").click(); // Debugging
+				}
+
+			}).fail(
+				function(jqxhr, settings, exception) {
+				console.log("Error loading Javascript:", jqxhr.status, settings, exception);
+
+			});
+
+} // End of go()
 
 
