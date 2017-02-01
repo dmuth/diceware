@@ -66,3 +66,28 @@ QUnit.test("Convert Base 6 to Dice Roll", function(assert) {
 });
 
 
+QUnit.test("Roll some dice!", function(assert) {
+
+	//
+	// Test out our helper function first
+	//
+	assert.equal(Diceware.getNumValuesFromNumDice(1), 6);
+	assert.equal(Diceware.getNumValuesFromNumDice(2), 36);
+	assert.equal(Diceware.getNumValuesFromNumDice(3), 216);
+	assert.equal(Diceware.getNumValuesFromNumDice(4), 1296);
+
+	assert.throws(function() {Diceware.getNumValuesFromNumDice(0); }, /zero/, "Zero");
+	assert.throws(function() {Diceware.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
+
+	assert.equal(Diceware.rollDice(1).length, 1);
+	assert.equal(Diceware.rollDice(3).length, 3);
+	assert.equal(Diceware.rollDice(8).length, 8);
+
+	assert.throws(function() {Diceware.rollDice(0); }, /zero/, "Zero");
+	assert.throws(function() {Diceware.rollDice(-1); }, /negative/, "Negative value");
+
+
+});
+
+
+

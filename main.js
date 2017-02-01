@@ -122,6 +122,55 @@ Diceware.convertBase6ToDice = function(roll, num_dice) {
 
 
 /**
+* Get the maximum value from the number of dice we're rolling.
+* This is in a separate function so it is testable.
+*/
+Diceware.getNumValuesFromNumDice = function(num_dice) {
+
+	var retval;
+
+	if (num_dice == 0) {
+		throw("Number of dice cannot be zero!");
+
+	} else if (num_dice < 0){
+		throw("Number of dice is negative!");
+
+	}
+
+	retval = Math.pow(6, num_dice);
+
+	return(retval);
+
+} // End of getNumValuesFromNumDice()
+
+
+/**
+* This is our main entry point for rolling dice.
+*
+* Get our maximum number for a random value, turn it into base-6, 
+* then turn it into a dice roll!
+*
+*/
+Diceware.rollDice = function(num_dice) {
+
+	var retval = [];
+
+	var max = Diceware.getNumValuesFromNumDice(num_dice);
+
+	var random = Diceware.getRandomValue(max);
+
+	var base6 = Diceware.getBase6(random, num_dice);
+
+	var dice = Diceware.convertBase6ToDice(base6, num_dice);
+
+	retval = dice;
+
+	return(retval);
+
+} // End of rollDice()
+
+
+/**
 * Roll a die.
 *
 * @return integer A random number between 1 and 6, inclusive.
