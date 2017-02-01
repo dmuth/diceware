@@ -39,4 +39,30 @@ QUnit.test("Base 6 conversion", function(assert) {
 });
 
 
+QUnit.test("Convert Base 6 to Dice Roll", function(assert) {
+
+	assert.deepEqual(Diceware.convertBase6ToDice([0], 1), [1]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5], 1), [6]);
+	assert.deepEqual(Diceware.convertBase6ToDice([1, 0], 2), [2, 1]);
+	assert.deepEqual(Diceware.convertBase6ToDice([2, 0], 2), [3, 1]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 5], 2), [6, 6]);
+	assert.deepEqual(Diceware.convertBase6ToDice([1, 0, 0], 3), [2, 1, 1]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 0, 0], 3), [6, 1, 1]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 5, 5], 3), [6, 6, 6]);
+	assert.deepEqual(Diceware.convertBase6ToDice([1, 0, 0, 0], 4), [2, 1, 1, 1]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 0, 0, 0], 4), [6, 1, 1, 1]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 5, 5, 5], 4), [6, 6, 6, 6]);
+
+	assert.throws(function() {Diceware.convertBase6ToDice([-1], 1); }, /negative/, "Negative value");
+	assert.throws(function() {Diceware.convertBase6ToDice([0, -1], 2); }, /negative/, "Negative value");
+	assert.throws(function() {Diceware.convertBase6ToDice([-1, 0], 2); }, /negative/, "Negative value");
+	assert.throws(function() {Diceware.convertBase6ToDice([6], 1); }, /too large/, "too large");
+	assert.throws(function() {Diceware.convertBase6ToDice([6, 0], 2); }, /too large/, "too large");
+	assert.throws(function() {Diceware.convertBase6ToDice([0, 6], 2); }, /too large/, "too large");
+
+	assert.throws(function() {Diceware.convertBase6ToDice([0], 2); }, /mismatch/i, "Mismatch");
+	assert.throws(function() {Diceware.convertBase6ToDice([0, 0], 1); }, /mismatch/i, "Mismatch");
+
+});
+
 
