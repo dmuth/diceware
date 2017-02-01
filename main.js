@@ -86,6 +86,42 @@ Diceware.getBase6 = function(roll, num_dice) {
 
 
 /**
+* Convert a base-6 number to a dice roll
+*
+* @param array roll An array of integers in base-6 notation
+* @param integer num_dice The number of dice rolled
+*
+* @return array An array of integers representing dice rolls
+*/
+Diceware.convertBase6ToDice = function(roll, num_dice) {
+
+	var retval = [];
+
+	if (roll.length != num_dice) {
+		throw("Mismatch between size of roll (" + roll.length + ") and number of dice (" + num_dice + ")");
+	}
+
+	for (var k in roll) {
+		var num = roll[k];
+
+		if (num < 0) {
+			throw("Value " + num + " is negative!");
+		}
+
+		if (num > 5) {
+			throw("Value " + num + " is too large!");
+		}
+
+		num++;
+		retval.push(num);
+	}
+
+	return(retval);
+
+} // End of convertBase6ToDice()
+
+
+/**
 * Roll a die.
 *
 * @return integer A random number between 1 and 6, inclusive.
@@ -138,6 +174,7 @@ Diceware.roll_dice = function() {
 * @return string The word from the dicelist
 */
 Diceware.get_word = function(wordlist, index) {
+	
 	var retval = wordlist[index];
 
 	if (retval) {
