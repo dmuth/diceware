@@ -21,6 +21,71 @@ Diceware.i_can_has_good_crypto = function() {
 
 
 /**
+* Return a random integer between 1 max.
+*/
+Diceware.getRandomValue = function(max) {
+
+	if (max <= 0){
+		return(NaN);
+	}
+
+	var a = new Uint32Array(1);
+	window.crypto.getRandomValues(a);
+	retval = (a[0] % max);
+
+	return(retval);
+
+} // End of getRandomValue()
+
+
+/**
+* Convert a number from base 10 into base 6.
+*
+* @param integer roll The random value.
+* @param integer num_dice The number of dice we're returning.
+*
+* @return array An array of the base 6 numbers.
+*/
+Diceware.getBase6 = function(roll, num_dice) {
+
+	var retval = [];
+
+	//
+	// Sanity check
+	//
+	var max_dice_roll = Math.pow(6, num_dice) - 1;
+	if (roll > max_dice_roll) {
+		throw("Value too large!");
+	}
+
+	if (roll < 0) {
+		throw("Value cannot be negative!");
+	}
+
+	//
+	// Go through each die, starting with the most significant one, and 
+	// get its value.
+	//
+	var num_dice_left = num_dice - 1;
+	var dice_value_left = roll;
+
+	for (i = num_dice_left; i >= 0; i--) {
+
+		var die_value = Math.pow(6, i);
+		var value = Math.floor( dice_value_left / die_value);
+		var left = dice_value_left % die_value;
+
+		retval.push(value);
+		dice_value_left = dice_value_left - (die_value * value);
+
+	}
+
+	return(retval);
+
+} // End of getBase6()
+
+
+/**
 * Roll a die.
 *
 * @return integer A random number between 1 and 6, inclusive.
