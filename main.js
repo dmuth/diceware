@@ -185,50 +185,6 @@ Diceware.rollDice = function(num_dice) {
 
 
 /**
-* Roll a die.
-*
-* @return integer A random number between 1 and 6, inclusive.
-*/
-Diceware.die_roll = function() {
-
-	var retval;
-
-	if (Diceware.i_can_has_good_crypto()) {
-		var a = new Uint32Array(1);
-		window.crypto.getRandomValues(a);
-		retval = (a[0] % 6) + 1;
-
-	} else {
-		//
-		// Fall back to something way less secure.  The user has already 
-		// been warned.
-		//
-		retval = Math.floor(Math.random() * 6) + 1;
-
-	}
-
-	return(retval);
-
-} // End of die_roll()
-
-
-/**
-* Roll a die 5 times.
-*
-* @return array an Array of 5 dice rolls
-*/
-Diceware.roll_dice = function() {
-	var retval = new Array();
-	retval.push(Diceware.die_roll());
-	retval.push(Diceware.die_roll());
-	retval.push(Diceware.die_roll());
-	retval.push(Diceware.die_roll());
-	retval.push(Diceware.die_roll());
-	return(retval);
-}
-
-
-/**
 * Look up a word from our wordlist.
 *
 * @param object wordlist Our hash table of dice rolls and their corresponding words.
