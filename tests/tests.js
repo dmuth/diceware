@@ -83,7 +83,9 @@ QUnit.test("Roll some dice!", function(assert) {
 	assert.equal(Diceware.rollDice(3).roll.length, 3);
 	assert.equal(Diceware.rollDice(8).roll.length, 8);
 
-	assert.ok(parseInt(Diceware.rollDice(1).value));
+	//
+	// These may fail infrequently if the random number is zero.
+	//
 	assert.ok(parseInt(Diceware.rollDice(3).value));
 	assert.ok(parseInt(Diceware.rollDice(8).value));
 
