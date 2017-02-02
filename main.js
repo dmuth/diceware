@@ -29,9 +29,20 @@ Diceware.getRandomValue = function(max) {
 		return(NaN);
 	}
 
-	var a = new Uint32Array(1);
-	window.crypto.getRandomValues(a);
-	retval = (a[0] % max);
+	if (Diceware.i_can_has_good_crypto()) {
+		var a = new Uint32Array(1);
+		window.crypto.getRandomValues(a);
+		retval = (a[0] % max);
+
+	} else {
+		//
+		// Fall back to something way less secure.  The user has already 
+		// been warned.
+		//
+		retval = Math.floor(Math.random() * max);
+
+	}
+
 
 	return(retval);
 
