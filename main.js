@@ -150,10 +150,12 @@ Diceware.getNumValuesFromNumDice = function(num_dice) {
 * Get our maximum number for a random value, turn it into base-6, 
 * then turn it into a dice roll!
 *
+* @return object An object that contains a dice roll and the raw random value.
+*
 */
 Diceware.rollDice = function(num_dice) {
 
-	var retval = [];
+	var retval = {};
 
 	var max = Diceware.getNumValuesFromNumDice(num_dice);
 
@@ -163,7 +165,8 @@ Diceware.rollDice = function(num_dice) {
 
 	var dice = Diceware.convertBase6ToDice(base6, num_dice);
 
-	retval = dice;
+	retval.value = random;
+	retval.roll = dice;
 
 	return(retval);
 
@@ -428,8 +431,11 @@ Diceware.go = function() {
 		for (var i=0; i<num_dice; i++) {
 
 			var roll = {};
-			roll.dice = Diceware.roll_dice();
-			roll.word = Diceware.get_word(wordlist, roll.dice.join(""));
+			//
+			// Roll 5 dice for 7,776 words.
+			//
+			roll.dice = Diceware.rollDice(5);
+			roll.word = Diceware.get_word(wordlist, roll.dice.value);
 			rolls.push(roll);
 			passphrase.push(roll.word);
 
@@ -452,8 +458,8 @@ Diceware.go = function() {
 			//
 			// Clone and append specific dice to this row.
 			//
-			for (key2 in roll.dice) {
-				var die = roll.dice[key2];
+			for (key2 in roll.dice.roll) {
+				var die = roll.dice.roll[key2];
 				var classname = ".source .dice" + die;
 				var tmp = jQuery(classname).clone().appendTo(row);
 			}

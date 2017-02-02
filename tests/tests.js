@@ -79,9 +79,13 @@ QUnit.test("Roll some dice!", function(assert) {
 	assert.throws(function() {Diceware.getNumValuesFromNumDice(0); }, /zero/, "Zero");
 	assert.throws(function() {Diceware.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
 
-	assert.equal(Diceware.rollDice(1).length, 1);
-	assert.equal(Diceware.rollDice(3).length, 3);
-	assert.equal(Diceware.rollDice(8).length, 8);
+	assert.equal(Diceware.rollDice(1).roll.length, 1);
+	assert.equal(Diceware.rollDice(3).roll.length, 3);
+	assert.equal(Diceware.rollDice(8).roll.length, 8);
+
+	assert.ok(parseInt(Diceware.rollDice(1).value));
+	assert.ok(parseInt(Diceware.rollDice(3).value));
+	assert.ok(parseInt(Diceware.rollDice(8).value));
 
 	assert.throws(function() {Diceware.rollDice(0); }, /zero/, "Zero");
 	assert.throws(function() {Diceware.rollDice(-1); }, /negative/, "Negative value");
