@@ -14,7 +14,7 @@ echo "# "
 echo "# Creating wordlist Javascript..."
 echo "# "
 
-
+#./create-wordlist.php # Debugging
 ./create-wordlist.php > ${JS}
 
 echo "# "

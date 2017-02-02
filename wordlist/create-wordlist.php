@@ -2,9 +2,8 @@
 <?php
 /**
 * This script creates the Javascript code with the wordlist based on 
-* the 10,000 most used English words found at https://github.com/first20hours/google-10000-english
+* the 1/3 most used words in English, found at http://norvig.com/ngrams/
 * 
-* It filters out anything less than 4 characters so we get decent words.
 */
 
 if (php_sapi_name() != "cli") {
@@ -40,7 +39,7 @@ function readWordListGoogle($filename) {
 
 		//
 		// Removing anything with less than 5 characters leaves us with 7781 words,
-		// just slightly more than the 7776 (6^5) words we need.  What a happen coincidence!
+		// just slightly more than the 7776 (6^5) words we need.  What a happy coincidence!
 		//
 		if ($len < 5) {
 			continue;
@@ -161,7 +160,7 @@ function getJs($rolls) {
 		. "//\n"
 		. "// Our wordlist.\n"
 		. "//\n"
-		. "// Originally obtained from https://github.com/first20hours/google-10000-english\n"
+		. "// Originally obtained from http://norvig.com/ngrams/\n"
 		. "//\n"
 		. "var wordlist = {\n"
 		;
@@ -191,6 +190,47 @@ function getJs($rolls) {
 
 
 /**
+* Create our Javascript, but as an array
+*
+* @param array $words Our array of words
+*
+* @return string Javascript which defines an array of those words
+*/
+function getJsArray($words) {
+
+	$retval = ""
+		. "//\n"
+		. "// Our wordlist.\n"
+		. "//\n"
+		. "// Originally obtained from http://norvig.com/ngrams/\n"
+		. "//\n"
+		. "var wordlist = [\n"
+		;
+
+	$beenhere = false;
+	foreach ($words as $key => $value) {
+
+		if ($beenhere) {
+			$retval .= ",\n";
+		}
+
+		$retval .= "\t\"${value}\"";
+
+		$beenhere = true;
+
+	}
+
+	$retval .= "\n"
+		. "];\n"
+		. "\n"
+		;
+	
+	return($retval);
+
+} // End of getJsArray()
+
+
+/**
 * Our main entry point.
 */
 function main() {
@@ -202,16 +242,19 @@ function main() {
 	//$words = readWordListGoogle($filename);
 	$filename = "count_1w.txt";
 	$words = readWordListPeterNorvig($filename);
+	//print_r($words); // Debugging
 
 	//
 	// Match words to dicerolls
 	//
-	$rolls = getDiceRolls($words);
+	//$rolls = getDiceRolls($words);
 
 	//
 	// Get our Javascript
 	//
-	$js = getJs($rolls);
+// TEST
+	//$js = getJs($rolls);
+	$js = getJsArray($words);
 
 	print $js;
 
