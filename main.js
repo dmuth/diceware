@@ -80,7 +80,7 @@ Diceware.getBase6 = function(roll, num_dice) {
 	var num_dice_left = num_dice - 1;
 	var dice_value_left = roll;
 
-	for (i = num_dice_left; i >= 0; i--) {
+	for (var i = num_dice_left; i >= 0; i--) {
 
 		var die_value = Math.pow(6, i);
 		var value = Math.floor( dice_value_left / die_value);
@@ -417,7 +417,7 @@ Diceware.go = function() {
 		jQuery(".results_num_possible_value").html(num_passwords.toLocaleString("en"));
 
 		var rows = new Array();
-		for (key in rolls) {
+		for (var key in rolls) {
 
 			var roll = rolls[key];
 			var row = jQuery("<div></div>");
@@ -425,7 +425,7 @@ Diceware.go = function() {
 			//
 			// Clone and append specific dice to this row.
 			//
-			for (key2 in roll.dice.roll) {
+			for (var key2 in roll.dice.roll) {
 				var die = roll.dice.roll[key2];
 				var classname = ".source .dice" + die;
 				var tmp = jQuery(classname).clone().appendTo(row);
