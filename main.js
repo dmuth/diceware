@@ -480,56 +480,55 @@ Diceware.go = function() {
 	jQuery("#roll_dice").on("click", Diceware.rollDiceHandler);
 
 
-		//
-		// If we're not on a mobile, bring in the GitHub ribbon.
-		//
-		if (!Diceware.is_mobile()) {
-			jQuery("#github_ribbon").fadeIn(1000);
-		}
+	//
+	// If we're not on a mobile, bring in the GitHub ribbon.
+	//
+	if (!Diceware.is_mobile()) {
+		jQuery("#github_ribbon").fadeIn(1000);
+	}
+
+	if (!Diceware.i_can_has_good_crypto()) {
+		jQuery(".source .bad_crypto").clone().hide().fadeIn(800).appendTo(".message");
+	}
 
 
-		if (!Diceware.i_can_has_good_crypto()) {
-			jQuery(".source .bad_crypto").clone().hide().fadeIn(800).appendTo(".message");
-		}
+	//
+	// Load our wordlist.
+	//
+	jQuery.getScript("./wordlist/wordlist-5-dice.js").done(
+		function(data) {
 
+			//
+			// If "debug" is set in the GET data, roll the dice on page load.
+			// Speed up my development a bit. :-)
+			//
+			var debug = location.search.indexOf("debug");
 
-		//
-		// Load our wordlist.
-		//
-		jQuery.getScript("./wordlist/wordlist-5-dice.js").done(
-			function(data) {
+			if (debug != -1) {
 
 				//
-				// If "debug" is set in the GET data, roll the dice on page load.
-				// Speed up my development a bit. :-)
+				// Grab our number in the GET data, sanitize it, and click the appropriate button.
 				//
-				var debug = location.search.indexOf("debug");
-
-				if (debug != -1) {
-
-					//
-					// Grab our number in the GET data, sanitize it, and click the appropriate button.
-					//
-					var offset = location.search.search("=");
-					var num = location.search[offset + 1];
-					if (num < 2) {
-						num = 2;
-					} else if (num > 8) {
-						num = 8;
-					}
-
-					var id="#button-dice-" + num;
-					jQuery(id).click();
-
-					jQuery("#roll_dice").click();
-
+				var offset = location.search.search("=");
+				var num = location.search[offset + 1];
+				if (num < 2) {
+					num = 2;
+				} else if (num > 8) {
+					num = 8;
 				}
 
-			}).fail(
-				function(jqxhr, settings, exception) {
-				console.log("Error loading Javascript:", jqxhr.status, settings, exception);
+				var id="#button-dice-" + num;
+				jQuery(id).click();
 
-			});
+				jQuery("#roll_dice").click();
+
+			}
+
+		}).fail(
+			function(jqxhr, settings, exception) {
+			console.log("Error loading Javascript:", jqxhr.status, settings, exception);
+
+		});
 
 } // End of go()
 
