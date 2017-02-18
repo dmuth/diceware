@@ -337,6 +337,128 @@ Diceware.is_mobile = function() {
 
 
 /**
+* Our handler for what to do when the "Roll Dice" button is clicked".
+* It generates the passphrase and updates the HTML.
+*/
+Diceware.rollDiceHandler = function(e) {
+
+	//
+	// Clear out more space when mobile
+	//
+	// In the future, I should just use a media query in CSS
+	//
+	var target_height = 300;
+	if (Diceware.is_mobile()) {
+		target_height = 400;
+	}
+
+	jQuery(".results").animate({height: target_height}, 400);
+
+	//
+	// If we're running on an iPhone or similar, scroll down so that we can 
+	// see the dice rolls and passphrase.
+	//
+	if (Diceware.is_mobile()) {
+		var aTag = $("a[name='roll_dice_button']");
+		$("html,body").animate({scrollTop: aTag.offset().top}, "slow");
+	}
+
+	//
+	// Remove any old results
+	//
+	jQuery(".results").empty();
+
+	//
+	// Make our dice rolls
+	//
+	var num_dice = jQuery(".dice_button.active").html();
+	var num_passwords = Number(Math.pow(6, (5 * num_dice)));
+	var passphrase = new Array();
+
+	var rolls = new Array();
+	for (var i=0; i<num_dice; i++) {
+
+		var roll = {};
+		//
+		// Roll 5 dice for 7,776 words.
+		//
+		roll.dice = Diceware.rollDice(5);
+		roll.word = Diceware.get_word(wordlist, roll.dice.value);
+		rolls.push(roll);
+		passphrase.push(roll.word);
+
+	}
+
+	//
+	// Populate our results by cloning the hidden base rows which 
+	// represent each die.
+	//
+	jQuery(".results_words_value").html(passphrase.join(" "));
+	jQuery(".results_phrase_value").html(passphrase.join(""));
+	jQuery(".results_num_possible_value").html(num_passwords.toLocaleString("en"));
+
+	var rows = new Array();
+	for (var key in rolls) {
+
+		var roll = rolls[key];
+		var row = jQuery("<div></div>");
+
+		//
+		// Clone and append specific dice to this row.
+		//
+		for (var key2 in roll.dice.roll) {
+			var die = roll.dice.roll[key2];
+			var classname = ".source .dice" + die;
+			var tmp = jQuery(classname).clone().appendTo(row);
+		}
+
+		//
+		// Now append the word
+		//
+		var dice_word = jQuery(".dice_word").clone();
+		dice_word.html("\"" + roll.word + "\"");
+		row.append(dice_word);
+
+		//
+		// And clear to the next line
+		//
+		row.append("<br clear=\"all\" />");
+	
+		rows.push(row);
+
+	}
+
+	//
+	// Now display those rows.
+	//
+	Diceware.display_row(rows, function() {
+
+		//
+		// And then display the results
+		//
+		Diceware.display_results(function() {
+
+		//
+		// Set the height of this back to auto so we don't have unused space.
+		// I'm amazed that we don't see a "flash" of the results div 
+		// temporarily shrinking, but this seems to work as per what I saw 
+		// at http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height
+		//
+		// Well then.
+		//
+		var height = jQuery(".results").height();
+		jQuery(".results").css("height", "auto");
+		var new_height = jQuery(".results").height();
+		jQuery(".results").height(height);
+		jQuery(".results").animate({height: new_height}, 400);
+		});
+
+	});
+
+} // End of rollDiceHandler()
+
+
+/**
 * Our main function when being used via the UI.  We call this to set up our jQuery hooks.
 *
 * I should probably refactor this more in the future--this function came about
@@ -355,126 +477,7 @@ Diceware.go = function() {
 	});
 
 
-	//
-	// Handler when the "Roll Dice" button is clicked.  It gets the 
-	// passphrase and updates the HTML with it.
-	//
-	jQuery("#roll_dice").on("click", function(e) {
-
-		//
-		// Clear out more space when mobile
-		//
-		// In the future, I should just use a media query in CSS
-		//
-		var target_height = 300;
-		if (Diceware.is_mobile()) {
-			target_height = 400;
-		}
-
-		jQuery(".results").animate({height: target_height}, 400);
-
-		//
-		// If we're running on an iPhone or similar, scroll down so that we can 
-		// see the dice rolls and passphrase.
-		//
-		if (Diceware.is_mobile()) {
-			var aTag = $("a[name='roll_dice_button']");
-			$("html,body").animate({scrollTop: aTag.offset().top}, "slow");
-		}
-
-		//
-		// Remove any old results
-		//
-		jQuery(".results").empty();
-
-		//
-		// Make our dice rolls
-		//
-		var num_dice = jQuery(".dice_button.active").html();
-		var num_passwords = Number(Math.pow(6, (5 * num_dice)));
-		var passphrase = new Array();
-
-		var rolls = new Array();
-		for (var i=0; i<num_dice; i++) {
-
-			var roll = {};
-			//
-			// Roll 5 dice for 7,776 words.
-			//
-			roll.dice = Diceware.rollDice(5);
-			roll.word = Diceware.get_word(wordlist, roll.dice.value);
-			rolls.push(roll);
-			passphrase.push(roll.word);
-
-		}
-
-		//
-		// Populate our results by cloning the hidden base rows which 
-		// represent each die.
-		//
-		jQuery(".results_words_value").html(passphrase.join(" "));
-		jQuery(".results_phrase_value").html(passphrase.join(""));
-		jQuery(".results_num_possible_value").html(num_passwords.toLocaleString("en"));
-
-		var rows = new Array();
-		for (var key in rolls) {
-
-			var roll = rolls[key];
-			var row = jQuery("<div></div>");
-
-			//
-			// Clone and append specific dice to this row.
-			//
-			for (var key2 in roll.dice.roll) {
-				var die = roll.dice.roll[key2];
-				var classname = ".source .dice" + die;
-				var tmp = jQuery(classname).clone().appendTo(row);
-			}
-
-			//
-			// Now append the word
-			//
-			var dice_word = jQuery(".dice_word").clone();
-			dice_word.html("\"" + roll.word + "\"");
-			row.append(dice_word);
-
-			//
-			// And clear to the next line
-			//
-			row.append("<br clear=\"all\" />");
-	
-			rows.push(row);
-
-		}
-
-		//
-		// Now display those rows.
-		//
-		Diceware.display_row(rows, function() {
-
-			//
-			// And then display the results
-			//
-			Diceware.display_results(function() {
-
-			//
-			// Set the height of this back to auto so we don't have unused space.
-			// I'm amazed that we don't see a "flash" of the results div 
-			// temporarily shrinking, but this seems to work as per what I saw 
-			// at http://stackoverflow.com/questions/5003220/javascript-jquery-animate-to-auto-height
-			//
-			// Well then.
-			//
-			var height = jQuery(".results").height();
-			jQuery(".results").css("height", "auto");
-			var new_height = jQuery(".results").height();
-			jQuery(".results").height(height);
-			jQuery(".results").animate({height: new_height}, 400);
-
-			});
-			});
-
-		});
+	jQuery("#roll_dice").on("click", Diceware.rollDiceHandler);
 
 
 		//
@@ -493,8 +496,7 @@ Diceware.go = function() {
 		//
 		// Load our wordlist.
 		//
-		//jQuery.getScript("./wordlist.js").done(
-		jQuery.getScript("./wordlist/wordlist.js").done(
+		jQuery.getScript("./wordlist/wordlist-5-dice.js").done(
 			function(data) {
 
 				//
