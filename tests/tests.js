@@ -30,6 +30,10 @@ QUnit.test("Base 6 conversion", function(assert) {
 	assert.deepEqual(Diceware.getBase6(216, 4), [1, 0, 0, 0]);
 	assert.deepEqual(Diceware.getBase6(1080, 4), [5, 0, 0, 0]);
 	assert.deepEqual(Diceware.getBase6(1295, 4), [5, 5, 5, 5]);
+	assert.deepEqual(Diceware.getBase6(7775, 5), [5, 5, 5, 5, 5]);
+	assert.deepEqual(Diceware.getBase6(46655, 6), [5, 5, 5, 5, 5, 5]);
+	assert.deepEqual(Diceware.getBase6(279935, 7), [5, 5, 5, 5, 5, 5, 5]);
+	assert.deepEqual(Diceware.getBase6(1679615, 8), [5, 5, 5, 5, 5, 5, 5, 5]);
 
 	assert.throws(function() {Diceware.getBase6(6, 1); }, /too large/, "Value too large");
 	assert.throws(function() {Diceware.getBase6(36, 2); }, /too large/, "Value too large");
@@ -52,6 +56,10 @@ QUnit.test("Convert Base 6 to Dice Roll", function(assert) {
 	assert.deepEqual(Diceware.convertBase6ToDice([1, 0, 0, 0], 4), [2, 1, 1, 1]);
 	assert.deepEqual(Diceware.convertBase6ToDice([5, 0, 0, 0], 4), [6, 1, 1, 1]);
 	assert.deepEqual(Diceware.convertBase6ToDice([5, 5, 5, 5], 4), [6, 6, 6, 6]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 5, 5, 5, 5], 5), [6, 6, 6, 6, 6]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 5, 5, 5, 5, 5], 6), [6, 6, 6, 6, 6, 6]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 5, 5, 5, 5, 5, 5], 7), [6, 6, 6, 6, 6, 6, 6]);
+	assert.deepEqual(Diceware.convertBase6ToDice([5, 5, 5, 5, 5, 5, 5, 5], 8), [6, 6, 6, 6, 6, 6, 6, 6]);
 
 	assert.throws(function() {Diceware.convertBase6ToDice([-1], 1); }, /negative/, "Negative value");
 	assert.throws(function() {Diceware.convertBase6ToDice([0, -1], 2); }, /negative/, "Negative value");
@@ -75,6 +83,10 @@ QUnit.test("Roll some dice!", function(assert) {
 	assert.equal(Diceware.getNumValuesFromNumDice(2), 36);
 	assert.equal(Diceware.getNumValuesFromNumDice(3), 216);
 	assert.equal(Diceware.getNumValuesFromNumDice(4), 1296);
+	assert.equal(Diceware.getNumValuesFromNumDice(5), 7776);
+	assert.equal(Diceware.getNumValuesFromNumDice(6), 46656);
+	assert.equal(Diceware.getNumValuesFromNumDice(7), 279936);
+	assert.equal(Diceware.getNumValuesFromNumDice(8), 1679616);
 
 	assert.throws(function() {Diceware.getNumValuesFromNumDice(0); }, /zero/, "Zero");
 	assert.throws(function() {Diceware.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
