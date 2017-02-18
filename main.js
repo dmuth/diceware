@@ -522,10 +522,20 @@ Diceware.go = function() {
 
 	var get_data = Diceware.extractGetData(location.search);
 
+	var dice = 5;
+	if (get_data["dice"]) {
+		if (get_data["dice"] >= 5 && get_data["dice"] <= 7) {
+			dice = get_data["dice"];
+		}
+	}
+
+	var js = "./wordlist/wordlist-" + dice + "-dice.js";
+	console.log("Looks like we're loading '" + js + "'!");
+
 	//
 	// Load our wordlist.
 	//
-	jQuery.getScript("./wordlist/wordlist-5-dice.js").done(
+	jQuery.getScript(js).done(
 		function(data) {
 
 			//
