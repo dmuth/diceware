@@ -23,53 +23,6 @@ if (php_sapi_name() != "cli") {
 * @return array An array of words
 *
 */
-function readWordListGoogle($filename) {
-
-	$retval = array();
-
-	$fp = @fopen($filename, "r");
-	if (!$fp) {
-		throw new Exception("Could not open '$filename' for reading");
-	}
-
-	while ($line = fgets($fp)) {
-
-		$word = rtrim($line);
-		$len = strlen($word);
-
-		//
-		// Removing anything with less than 5 characters leaves us with 7781 words,
-		// just slightly more than the 7776 (6^5) words we need.  What a happy coincidence!
-		//
-		if ($len < 5) {
-			continue;
-		}
-
-		$retval[] = $word;
-
-	}
-
-	//
-	// Put the words in alphabetical order for my own sanity.
-	//
-	sort($retval);
-
-	fclose($fp);
-
-	return($retval);
-
-} // End of readWordListGoogle()
-
-
-/**
-* Read in our wordlist from Google and return an array with all words that 
-* passed validation.
-*
-* @param string $filename The filename
-*
-* @return array An array of words
-*
-*/
 function readWordListPeterNorvig($filename) {
 
 	$retval = array();
@@ -113,80 +66,6 @@ function readWordListPeterNorvig($filename) {
 	return($retval);
 
 } // End of readWordListPeterNorvig()
-
-
-/**
-* Turn our list of words into an array which contains the dice rolls to get 
-* those rolls as a key.
-*
-* @param array $words Our array of words
-*
-* @return array An array where the key is the diceroll and the value is the word.
-*/
-function getDiceRolls($words) {
-
-	$retval = array();
-
-	for ($i = 1; $i <= 6; $i++) {
-		for ($j = 1; $j <= 6; $j++) {
-			for ($k = 1; $k <= 6; $k++) {
-				for ($l = 1; $l <= 6; $l++) {
-					for ($m = 1; $m <= 6; $m++) {
-
-						$key = "${i}${j}${k}${l}${m}";
-						$retval[$key] = next($words);
-
-					}
-				}
-			}
-		}
-	}
-
-	return($retval);
-
-} // End of getDiceRolls()
-
-
-/**
-* Create our Javascript
-*
-* @param array $rolls Our array of rolls and the word that the roll has
-*
-* @return string Javascript which defines an array of those rolls
-*/
-function getJs($rolls) {
-
-	$retval = ""
-		. "//\n"
-		. "// Our wordlist.\n"
-		. "//\n"
-		. "// Originally obtained from http://norvig.com/ngrams/\n"
-		. "//\n"
-		. "var wordlist = {\n"
-		;
-
-	$beenhere = false;
-
-	foreach ($rolls as $key => $value) {
-
-		if ($beenhere) {
-			$retval .= ",\n";
-		}
-
-		$retval .= "\t${key}:\"${value}\"";
-
-		$beenhere = true;
-
-	}
-
-	$retval .= "\n"
-		. "};\n"
-		. "\n"
-		;
-	
-	return($retval);
-
-} // End of getJs()
 
 
 /**
@@ -238,8 +117,6 @@ function main() {
 	//
 	// Read our file
 	//
-	//$filename = "google-10000-english.txt";
-	//$words = readWordListGoogle($filename);
 	$filename = "count_1w.txt";
 	$words = readWordListPeterNorvig($filename);
 	//print_r($words); // Debugging
@@ -252,8 +129,6 @@ function main() {
 	//
 	// Get our Javascript
 	//
-// TEST
-	//$js = getJs($rolls);
 	$js = getJsArray($words);
 
 	print $js;
