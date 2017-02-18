@@ -8,17 +8,27 @@ set -e
 
 pushd $(dirname $0) > /dev/null
 
-JS="wordlist.js"
+
+JS="wordlist-5-dice.js"
+echo "# "
+echo "# Creating wordlist '$JS'..."
+echo "# "
+./create-wordlist.php --dice 5 > ${JS}
+
+JS="wordlist-6-dice.js"
+echo "# "
+echo "# Creating wordlist '$JS'..."
+echo "# "
+./create-wordlist.php --dice 6 > ${JS}
+
+JS="wordlist-7-dice.js"
+echo "# "
+echo "# Creating wordlist '$JS'..."
+echo "# "
+./create-wordlist.php --dice 7 > ${JS}
 
 echo "# "
-echo "# Creating wordlist Javascript..."
-echo "# "
-
-#./create-wordlist.php # Debugging
-./create-wordlist.php > ${JS}
-
-echo "# "
-echo "# Done!  List created at ${JS}"
+echo "# Done!"
 echo "# "
 
 
