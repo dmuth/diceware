@@ -459,6 +459,34 @@ Diceware.rollDiceHandler = function(e) {
 
 
 /**
+* Turn our GET method data into an associative array.
+*/
+Diceware.extractGetData = function(get_data) {
+
+	var retval = {};
+
+	if (!location.search) {
+		return(retval);
+	}	
+
+	var get = get_data.substring(1);
+	var pairs = get.split("&");
+
+	for (var k in pairs) {
+		var row = pairs[k];
+		var pair = row.split("=");
+		var key = pair[0];
+		var value = pair[1];
+		retval[key] = value;
+
+	}
+
+	return(retval);
+
+} // End of extractGetData()
+
+
+/**
 * Our main function when being used via the UI.  We call this to set up our jQuery hooks.
 *
 * I should probably refactor this more in the future--this function came about
@@ -492,6 +520,8 @@ Diceware.go = function() {
 	}
 
 
+	var get_data = Diceware.extractGetData(location.search);
+
 	//
 	// Load our wordlist.
 	//
@@ -504,13 +534,9 @@ Diceware.go = function() {
 			//
 			var debug = location.search.indexOf("debug");
 
-			if (debug != -1) {
+			if (get_data["debug"] && get_data["debug"] > 0) {
 
-				//
-				// Grab our number in the GET data, sanitize it, and click the appropriate button.
-				//
-				var offset = location.search.search("=");
-				var num = location.search[offset + 1];
+				var num = get_data["debug"];
 				if (num < 2) {
 					num = 2;
 				} else if (num > 8) {
