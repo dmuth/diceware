@@ -4,6 +4,11 @@
 
 var Diceware = {};
 
+//
+// How many dice per roll?
+//
+Diceware.num_dice_per_roll = 5;
+
 
 /**
 * Return true if we have a function that returns cryptographically random 
@@ -372,7 +377,7 @@ Diceware.rollDiceHandler = function(e) {
 	// Make our dice rolls
 	//
 	var num_dice = jQuery(".dice_button.active").html();
-	var num_passwords = Number(Math.pow(6, (5 * num_dice)));
+	var num_passwords = Number(Math.pow(6, (Diceware.num_dice_per_roll * num_dice)));
 	var passphrase = new Array();
 
 	var rolls = new Array();
@@ -382,7 +387,7 @@ Diceware.rollDiceHandler = function(e) {
 		//
 		// Roll 5 dice for 7,776 words.
 		//
-		roll.dice = Diceware.rollDice(5);
+		roll.dice = Diceware.rollDice(Diceware.num_dice_per_roll);
 		roll.word = Diceware.get_word(wordlist, roll.dice.value);
 		rolls.push(roll);
 		passphrase.push(roll.word);
@@ -496,6 +501,8 @@ Diceware.extractGetData = function(get_data) {
 */
 Diceware.go = function() {
 
+	console.log("Thanks for checking out my code! You can find the Git repo at https://github.com/dmuth/diceware");
+
 	//
 	// Handler to mark the clicked number of dice button as active.
 	//
@@ -526,8 +533,11 @@ Diceware.go = function() {
 	if (get_data["dice"]) {
 		if (get_data["dice"] >= 5 && get_data["dice"] <= 7) {
 			dice = get_data["dice"];
+			Diceware.num_dice_per_roll = dice;
 		}
 	}
+
+	console.log("Rolling " + Diceware.num_dice_per_roll + " dice per roll");
 
 	var js = "./wordlist/wordlist-" + dice + "-dice.js";
 	console.log("Looks like we're loading '" + js + "'!");
@@ -556,6 +566,7 @@ Diceware.go = function() {
 				var id="#button-dice-" + num;
 				jQuery(id).click();
 
+				console.log("Debug mode enabled, auto-rolling " + num + " times!");
 				jQuery("#roll_dice").click();
 
 			}
