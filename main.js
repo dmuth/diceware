@@ -384,9 +384,6 @@ Diceware.rollDiceHandler = function(e) {
 	for (var i=0; i<num_dice; i++) {
 
 		var roll = {};
-		//
-		// Roll 5 dice for 7,776 words.
-		//
 		roll.dice = Diceware.rollDice(Diceware.num_dice_per_roll);
 		roll.word = Diceware.get_word(wordlist, roll.dice.value);
 		rolls.push(roll);
