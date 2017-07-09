@@ -536,7 +536,15 @@ Diceware.go = function() {
 
 	console.log("Rolling " + Diceware.num_dice_per_roll + " dice per roll");
 
-	var js = "./wordlist/wordlist-" + dice + "-dice.js";
+	var file = "wordlist-" + dice + "-dice.js";
+	if (dice == 5) {
+		//
+		// 5 Dice?  Let's use the EFF version.
+		//
+		file = "wordlist-" + dice + "-dice-eff.js";
+	}
+
+	var js = "./wordlist/" + file;
 	console.log("Looks like we're loading '" + js + "'!");
 
 	//
