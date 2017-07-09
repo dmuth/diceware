@@ -1,7 +1,7 @@
 //
 // Our wordlist.
 //
-// Originally obtained from http://norvig.com/ngrams/
+// Originally obtained from: http://norvig.com/ngrams/
 //
 var wordlist = [
 	"aaaah",

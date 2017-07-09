@@ -27,6 +27,12 @@ echo "# Creating wordlist '$JS'..."
 echo "# "
 ./create-wordlist.php --dice 7 > ${JS}
 
+JS="wordlist-5-dice-eff.js"
+echo "# "
+echo "# Creating EFF 5-dice Wordlist..."
+echo "# "
+./create-wordlist.php --eff > ${JS}
+
 echo "# "
 echo "# Done!"
 echo "# "

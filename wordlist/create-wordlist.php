@@ -19,8 +19,9 @@ if (php_sapi_name() != "cli") {
 */
 function printSyntax($progname) {
 
-	print "Syntax: $progname [ --dice n ]\n\n"
+	print "Syntax: $progname [ --dice n | --eff ]\n\n"
 		. "\t--dice  Number of dice to generate a wordlist for.  Must be between 5 and 7 inclusive. Defaults to 5.\n"
+		. "\t--eff Generate wordlist against the EFF's list, found at https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases"
 		. "\n"
 		;
 
@@ -57,10 +58,20 @@ function parseArgs($argv) {
 			$retval["dice"] = $value_next;
 		}
 
+		if ($value == "--eff") {
+			$retval["eff"] = true;
+		}
+
 	}
 
-	if ($retval["dice"] < 5 || $retval["dice"] > 7) {
+	if (isset($retval["dice"])) {
+		if ($retval["dice"] < 5 || $retval["dice"] > 7) {
+			printSyntax($progname);
+		}
+
+	} else if (!isset($retval["eff"])) {
 		printSyntax($progname);
+
 	}
 
 	return($retval);
@@ -140,19 +151,70 @@ function readWordListPeterNorvig($filename, $dice) {
 
 
 /**
+* Read in the EFF's wordlist and return an array with all the words.
+*
+* @param string $filename The filename
+*
+* @return array An array of words
+*
+*/
+function readWordListEff($filename) {
+
+	$retval = array();
+
+	$fp = @fopen($filename, "r");
+	if (!$fp) {
+		throw new Exception("Could not open '$filename' for reading");
+	}
+
+	while ($line = fgets($fp)) {
+
+		$line = rtrim($line);
+		list($roll, $word) = explode("\t", $line);
+
+		$retval[] = $word;
+
+	}
+
+	//
+	// Put the words in alphabetical order for my own sanity.
+	//
+	sort($retval);
+
+	fclose($fp);
+
+	return($retval);
+
+} // End of readWordListEff()
+
+
+/**
 * Create our Javascript, but as an array
 *
 * @param array $words Our array of words
 *
+* @param array $param Our array of params
+*
 * @return string Javascript which defines an array of those words
 */
-function getJsArray($words) {
+function getJsArray($words, $params) {
+
+	$url = "(unknown)";
+
+	if (isset($params["dice"])) {
+		$url = "http://norvig.com/ngrams/";
+
+	} else if (isset($params["eff"])) {
+		$url = "https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases";
+
+	}
+
 
 	$retval = ""
 		. "//\n"
 		. "// Our wordlist.\n"
 		. "//\n"
-		. "// Originally obtained from http://norvig.com/ngrams/\n"
+		. "// Originally obtained from: $url\n"
 		. "//\n"
 		. "var wordlist = [\n"
 		;
@@ -186,18 +248,31 @@ function getJsArray($words) {
 function main($argv) {
 
 	$params = parseArgs($argv);
+	//print_r($params); // Debugging
 
 	//
 	// Read our file
 	//
-	$filename = "count_1w.txt";
-	$words = readWordListPeterNorvig($filename, $params["dice"]);
-	//print_r($words); // Debugging
+	if (isset($params["dice"])) {
+		$filename = "count_1w.txt";
+		$words = readWordListPeterNorvig($filename, $params["dice"]);
+		//print_r($words); // Debugging
+
+	} else if (isset($params["eff"])) {
+		//
+		// Handle wordllist from https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt
+		//
+		$filename = "eff_large_wordlist.txt";
+		$words = readWordListEff($filename);
+		//print_r($words); // Debugging
+
+	}
+
 
 	//
 	// Get our Javascript
 	//
-	$js = getJsArray($words);
+	$js = getJsArray($words, $params);
 
 	print $js;
 
