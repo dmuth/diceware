@@ -26,7 +26,7 @@ Diceware.i_can_has_good_crypto = function() {
 
 
 /**
-* Return a random integer between 1 max.
+* Return a random integer between 1 and max.
 */
 Diceware.getRandomValue = function(max) {
 
