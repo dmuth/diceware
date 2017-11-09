@@ -2,3 +2,5 @@
 # Vim
 *.swp
 
+node_modules/
+

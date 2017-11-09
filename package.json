@@ -1,0 +1,26 @@
+{
+  "name": "diceware",
+  "version": "1.0.0",
+  "description": "First, feel free to check out the live demo, running at [https://www.dmuth.org/diceware/](https://www.dmuth.org/diceware/)",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmuth/diceware.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmuth/diceware/issues"
+  },
+  "homepage": "https://github.com/dmuth/diceware#readme",
+  "devDependencies": {
+    "webpack": "^3.8.1"
+  }
+}
