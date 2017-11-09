@@ -22,5 +22,9 @@
   "homepage": "https://github.com/dmuth/diceware#readme",
   "devDependencies": {
     "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "random-number-csprng": "^1.0.2"
   }
 }
