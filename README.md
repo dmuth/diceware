@@ -19,11 +19,26 @@ For more information on Diceware:
 Yes.  Feel free to clone this repo with `git clone https://github.com/dmuth/diceware.git` and run it
 from a local directory on your computer.
 
+You can also set up a webserver on Mac/Linux boxes by running `python -m SimpleHTTPServer 8000`. 
+You will then able to access DiceWare at http://localhost:8000/.
+
 
 # Will this work on an iPhone?
 
 Yep!  It should work on any mobile phone or tablet that supports Javascript, but I have only
 tested it on an iPhone 5S at this time.
+
+
+# Development
+
+This app is built with <a href="https://webpack.js.org/">Webpack</a>.
+
+When done editing `main.js`, the packed file can be built by simply running `webpack` on the command line.
+It will be writting to `dist/bundle.js`.
+
+In a move that departs from Best Practices, I have made the decision to include the packed file in Git.
+My reason for this is that the software will be ready to run as soon as it is checked out (or a ZIP is downloaded),
+and that is a key design feature of this app--I want it to be as easy to get up and running as possible.
 
 
 # Who built this? / Contact
