@@ -2,6 +2,14 @@
 * Our main Javascript file.
 */
 
+var Promise = require("bluebird");
+var randomNumber = require("random-number-csprng");
+
+
+//
+// This "put everything in an object" approach is a holdover from 
+// before I started using webpack.  Yay legacy code.
+//
 var Diceware = {};
 
 //
@@ -16,6 +24,7 @@ Diceware.num_dice_per_roll = 5;
 */
 Diceware.i_can_has_good_crypto = function() {
 
+	//return(false); // Debugging
 	if (window.crypto && window.crypto.getRandomValues) { 
 		return(true);
 	}
@@ -26,18 +35,28 @@ Diceware.i_can_has_good_crypto = function() {
 
 
 /**
-* Return a random integer between 1 and max.
+* Return a random integer between 0 and max, inclusive.
 */
 Diceware.getRandomValue = function(max) {
+	return new Promise(function(resolve, reject) {
 
 	if (max <= 0){
-		return(NaN);
+		resolve(NaN);
 	}
 
 	if (Diceware.i_can_has_good_crypto()) {
-		var a = new Uint32Array(1);
-		window.crypto.getRandomValues(a);
-		retval = (a[0] % max);
+
+		Promise.try(function() {
+			return randomNumber(0, max);
+
+		}).then(function(number) {
+			retval = number;
+			resolve(retval);
+
+		}).catch({code: "RandomGenerationError"}, function(err) {
+			console.log("randomNumber(): Something went wrong!");
+
+		});
 
 	} else {
 		//
@@ -45,12 +64,11 @@ Diceware.getRandomValue = function(max) {
 		// been warned.
 		//
 		retval = Math.floor(Math.random() * max);
+		resolve(retval);
 
 	}
 
-
-	return(retval);
-
+	}); // End of Promise()
 } // End of getRandomValue()
 
 
@@ -170,22 +188,28 @@ Diceware.getNumValuesFromNumDice = function(num_dice) {
 *
 */
 Diceware.rollDice = function(num_dice) {
+	return new Promise(function(resolve, reject) {
 
-	var retval = {};
+		var retval = {};
+		var max = Diceware.getNumValuesFromNumDice(num_dice);
 
-	var max = Diceware.getNumValuesFromNumDice(num_dice);
+		Promise.try(function() {
+		
+			return(Diceware.getRandomValue(max - 1));
 
-	var random = Diceware.getRandomValue(max);
+		}).then(function(random) {
 
-	var base6 = Diceware.getBase6(random, num_dice);
+			var base6 = Diceware.getBase6(random, num_dice);
+			var dice = Diceware.convertBase6ToDice(base6, num_dice);
 
-	var dice = Diceware.convertBase6ToDice(base6, num_dice);
+			retval.value = random;
+			retval.roll = dice;
 
-	retval.value = random;
-	retval.roll = dice;
+			resolve(retval);
 
-	return(retval);
+	});
 
+}); // End of Promise()
 } // End of rollDice()
 
 
@@ -342,10 +366,9 @@ Diceware.is_mobile = function() {
 
 
 /**
-* Our handler for what to do when the "Roll Dice" button is clicked".
-* It generates the passphrase and updates the HTML.
+* Do some preliminary work, such as clearing out results and scrolling.
 */
-Diceware.rollDiceHandler = function(e) {
+Diceware.rollDiceHanlderPre = function() {
 
 	//
 	// Clear out more space when mobile
@@ -373,23 +396,65 @@ Diceware.rollDiceHandler = function(e) {
 	//
 	jQuery(".results").empty();
 
+} // End of rollDiceHandlerPre()
+
+
+/**
+* Our handler for what to do when the "Roll Dice" button is clicked".
+* It generates the passphrase and updates the HTML.
+*/
+Diceware.rollDiceHandler = function(e) {
+
+	Diceware.rollDiceHanlderPre();
+
+
 	//
 	// Make our dice rolls
 	//
 	var num_dice = jQuery(".dice_button.active").html();
 	var num_passwords = Number(Math.pow(6, (Diceware.num_dice_per_roll * num_dice)));
 	var passphrase = new Array();
-
 	var rolls = new Array();
-	for (var i=0; i<num_dice; i++) {
 
-		var roll = {};
-		roll.dice = Diceware.rollDice(Diceware.num_dice_per_roll);
-		roll.word = Diceware.get_word(wordlist, roll.dice.value);
-		rolls.push(roll);
-		passphrase.push(roll.word);
+	//
+	// Create an array of empty items, since this is the only way I can 
+	// figure out to do a loop in Bluebird at this time. Ugh.
+	//
+	var items = [];
+	for (i=0; i<num_dice; i++) { items.push(null); }
 
-	}
+	Promise.map(items, function(element) {
+		//
+		// Do our dice rolls all at once.
+		//
+		return(Diceware.rollDice(Diceware.num_dice_per_roll));
+
+	}).then(function(data) {
+		//
+		// Now that we have the results, get the word for each roll, 
+		// save the roll, and push the word onto the passphrase.
+		//
+		data.forEach(function(row) {
+
+			var roll = {};
+			roll.dice = row;
+			roll.word = Diceware.get_word(wordlist, roll.dice.value);
+			rolls.push(roll);
+			passphrase.push(roll.word);
+	
+		});
+
+		Diceware.rollDiceHanlderPost(rolls, passphrase, num_passwords);
+
+	});
+
+} // End of rollDiceHandler()
+
+
+/**
+* Our post work, of displaying the results of our dice rolls.
+*/
+Diceware.rollDiceHanlderPost = function(rolls, passphrase, num_passwords) {
 
 	//
 	// Populate our results by cloning the hidden base rows which 
@@ -457,7 +522,7 @@ Diceware.rollDiceHandler = function(e) {
 
 	});
 
-} // End of rollDiceHandler()
+} // End of rollDiceHandlerPost()
 
 
 /**
@@ -583,5 +648,11 @@ Diceware.go = function() {
 		});
 
 } // End of go()
+
+
+//
+// Run go() automatically, as that is the webpack way.
+//
+Diceware.go();
 
 
