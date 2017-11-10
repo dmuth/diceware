@@ -6,15 +6,6 @@ var Promise = require("bluebird");
 
 var lib = require("./lib.js");
 
-/*
-TEST/TODO: Things to refactor:
-X Diceware.getRandomValue
-X Diceware.getBase6
-X Diceware.convertBase6ToDice
-X Diceware.getNumValuesFromNumDice
-- Diceware.rollDice(1).roll.length
-*/
-
 
 //
 // This "put everything in an object" approach is a holdover from 
