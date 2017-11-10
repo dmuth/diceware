@@ -106,6 +106,71 @@ describe("Diceware", function() {
 	});
 
 
+	describe("getNumValuesFromNumDice() and rollDice()", function() {
+		it("Gotta pass", function(done) {
+
+			Promise.try(function() {
+
+				diceware.getNumValuesFromNumDice(1).should.equal(6);
+				diceware.getNumValuesFromNumDice(2).should.equal(36);
+				diceware.getNumValuesFromNumDice(3).should.equal(216);
+				diceware.getNumValuesFromNumDice(4).should.equal(1296);
+				diceware.getNumValuesFromNumDice(5).should.equal(7776);
+				diceware.getNumValuesFromNumDice(6).should.equal(46656);
+				diceware.getNumValuesFromNumDice(7).should.equal(279936);
+				diceware.getNumValuesFromNumDice(8).should.equal(1679616);
+
+				should.throws(function() { diceware.getNumValuesFromNumDice(0); }, /zero/, "Zero");
+				should.throws(function() { diceware.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
+
+				//
+				// Test out our helper function first
+				//
+				return(diceware.rollDice(1));
+			}).then(function(dice) {
+	
+				dice.roll.length.should.be.equal(1);
+				return(diceware.rollDice(3));
+
+			}).then(function(dice) {
+				dice.roll.length.should.be.equal(3);
+				return(diceware.rollDice(8));
+
+			}).then(function(dice) {
+				dice.roll.length.should.be.equal(8);
+
+				//
+				// These may fail infrequently if the random number is zero.
+				//
+				return(diceware.rollDice(3));
+
+			}).then(function(dice) {
+				parseInt(dice.value).should.ok;
+				return(diceware.rollDice(8));
+		
+			}).then(function(dice) {
+				parseInt(dice.value).should.ok;
+
+				return(diceware.rollDice(0));
+
+			}).catch(function(error) {
+				error.should.match(/zero/);
+				return(diceware.rollDice(-1));
+
+			}).catch(function(error) {
+				error.should.match(/negative/);
+
+				done();
+
+			}).catch(function(error) {
+				done(error);
+
+			});
+
+		});
+	});
+
+
 });
 
 
