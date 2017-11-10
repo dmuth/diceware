@@ -73,6 +73,39 @@ describe("Diceware", function() {
 	});
 
 
+	describe("convertBase6ToDice()", function() {
+		it("Oughta pass", function() {
+
+			diceware.convertBase6ToDice([0], 1).should.containDeepOrdered([1]);
+			diceware.convertBase6ToDice([5], 1).should.containDeepOrdered([6]);
+			diceware.convertBase6ToDice([1, 0], 2).should.containDeepOrdered([2, 1]);
+			diceware.convertBase6ToDice([2, 0], 2).should.containDeepOrdered([3, 1]);
+			diceware.convertBase6ToDice([5, 5], 2).should.containDeepOrdered([6, 6]);
+			diceware.convertBase6ToDice([1, 0, 0], 3).should.containDeepOrdered([2, 1, 1]);
+			diceware.convertBase6ToDice([5, 0, 0], 3).should.containDeepOrdered([6, 1, 1]);
+			diceware.convertBase6ToDice([5, 5, 5], 3).should.containDeepOrdered([6, 6, 6]);
+			diceware.convertBase6ToDice([1, 0, 0, 0], 4).should.containDeepOrdered([2, 1, 1, 1]);
+			diceware.convertBase6ToDice([5, 0, 0, 0], 4).should.containDeepOrdered([6, 1, 1, 1]);
+			diceware.convertBase6ToDice([5, 5, 5, 5], 4).should.containDeepOrdered([6, 6, 6, 6]);
+			diceware.convertBase6ToDice([5, 5, 5, 5, 5], 5).should.containDeepOrdered([6, 6, 6, 6, 6]);
+			diceware.convertBase6ToDice([5, 5, 5, 5, 5, 5], 6).should.containDeepOrdered([6, 6, 6, 6, 6, 6]);
+			diceware.convertBase6ToDice([5, 5, 5, 5, 5, 5, 5], 7).should.containDeepOrdered([6, 6, 6, 6, 6, 6, 6]);
+			diceware.convertBase6ToDice([5, 5, 5, 5, 5, 5, 5, 5], 8).should.containDeepOrdered([6, 6, 6, 6, 6, 6, 6, 6]);
+
+			should.throws(function() { diceware.convertBase6ToDice([-1], 1); }, /negative/, "Negative value");
+			should.throws(function() { diceware.convertBase6ToDice([0, -1], 2); }, /negative/, "Negative value");
+			should.throws(function() { diceware.convertBase6ToDice([-1, 0], 2); }, /negative/, "Negative value");
+			should.throws(function() { diceware.convertBase6ToDice([6], 1); }, /too large/, "too large");
+			should.throws(function() { diceware.convertBase6ToDice([6, 0], 2); }, /too large/, "too large");
+			should.throws(function() { diceware.convertBase6ToDice([0, 6], 2); }, /too large/, "too large");
+
+			should.throws(function() { diceware.convertBase6ToDice([0], 2); }, /mismatch/i, "Mismatch");
+			should.throws(function() { diceware.convertBase6ToDice([0, 0], 1); }, /mismatch/i, "Mismatch");
+
+		});
+	});
+
+
 });
 
 
@@ -80,7 +113,7 @@ describe("Diceware", function() {
 TEST/TODO: Things to refactor:
 X Diceware.getRandomValue
 X Diceware.getBase6
-- Diceware.convertBase6ToDice
+X Diceware.convertBase6ToDice
 - Diceware.getNumValuesFromNumDice
 - Diceware.rollDice(1).roll.length
 */
