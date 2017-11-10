@@ -10,9 +10,22 @@ var randomNumber = require("random-number-csprng");
 */
 module.exports.iCanHasGoodCrypto = iCanHasGoodCrypto = function() {
 
-	//return(false); // Debugging
-	if (window.crypto && window.crypto.getRandomValues) { 
+	//
+	// If we don't have a Window variable, we're in Node.js, probably doing unit tests, so
+	// return true.
+	//
+	// Even if I screw this up and there exists a web browser that doesn't have window defined
+	// worst case is that a non-existant crypto.getRandomValues() function is called, and I'd rather
+	// have some sort of error versus a user accidentally using weak crypto.
+	//
+	if (typeof(window) == "undefined") {
 		return(true);
+	}
+
+	if (typeof(window) != "undefined") {
+		if (window.crypto && window.crypto.getRandomValues) { 
+			return(true);
+		}
 	}
 
 	return(false);
@@ -26,8 +39,9 @@ module.exports.iCanHasGoodCrypto = iCanHasGoodCrypto = function() {
 module.exports.getRandomValue = getRandomValue = function(max) {
 	return new Promise(function(resolve, reject) {
 
-	if (max <= 0){
-		resolve(NaN);
+	if (max <= 0) {
+		reject("max can't be less or equal to zero!");
+		return(null);
 	}
 
 	if (iCanHasGoodCrypto()) {
@@ -40,7 +54,7 @@ module.exports.getRandomValue = getRandomValue = function(max) {
 			resolve(retval);
 
 		}).catch({code: "RandomGenerationError"}, function(err) {
-			console.log("randomNumber(): Something went wrong!");
+			reject(err);
 
 		});
 
@@ -75,11 +89,11 @@ module.exports.getBase6 = getBase6 = function(roll, num_dice) {
 	//
 	var max_dice_roll = Math.pow(6, num_dice) - 1;
 	if (roll > max_dice_roll) {
-		throw("Value too large!");
+		throw(new Error("Value too large!"));
 	}
 
 	if (roll < 0) {
-		throw("Value cannot be negative!");
+		throw(new Error("Value cannot be negative!"));
 	}
 
 	//
