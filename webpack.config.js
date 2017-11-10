@@ -8,7 +8,7 @@ var path = require('path');
 // Compile main.js (and its dependencies) into dist/bundle.js.
 //
 module.exports = {
-  entry: './main.js',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
