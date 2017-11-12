@@ -6,4 +6,10 @@ node_js:
   - "9"
   - "lts/*"
 
+#
+# Cache the node_modules directory
+#
+cache:
+  directories:
+    - "node_modules"
 
