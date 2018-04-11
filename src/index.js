@@ -268,8 +268,18 @@ Diceware.rollDiceHanlderPost = function(rolls, passphrase, num_passwords) {
 	// represent each die.
 	//
 	jQuery(".results_words_value").html(passphrase.join(" "));
-	jQuery(".results_phrase_value").html(passphrase.join(""));
-	jQuery(".results_num_possible_value").html(num_passwords.toLocaleString("en"));
+	//
+	// Separate words in the phrase by "Word Break Opportunity" 
+	// tag so they will wrap properly on a narrow/mobile screen.
+	//
+	jQuery(".results_phrase_value").html(passphrase.join("<wbr>"));
+	//
+	// Convert the number of passwords to something based on the 
+	// locale and then add in <wbr> tags so they too will wrap.
+	//
+	num_passwords_html = num_passwords.toLocaleString("en");
+	num_passwords_html = num_passwords_html.replace(/,/g, ",<wbr>");
+	jQuery(".results_num_possible_value").html(num_passwords_html);
 
 	var rows = new Array();
 	for (var key in rolls) {
