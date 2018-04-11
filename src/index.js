@@ -365,7 +365,7 @@ Diceware.extractGetData = function(get_data) {
 *
 * I should probably refactor this more in the future--this function came about
 * when I changed the code from self-contained to contained in an external object
-* in preparation fro Qunit testing...
+* in preparation for Qunit testing...
 *
 */
 Diceware.go = function() {
