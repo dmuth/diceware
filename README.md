@@ -36,7 +36,8 @@ tested it on an iPhone 5S at this time.
 This app is built with <a href="https://webpack.js.org/">Webpack</a>.
 
 When done editing `main.js`, the packed file can be built by simply running `webpack` on the command line.
-It will be writing to `dist/bundle.js`.
+It will be writing to `dist/bundle.js`.  To run webpack in a mode so that it regularly checks for 
+changed files, run `webpack --watch`.
 
 In a move that departs from Best Practices, I have made the decision to include the packed file in Git.
 My reason for this is that the software will be ready to run as soon as it is checked out (or a ZIP is downloaded),
