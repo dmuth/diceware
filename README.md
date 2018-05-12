@@ -31,6 +31,12 @@ Yep!  It should work on any mobile phone or tablet that supports Javascript, but
 tested it on an iPhone 5S at this time.
 
 
+# Will this work in an air-gapped environment?
+
+Yes, copies of assets such as Bootstrap and jQuery have been made, and Diceware can now be run without
+requiring an Internet connection.
+
+
 # Development
 
 This app is built with <a href="https://webpack.js.org/">Webpack</a>.
