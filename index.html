@@ -272,6 +272,14 @@ I was able to pull this off due in part to uploading the code to an AWS S3 Bucke
 content available via <a href="https://aws.amazon.com/cloudfront/">CloudFront</a>.
 
 
+<h3>FAQ: How secure is the webserver this app is on?</h3>
+
+I used to host this app on my personal webserver, but didn't like that doing so increased my webserver's
+risk profile substantially.  I've since moved the app into AWS--the HTML, Javascript, and CSS resides in an 
+S3 bucket, and the content is served up via <a href="https://aws.amazon.com/cloudfront/">CloudFront</a> with
+an SSL certificate provided by <a href="https://aws.amazon.com/certificate-manager/">AWS Certificate Manager</a> for free.
+
+
 <h3>FAQ: Why did you change the wordlist?</h3>
 
 </p>
