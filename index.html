@@ -279,6 +279,9 @@ risk profile substantially.  I've since moved the app into AWS--the HTML, Javasc
 S3 bucket, and the content is served up via <a href="https://aws.amazon.com/cloudfront/">CloudFront</a> with
 an SSL certificate provided by <a href="https://aws.amazon.com/certificate-manager/">AWS Certificate Manager</a> for free.
 
+The S3 bucket has <a href="https://aws.amazon.com/cloudtrail/">CloudTrail</a> enabled on it, so that I have
+an audit trail of all actions performed on that bucket.
+
 
 <h3>FAQ: Why did you change the wordlist?</h3>
 
