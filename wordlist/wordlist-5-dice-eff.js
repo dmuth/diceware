@@ -7751,7 +7751,7 @@ var wordlist = [
 	"yield",
 	"yin",
 	"yippee",
-	"yo-yo",
+	"cheetah",
 	"yodel",
 	"yoga",
 	"yogurt",
