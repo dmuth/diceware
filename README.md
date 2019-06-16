@@ -41,13 +41,22 @@ requiring an Internet connection.
 
 This app is built with <a href="https://webpack.js.org/">Webpack</a>.
 
-When done editing `main.js`, the packed file can be built by simply running `webpack` on the command line.
-It will be writing to `dist/bundle.js`.  To run webpack in a mode so that it regularly checks for 
-changed files, run `webpack --watch`.
+When done editing `main.js`, the packed file can be built by simply running `webpack` 
+on the command line.  It will be writing to `dist/bundle.js`.  To run webpack in a 
+mode so that it regularly checks for changed files, run `webpack --watch`.
 
-In a move that departs from Best Practices, I have made the decision to include the packed file in Git.
-My reason for this is that the software will be ready to run as soon as it is checked out (or a ZIP is downloaded),
-and that is a key design feature of this app--I want it to be as easy to get up and running as possible.
+In a move that departs from Best Practices, I have made the decision to include 
+the packed file in Git.  My reason for this is that the software will be ready 
+to run as soon as it is checked out (or a ZIP is downloaded), and that is a key 
+design feature of this app--I want it to be as easy to get up and running as possible.
+
+A local webserver can be set up by running `npm install http-server -g` to install it, then `http-server` to listen on http://localhost:8080/
+
+In summary:
+
+- `webpack --watch`
+- `http-server`
+- `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
 
 
 # Who built this? / Contact
