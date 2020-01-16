@@ -214,7 +214,6 @@ Diceware.rollDiceHandler = function(e) {
 
 	Diceware.rollDiceHanlderPre();
 
-
 	//
 	// Make our dice rolls
 	//
@@ -308,7 +307,11 @@ Diceware.rollDiceHanlderPost = function(rolls, passphrase, num_passwords) {
 		//
 		row.append("<br clear=\"all\" />");
 	
-		rows.push(row);
+		if ("skip_animation" in Diceware.get_data) {
+			console.log("Debug value 'skip_animation' set, not showing the dice!");
+		} else {
+			rows.push(row);
+		}
 
 	}
 
@@ -382,6 +385,11 @@ Diceware.go = function() {
 
 	console.log("Thanks for checking out my code! You can find the Git repo at https://github.com/dmuth/diceware");
 
+	Diceware.get_data = Diceware.extractGetData(location.search);
+	// TEST
+	//if ("skip_animation" in get_data) {
+	console.log("GET Data: " + JSON.stringify(Diceware.get_data)); // Debugging
+
 	//
 	// Handler to mark the clicked number of dice button as active.
 	//
@@ -406,12 +414,10 @@ Diceware.go = function() {
 	}
 
 
-	var get_data = Diceware.extractGetData(location.search);
-
 	var dice = 5;
-	if (get_data["dice"]) {
-		if (get_data["dice"] >= 5 && get_data["dice"] <= 7) {
-			dice = get_data["dice"];
+	if (Diceware.get_data["dice"]) {
+		if (Diceware.get_data["dice"] >= 5 && Diceware.get_data["dice"] <= 7) {
+			dice = Diceware.get_data["dice"];
 			Diceware.num_dice_per_roll = dice;
 		}
 	}
@@ -441,9 +447,9 @@ Diceware.go = function() {
 			//
 			var debug = location.search.indexOf("debug");
 
-			if (get_data["debug"] && get_data["debug"] > 0) {
+			if (Diceware.get_data["debug"] && Diceware.get_data["debug"] > 0) {
 
-				var num = get_data["debug"];
+				var num = Diceware.get_data["debug"];
 				if (num < 2) {
 					num = 2;
 				} else if (num > 8) {
