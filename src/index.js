@@ -386,8 +386,6 @@ Diceware.go = function() {
 	console.log("Thanks for checking out my code! You can find the Git repo at https://github.com/dmuth/diceware");
 
 	Diceware.get_data = Diceware.extractGetData(location.search);
-	// TEST
-	//if ("skip_animation" in get_data) {
 	console.log("GET Data: " + JSON.stringify(Diceware.get_data)); // Debugging
 
 	//
