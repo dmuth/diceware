@@ -58,6 +58,7 @@ In summary:
 - `webpack --watch --mode development` - Pack Javscript files
 - `http-server`
 - `npm test` - Make sure you didn't break any of the core logic!
+- `webpack` - Pack Javscript files in production mode (smaller file but takes longer)
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
 
 
