@@ -383,7 +383,7 @@ Diceware.extractGetData = function(get_data) {
 */
 Diceware.go = function() {
 
-	console.log("Thanks for checking out my code! You can find the Git repo at https://github.com/dmuth/diceware");
+	console.log("Thanks for checking out my code! You can find the Git repo at https://github.com/dmuth/diceware, my blog at https://www.dmuth.org/, or you can bug me on Twitter at https://twitter.com/dmuth");
 
 	Diceware.get_data = Diceware.extractGetData(location.search);
 	console.log("GET Data: " + JSON.stringify(Diceware.get_data)); // Debugging
