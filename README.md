@@ -43,7 +43,7 @@ This app is built with <a href="https://webpack.js.org/">Webpack</a>.
 
 When done editing `main.js`, the packed file can be built by simply running `webpack` 
 on the command line.  It will be writing to `dist/bundle.js`.  To run webpack in a 
-mode so that it regularly checks for changed files, run `webpack --watch`.
+mode so that it regularly checks for changed files, run `webpack --watch --mode development`.
 
 In a move that departs from Best Practices, I have made the decision to include 
 the packed file in Git.  My reason for this is that the software will be ready 
@@ -55,7 +55,7 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 In summary:
 
 - `npm install` - Install NPM packages used by Diceware
-- `webpack --watch` - Pack Javscript files
+- `webpack --watch --mode development` - Pack Javscript files
 - `http-server`
 - `npm test` - Make sure you didn't break any of the core logic!
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
