@@ -1,5 +1,6 @@
 # Diceware
 
+<img src="./dice.jpg" width="250" align="right" />
 Current build/test status in Travis CI: [![Build Status](https://travis-ci.org/dmuth/diceware.svg?branch=master)](https://travis-ci.org/dmuth/diceware)
 
 First, feel free to check out the live demo, running at [https://www.dmuth.org/diceware/](https://www.dmuth.org/diceware/)
