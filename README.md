@@ -22,7 +22,7 @@ For more information on Diceware:
 Yes.  Feel free to clone this repo with `git clone https://github.com/dmuth/diceware.git` and run it
 from a local directory on your computer.
 
-You can also set up a webserver on Mac/Linux boxes by running `python -m SimpleHTTPServer 8000`. 
+You can also set up a webserver on Mac/Linux boxes by running `python3 -m http.server 8000`. 
 You will then able to access DiceWare at http://localhost:8000/.
 
 
