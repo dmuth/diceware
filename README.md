@@ -53,13 +53,21 @@ design feature of this app--I want it to be as easy to get up and running as pos
 
 A local webserver can be set up by running `npm install http-server -g` to install it, then `http-server` to listen on http://localhost:8080/
 
-In summary:
+## In summary:
 
+- `npp run clean` - Cleanup after a previous run
 - `npm install` - Install NPM packages used by Diceware
-- `webpack --watch --mode development` - Pack Javscript files
+- `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
 - `http-server`
 - `npm test` - Make sure you didn't break any of the core logic!
-- `webpack` - Pack Javscript files in production mode (smaller file but takes longer)
+- `npm run build` - Webpack Javscript files in production mode (smaller file but takes longer)
+- `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
+
+
+## In practice:
+
+- `npm run clean; npm run dev-build` - Run webpack in dev mode while working on Javascript
+- `npm run clean; npm run build` - Run webpack in prod mode to produce final Javascript bundle
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
 
 
