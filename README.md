@@ -56,10 +56,10 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 In summary:
 
 - `npm install` - Install NPM packages used by Diceware
-- `webpack --watch --mode development` - Pack Javscript files
+- `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
 - `http-server`
 - `npm test` - Make sure you didn't break any of the core logic!
-- `webpack --mode production` - Pack Javscript files in production mode (smaller file but takes longer)
+- `npm run build` - Webpack Javscript files in production mode (smaller file but takes longer)
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
 
 
