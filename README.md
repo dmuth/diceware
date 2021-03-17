@@ -78,7 +78,7 @@ My name is Douglas Muth, and I am a software engineer in Philadelphia, PA.
 There are several ways to get in touch with me:
 - Email to doug.muth AT gmail DOT com or dmuth AT dmuth DOT org
 - [Facebook](https://facebook.com/dmuth) and [Twitter](http://twitter.com/dmuth)
-- [LinkedIn](http://localhost:8080/www.linkedin.com/in/dmuth)
+- [LinkedIn](https://linkedin.com/in/dmuth)
 
 Feel free to reach out to me if you have any comments, suggestions, or bug reports.
 
