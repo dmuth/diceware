@@ -175,7 +175,7 @@ Diceware.is_mobile = function() {
 /**
 * Do some preliminary work, such as clearing out results and scrolling.
 */
-Diceware.rollDiceHanlderPre = function() {
+Diceware.rollDiceHandlerPre = function() {
 
 	//
 	// Clear out more space when mobile
@@ -212,7 +212,7 @@ Diceware.rollDiceHanlderPre = function() {
 */
 Diceware.rollDiceHandler = function(e) {
 
-	Diceware.rollDiceHanlderPre();
+	Diceware.rollDiceHandlerPre();
 
 	//
 	// Make our dice rolls
@@ -250,7 +250,7 @@ Diceware.rollDiceHandler = function(e) {
 	
 		});
 
-		Diceware.rollDiceHanlderPost(rolls, passphrase, num_passwords);
+		Diceware.rollDiceHandlerPost(rolls, passphrase, num_passwords);
 
 	});
 
@@ -260,7 +260,7 @@ Diceware.rollDiceHandler = function(e) {
 /**
 * Our post work, of displaying the results of our dice rolls.
 */
-Diceware.rollDiceHanlderPost = function(rolls, passphrase, num_passwords) {
+Diceware.rollDiceHandlerPost = function(rolls, passphrase, num_passwords) {
 
 	//
 	// Populate our results by cloning the hidden base rows which 
