@@ -61,6 +61,7 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 - `http-server`
 - `vim src/lib.js src/index.js`
 - `rm -fv src/index.js && git co src/index.js` - Get the new SHA1 hash that will be displayed in debug messages.
+   - The hash can be crosschecked with the results of `git hash-object src/index.js`
 - `npm test` - Make sure you didn't break any of the core logic!
 - `npm run build` - Webpack Javscript files in production mode (smaller file but takes longer)
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
