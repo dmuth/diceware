@@ -67,6 +67,7 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 ## In practice:
 
 - `npm run clean; npm run dev-build` - Run webpack in dev mode while working on Javascript
+   - `http-server` - Stand up a local HTTP server
 - `npm run clean; npm run build` - Run webpack in prod mode to produce final Javascript bundle
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
 
