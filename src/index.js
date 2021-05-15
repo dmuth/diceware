@@ -212,6 +212,11 @@ Diceware.rollDiceHandlerPre = function() {
 */
 Diceware.rollDiceHandler = function(e) {
 
+	//
+	// Disable our button while generating results
+	//
+	jQuery("#roll_dice").prop("disabled", true);
+
 	Diceware.rollDiceHandlerPre();
 
 	//
@@ -335,12 +340,20 @@ Diceware.rollDiceHandlerPost = function(rolls, passphrase, num_passwords) {
 		//
 		var height = jQuery(".results").height();
 		jQuery(".results").css("height", "auto");
+
 		var new_height = jQuery(".results").height();
 		jQuery(".results").height(height);
 		jQuery(".results").animate({height: new_height}, 400);
+
+		//
+		// All done with our results, re-enable the button!
+		//
+		jQuery("#roll_dice").prop("disabled", false);
+
 		});
 
 	});
+
 
 } // End of rollDiceHandlerPost()
 
