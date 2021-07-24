@@ -175,7 +175,7 @@ Diceware.is_mobile = function() {
 /**
 * Do some preliminary work, such as clearing out results and scrolling.
 */
-Diceware.rollDiceHanlderPre = function() {
+Diceware.rollDiceHandlerPre = function() {
 
 	//
 	// Clear out more space when mobile
@@ -212,7 +212,12 @@ Diceware.rollDiceHanlderPre = function() {
 */
 Diceware.rollDiceHandler = function(e) {
 
-	Diceware.rollDiceHanlderPre();
+	//
+	// Disable our button while generating results
+	//
+	jQuery("#roll_dice").prop("disabled", true);
+
+	Diceware.rollDiceHandlerPre();
 
 	//
 	// Make our dice rolls
@@ -250,7 +255,7 @@ Diceware.rollDiceHandler = function(e) {
 	
 		});
 
-		Diceware.rollDiceHanlderPost(rolls, passphrase, num_passwords);
+		Diceware.rollDiceHandlerPost(rolls, passphrase, num_passwords);
 
 	});
 
@@ -260,7 +265,7 @@ Diceware.rollDiceHandler = function(e) {
 /**
 * Our post work, of displaying the results of our dice rolls.
 */
-Diceware.rollDiceHanlderPost = function(rolls, passphrase, num_passwords) {
+Diceware.rollDiceHandlerPost = function(rolls, passphrase, num_passwords) {
 
 	//
 	// Populate our results by cloning the hidden base rows which 
@@ -335,12 +340,20 @@ Diceware.rollDiceHanlderPost = function(rolls, passphrase, num_passwords) {
 		//
 		var height = jQuery(".results").height();
 		jQuery(".results").css("height", "auto");
+
 		var new_height = jQuery(".results").height();
 		jQuery(".results").height(height);
 		jQuery(".results").animate({height: new_height}, 400);
+
+		//
+		// All done with our results, re-enable the button!
+		//
+		jQuery("#roll_dice").prop("disabled", false);
+
 		});
 
 	});
+
 
 } // End of rollDiceHandlerPost()
 
@@ -384,6 +397,8 @@ Diceware.extractGetData = function(get_data) {
 Diceware.go = function() {
 
 	console.log("Thanks for checking out my code! You can find the Git repo at https://github.com/dmuth/diceware, my blog at https://www.dmuth.org/, or you can bug me on Twitter at https://twitter.com/dmuth");
+
+	console.log("TEST2: $Id$");
 
 	Diceware.get_data = Diceware.extractGetData(location.search);
 	console.log("GET Data: " + JSON.stringify(Diceware.get_data)); // Debugging

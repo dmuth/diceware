@@ -1,8 +1,9 @@
 # Diceware
 
-Current build/test status in Travis CI: [![Build Status](https://travis-ci.org/dmuth/diceware.svg?branch=master)](https://travis-ci.org/dmuth/diceware)
+<img src="./dice.jpg" width="250" align="right" />
+Current build/test status in Travis CI: [![Build Status](https://travis-ci.org/dmuth/diceware.svg?branch=main)](https://travis-ci.org/dmuth/diceware)
 
-First, feel free to check out the live demo, running at [https://www.dmuth.org/diceware/](https://www.dmuth.org/diceware/)
+First, feel free to check out the live demo, running at [https://diceware.dmuth.org/](https://diceware.dmuth.org/)
 
 Weak passwords are a big flaw in computer security due to a lack of "entropy" or randomness. For example, how many times have you used the name of a pet or relative or street in a password, or perhaps the number "1". Not very random, is it? :-) Worse still, if passwords are reused between services, that increases your security risk.
 
@@ -21,7 +22,7 @@ For more information on Diceware:
 Yes.  Feel free to clone this repo with `git clone https://github.com/dmuth/diceware.git` and run it
 from a local directory on your computer.
 
-You can also set up a webserver on Mac/Linux boxes by running `python -m SimpleHTTPServer 8000`. 
+You can also set up a webserver on Mac/Linux boxes by running `python3 -m http.server 8000`. 
 You will then able to access DiceWare at http://localhost:8000/.
 
 
@@ -52,13 +53,26 @@ design feature of this app--I want it to be as easy to get up and running as pos
 
 A local webserver can be set up by running `npm install http-server -g` to install it, then `http-server` to listen on http://localhost:8080/
 
-In summary:
+## In summary:
 
+- `npp run clean` - Cleanup after a previous run
 - `npm install` - Install NPM packages used by Diceware
-- `webpack --watch --mode development` - Pack Javscript files
+- `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
 - `http-server`
+- `vim src/lib.js src/index.js`
+- `rm -fv src/index.js && git co src/index.js` - Get the new SHA1 hash that will be displayed in debug messages.
 - `npm test` - Make sure you didn't break any of the core logic!
-- `webpack` - Pack Javscript files in production mode (smaller file but takes longer)
+- `npm run build` - Webpack Javscript files in production mode (smaller file but takes longer)
+- `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
+
+
+## In practice:
+
+- `npm run clean; npm run dev-build` - Run webpack in dev mode while working on Javascript
+   - `http-server` - Stand up a local HTTP server
+   - `vim src/lib.js src/index.js`
+   - `rm -fv src/index.js && git co src/index.js`
+- `npm run clean; npm run build` - Run webpack in prod mode to produce final Javascript bundle
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
 
 
@@ -69,7 +83,7 @@ My name is Douglas Muth, and I am a software engineer in Philadelphia, PA.
 There are several ways to get in touch with me:
 - Email to doug.muth AT gmail DOT com or dmuth AT dmuth DOT org
 - [Facebook](https://facebook.com/dmuth) and [Twitter](http://twitter.com/dmuth)
-- [LinkedIn](http://localhost:8080/www.linkedin.com/in/dmuth)
+- [LinkedIn](https://linkedin.com/in/dmuth)
 
 Feel free to reach out to me if you have any comments, suggestions, or bug reports.
 
