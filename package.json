@@ -10,7 +10,8 @@
     "test": "mocha ./tests/test.js",
     "clean": "rm -rfv dist/*bundle.js* node_modules package-lock.json",
     "build": "npm install; webpack --mode production",
-    "dev-build": "npm install; webpack --watch --mode development"
+    "dev-build": "npm install; webpack --watch --mode development",
+    "release-build": "rm -fv diceware.zip; pushd .. > /dev/null; zip -r diceware.zip diceware/; popd > /dev/null; mv ../diceware.zip ."
   },
   "repository": {
     "type": "git",

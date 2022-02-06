@@ -19,11 +19,12 @@ For more information on Diceware:
 
 # Can I run this on my own computer without using your website?
 
-Yes.  Feel free to clone this repo with `git clone https://github.com/dmuth/diceware.git` and run it
-from a local directory on your computer.
+Yes!  Go to https://github.com/dmuth/diceware/releases and download the latest `diceware.zip` file.
+When you unzip that file, the contents will be written to a directory called `diceware/`.  You 
+can then point a webserver on your machine to `diceware/index.html` in order to use Diceware.
 
-You can also set up a webserver on Mac/Linux boxes by running `python3 -m http.server 8000`. 
-You will then able to access DiceWare at http://localhost:8000/.
+Sadly, you cannot open `diceware/index.html` directly, as the CORS policy in Chrome prevents that.
+If you know of a way to fix that, please [open an issue](https://github.com/dmuth/diceware/issues). :-)
 
 
 # Will this work on an iPhone?
@@ -75,6 +76,12 @@ A local webserver can be set up by running `npm install http-server -g` to insta
    - `rm -fv src/index.js && git co src/index.js`
 - `npm run clean; npm run build` - Run webpack in prod mode to produce final Javascript bundle
 - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
+
+
+### Releasing a New Build
+
+- `npm run release-build` to create the ZIP file `diceware.zip` with all assets in it, including `bundle.js` and the contents of `node_modules/`.
+- `gh release create v1.0.0` to upload a release to https://github.com/dmuth/diceware/releases.  Change the tag for the version number accordingly.
 
 
 # Who built this? / Contact
