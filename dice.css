@@ -46,3 +46,9 @@
     margin: 38px 0 0 65px;
 }
 
+.responsive {
+	width: 100%;
+	max-width: 740px;
+	height: auto;
+}
+
