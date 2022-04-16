@@ -445,7 +445,7 @@ Diceware.go = function() {
 		file = "wordlist-" + dice + "-dice-eff.js";
 	}
 
-	var js = "./wordlist/" + file;
+	var js = "./assets/wordlist/" + file;
 	console.log("Looks like we're loading '" + js + "'!");
 
 	//
