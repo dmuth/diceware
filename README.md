@@ -1,6 +1,6 @@
 # Diceware
 
-<img src="./img/dice.jpg" width="250" align="right" />
+<img src="./assets/img/dice.jpg" width="250" align="right" />
 
 Feel free to check out the live version at [https://diceware.dmuth.org/](https://diceware.dmuth.org/)
 
