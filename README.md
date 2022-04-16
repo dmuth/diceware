@@ -60,6 +60,7 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 - `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
 - `http-server`
 - `vim src/lib.js src/index.js`
+   - Be sure to check in your changes before the next step!
 - `rm -fv src/index.js && git co src/index.js` - Get the new SHA1 hash that will be displayed in debug messages.
    - The hash can be crosschecked with the results of `git hash-object src/index.js`
 - `npm test` - Make sure you didn't break any of the core logic!
