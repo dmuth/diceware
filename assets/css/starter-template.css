@@ -24,3 +24,8 @@ body {
 	margin-top: 0px;
 }
 
+.main {
+    /* No idea why this defaulted to 14, but I'm fixing it here. */
+    font-size: 16px;
+}
+
