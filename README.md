@@ -55,7 +55,7 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 
 ## In summary:
 
-- `npp run clean` - Cleanup after a previous run
+- `npm run clean` - Cleanup after a previous run
 - `npm install` - Install NPM packages used by Diceware
 - `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
 - `http-server`
