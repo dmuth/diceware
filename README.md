@@ -55,17 +55,22 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 
 ## In summary:
 
-- `npm run clean` - Cleanup after a previous run
-- `npm install` - Install NPM packages used by Diceware
-- `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
-- `http-server`
-- `vim src/lib.js src/index.js`
-   - Be sure to check in your changes before the next step!
-- `rm -fv src/index.js && git co src/index.js` - Get the new SHA1 hash that will be displayed in debug messages.
-   - The hash can be crosschecked with the results of `git hash-object src/index.js`
-- `npm test` - Make sure you didn't break any of the core logic!
-- `npm run build` - Webpack Javscript files in production mode (smaller file but takes longer)
-- `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
+- Development
+    - `npm run clean` - Cleanup after a previous run
+    - `npm install` - Install NPM packages used by Diceware
+    - `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
+    - `http-server`
+    - `vim src/lib.js src/index.js`
+        - Be sure to check in your changes before the next step!
+- Testing
+    - `rm -fv src/index.js && git co src/index.js` - Get the new SHA1 hash that will be displayed in debug messages.
+        - The hash can be crosschecked with the results of `git hash-object src/index.js`
+    - `npm test` - Make sure you didn't break any of the core logic!
+    - `npx cypress run` - Run front-end testing
+        - If the tests break, run `npx cypress open` to run tests interactively.
+- Deployment
+    - `npm run build` - Webpack Javscript files in production mode (smaller file but takes longer)
+    - `./go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
 
 
 ## In practice:
@@ -81,7 +86,9 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 ### Releasing a New Build
 
 - `npm run release-build` to create the ZIP file `diceware.zip` with all assets in it, including `bundle.js` and the contents of `node_modules/`.
-- `gh release create v1.0.0` to upload a release to https://github.com/dmuth/diceware/releases.  Change the tag for the version number accordingly.
+- `gh release create v1.0.1` to upload a release to https://github.com/dmuth/diceware/releases.  
+    - Change the tag for the version number accordingly.
+- `gh release upload v1.0.1 diceware.zip` to upload the ZIP file containing everything
 
 
 # Who built this? / Contact

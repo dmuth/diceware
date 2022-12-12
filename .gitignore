@@ -8,3 +8,7 @@ dist/bundle.js
 
 diceware.zip
 
+# Don't check in videos of unit tests
+cypress/videos/
+
+

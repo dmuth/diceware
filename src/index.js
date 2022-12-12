@@ -255,6 +255,13 @@ Diceware.rollDiceHandler = function(e) {
 	
 		});
 
+        //
+        // Store the number of dice rolled in a data attribute for 
+        // inspection by Cypress or another test.
+        //
+        var results_num_dice = jQuery("#results-num-dice");
+        results_num_dice.text(num_dice);
+
 		Diceware.rollDiceHandlerPost(rolls, passphrase, num_passwords);
 
 	});
