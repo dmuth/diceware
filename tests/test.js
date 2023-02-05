@@ -1,5 +1,4 @@
 
-var assert = require('assert');
 var should = require('should');
 
 var Promise = require("bluebird");
@@ -170,16 +169,31 @@ describe("Diceware", function() {
 		});
 	});
 
+	describe("convertBigNumberToString()", function() {
+		it("Please pass", function() {
+
+            diceware.convertBigNumberToString(6 * Math.pow(10, 6)).should.equal("6 million");
+            diceware.convertBigNumberToString(60 * Math.pow(10, 9)).should.equal("60 billion");
+            diceware.convertBigNumberToString(600 * Math.pow(10, 12)).should.equal("600 trillion");
+            diceware.convertBigNumberToString(1 * Math.pow(10, 15)).should.equal("1 quadrillion");
+            diceware.convertBigNumberToString(123 * Math.pow(10, 18)).should.equal("123 quintillion");
+
+            diceware.convertBigNumberToString(6e+6).should.equal("6 million");
+            diceware.convertBigNumberToString(50E+9).should.equal("50 billion");
+
+            diceware.convertBigNumberToString("7e+6").should.equal("7 million");
+            diceware.convertBigNumberToString("51E+9").should.equal("51 billion");
+            diceware.convertBigNumberToString("512E+18").should.equal("512 quintillion");
+            diceware.convertBigNumberToString("513E+21").should.equal("513 sextillion");
+            diceware.convertBigNumberToString("514E+24").should.equal("514 septillion");
+            diceware.convertBigNumberToString("515E+27").should.equal("515 octillion");
+            diceware.convertBigNumberToString("516E+30").should.equal("516 nonillion");
+
+        });
+
+    });
+
 
 });
 
-
-/*
-TEST/TODO: Things to refactor:
-X Diceware.getRandomValue
-X Diceware.getBase6
-X Diceware.convertBase6ToDice
-- Diceware.getNumValuesFromNumDice
-- Diceware.rollDice(1).roll.length
-*/
 
