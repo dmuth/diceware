@@ -57,7 +57,7 @@ Diceware.get_word = function(wordlist, index) {
 Diceware.display_row = function(rows, cb, in_fadein_duration, in_fadeout_delay) {
 
 	var fadein_duration = in_fadein_duration || 250;
-	var fadeout_delay = in_fadeout_delay || 750;
+	var fadeout_delay = in_fadeout_delay || 400;
 
 	if (rows.length) {
 		//
@@ -89,7 +89,7 @@ Diceware.display_row = function(rows, cb, in_fadein_duration, in_fadeout_delay) 
 			// (I know I did when rolling 8 dice!)
 			//
 			fadein_duration -= 25;
-			fadeout_delay -= 50;
+			//fadeout_delay -= 50;
 
 			//
 			// Now fade out the entire row, and call ourselves again
@@ -249,6 +249,7 @@ Diceware.rollDiceHandler = function(e) {
 
 			var roll = {};
 			roll.dice = row;
+            //console.log("Debug Dice Roll", JSON.stringify(roll.dice)); // Debugging
 			roll.word = Diceware.get_word(wordlist, roll.dice.value);
 			rolls.push(roll);
 			passphrase.push(roll.word);
@@ -288,8 +289,10 @@ Diceware.rollDiceHandlerPost = function(rolls, passphrase, num_passwords) {
 	// Convert the number of passwords to something based on the 
 	// locale and then add in <wbr> tags so they too will wrap.
 	//
-	num_passwords_html = num_passwords.toLocaleString("en");
+    num_passwords = convertBigNumberToString(num_passwords);
+	num_passwords_html = num_passwords.toLocaleString("fullwide");
 	num_passwords_html = num_passwords_html.replace(/,/g, ",<wbr>");
+
 	jQuery(".results_num_possible_value").html(num_passwords_html);
 
 	var rows = new Array();

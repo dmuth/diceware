@@ -213,3 +213,60 @@ module.exports.rollDice = rollDice = function(num_dice) {
 } // End of rollDice()
 
 
+/**
+* Convert a big number to a string for readability.
+*/
+module.exports.convertBigNumberToString = convertBigNumberToString = function(bignum) {
+
+    //
+    // Default to what we passed in, in case we don't get a match.
+    //
+    let retval = bignum
+
+    let bigstring = Number(bignum).toLocaleString("fullwide", {useGrouping: false});
+
+    let len = bigstring.length;
+
+    if (len >= 31) {
+        let remainder = bigstring.slice(0, -30);
+        retval = `${remainder} nonillion`
+
+    } else if (len >= 28) {
+        let remainder = bigstring.slice(0, -27);
+        retval = `${remainder} octillion`
+
+    } else if (len >= 25) {
+        let remainder = bigstring.slice(0, -24);
+        retval = `${remainder} septillion`
+
+    } else if (len >= 22) {
+        let remainder = bigstring.slice(0, -21);
+        retval = `${remainder} sextillion`
+
+    } else if (len >= 19) {
+        let remainder = bigstring.slice(0, -18);
+        retval = `${remainder} quintillion`
+
+    } else if (len >= 16) {
+        let remainder = bigstring.slice(0, -15);
+        retval = `${remainder} quadrillion`
+
+    } else if (len >= 13) {
+        let remainder = bigstring.slice(0, -12);
+        retval = `${remainder} trillion`
+
+    } else if (len >= 10) {
+        let remainder = bigstring.slice(0, -9);
+        retval = `${remainder} billion`
+
+    } else if (len >= 7) {
+        let remainder = bigstring.slice(0, -6);
+        retval = `${remainder} million`
+
+    }
+
+    return(retval);
+
+} // End of convertBigNumberToString()
+
+
