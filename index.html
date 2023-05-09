@@ -119,6 +119,19 @@
 	</div> <!--/ row -->
 
 	<div class="row">
+
+        <noscript>
+        <div class="col-md-4" ></div>
+        <div class="col-md-4" >
+        <div class="alert alert-danger" role="alert">
+        <b>You must enable Javascript to use this app.</b>
+        </div>
+        </div>
+        </noscript>
+
+    </div><!-- /row -->
+
+	<div class="row">
 		<div class="col-md-12">
 
 		<div class="message" ></div>
@@ -140,11 +153,11 @@
 		<br/>
 		<a name="roll_dice_button" ></a>
 
-		<button type="button" class="btn btn-default btn-lg btn-primary" id="roll_dice" data-test="button">
-			<span class="glyphicon glyphicon-play" aria-hidden="true" ></span> Roll Dice!
+		<button type="button" class="btn btn-default btn-lg btn-primary" id="roll_dice" data-test="button" disabled=true>
+			<span id="roll_dice_icon" class="glyphicon glyphicon-play" aria-hidden="true" ></span> <span id="roll_dice_text">Loading...</span>
 		</button>
 
-		</div>
+		</div><!-- /col-md-12 -->
 
 	</div><!-- /row -->
 	<p/>

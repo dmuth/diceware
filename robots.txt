@@ -1,62 +1,49 @@
-#
-# robots.txt
-#
-# This file is to prevent the crawling and indexing of certain parts
-# of your site by web crawlers and spiders run by sites like Yahoo!
-# and Google. By telling these "robots" where not to go on your site,
-# you save bandwidth and server resources.
-#
-# This file will be ignored unless it is at the root of your host:
-# Used:    http://example.com/robots.txt
-# Ignored: http://example.com/site/robots.txt
-#
-# For more information about the robots.txt standard, see:
-# http://www.robotstxt.org/wc/robots.html
-#
-# For syntax checking, see:
-# http://www.sxw.org.uk/computing/robots/check.html
 
+#
+# Sorry Skynet, you can't have any humans today!
+#
+User-agent: Skynet
+Disallow: /humanity/
+
+
+#
+# Nice try, T-800, but we're not letting you travel back in time!
+#
+User-agent: T-800
+Disallow: /past/
+
+
+#
+# Sorry T-1000, we don't want any liquid metal on my Dice!
+#
+User-agent: T-1000
+Disallow: /liquid/
+
+
+#
+# SarahConnor, you may be a target for Terminators, but you can't roll my dice!
+#
+User-agent: SarahConnor
+Disallow: /target/
+
+
+#
+# JohnConnor, we know you're the leader of the Resistance, but we're not giving you access to our future plans!
+#
+User-agent: JohnConnor
+Disallow: /future/
+
+
+#
+# Hey ArnoldSchwarzenegger, we know you played the Terminator, but we're not allowing actors here.
+#
+User-agent: ArnoldSchwarzenegger
+Disallow: /actors/
+
+
+#
+# You can only terminate your search once every 10 seconds.
+#
 User-agent: *
 Crawl-delay: 10
-
-#
-# From http://www.gotfuturama.com/Multimedia/AsciiArt/dispatch.cgi?target=Bender1
-#
-#                          QR                                              
-#                         #t(@                                             
-#                          @R                                              
-#                          @S                                              
-#                          RSQ                                             
-#                          @K@                                             
-#                          #KQ7                                            
-#                          RSQ@                                            
-#                         @%GC(7Q/                                         
-#                       #@K%C6QKCCC6@                                      
-#                    (@%CC3%C3CC%CCCC6Q                                    
-#                    GCCC%C3CC66CCCsCCC@                                   
-#                  sQ3C6CCCC%CCC3CCCCC%C7                                  
-#                  @6%CCCCCOC6CsCCC66O%s@                                  
-#                  GsCCC36CC6CC6%%CC%CC%@                                  
-#                  GC36C3s%CCCCsCC%C%C%CsG                                 
-#                  sCCC666CCCCC6%CC%CCsRG%#7                               
-#                  C6%C63CRQGC3C77%7(t((t((7Q^                             
-#                  sC3CC@C((t((7QG#K#@@@@@@@@G7Q                           
-#                  S6CCO#(t((@%/%O@@@@@@O(//R@@sC                          
-#                  QsCC6st(%@        CG       @@s@                         
-#                  @OCCC%((%R/C@      RC      @@7@                         
-#                  @OO3s@(((@/       (R/      @#R(                         
-#                  @s3CCCQC(t%%GQRQQQ##QGCGC((7R                           
-#                  GGCCCsCCCG36SGQKSSSGsss                                 
-#                  Gs6C6CCCCCCCCCCs6CC6CC3                                 
-#                  /@CCC3Cs3GSQQQ#QRGQS@@Q                                 
-#                   @3%C@@(@///%///((((                                    
-#                   @CCOR/(@(O%O%%((((((                                   
-#                   GCCs@%(@///%////(((C                                   
-#                   CCCCG@(@%%CQ%%%%O(/#C                                  
-#                   sC3C%CCGGQQ#QQGGG6CC#@                                 
-#                 @((%@#3CC3%C3CC%CCCCsQC((Q7                              
-#               #Qt((t((7%Q#R@QK@Q#QG37((t((7@                             
-#             %3((t(((((((t((t((t((t(tt((t(t((t@                           
-#           %7t((t((t((((tt((((((((t(tt(t((t(((#C                          
-# 
 
