@@ -16,3 +16,4 @@ COPY --from=builder /tmp/diceware/index.html /usr/share/nginx/html/index.html
 COPY --from=builder /tmp/diceware/robots.txt /usr/share/nginx/html/robots.txt
 
 RUN chmod -R a+rX /usr/share/nginx/html
+
