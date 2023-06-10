@@ -91,6 +91,16 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 - `gh release upload v1.0.1 diceware.zip` to upload the ZIP file containing everything
 
 
+## Development In Docker
+
+Wanna develop in Docker?  We got you covered.  Here are some helper scripts:
+
+- `bin/docker-build.sh` - Build the Docker copntainer
+- `bin/docker-dev.sh` - Run in dev mode--listening on http://localhost:8000/
+- `bin/docker-prod.sh` - Run in prod mode--listening on http://localhost:80/
+- `bin/docker-push.sh` - Push to Docker Hub
+
+
 # Who built this? / Contact
 
 My name is Douglas Muth, and I am a software engineer in Philadelphia, PA.
