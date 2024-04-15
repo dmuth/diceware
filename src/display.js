@@ -147,7 +147,6 @@ function results(cb) {
 
 	jQuery(".results_phrase_key").hide().clone().appendTo(".results");
 	jQuery(".results_phrase_value").hide().clone().appendTo(".results");
-    jQuery(".results_phrase_value").append("1");
 	jQuery(".results").append("<br clear=\"all\" />");
 
 	jQuery(".results_num_possible_key").hide().clone().appendTo(".results");
