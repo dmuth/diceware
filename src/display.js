@@ -251,7 +251,7 @@ function rollDiceHandler(e) {
             let roll = {};
             roll.dice = row;
             // console.log("Debug Dice Roll", JSON.stringify(roll.dice)); // Debugging
-            if (count === (Number(num_dice) - 1)) {
+            if ($('input#include-number').is(':checked') && count === (Number(num_dice) - 1)) {
                 roll.word = String(Number(roll.dice.value) % 10)
                 rolls.push(roll);
                 passphrase.push(roll.word);
