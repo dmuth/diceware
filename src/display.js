@@ -223,9 +223,9 @@ function rollDiceHandler(e) {
     //
     let num_dice = jQuery(".dice_button.active").html();
     console.log(`Rolling ${num_dice} dice...`);
-    let num_passwords = $('input#include-number').is(':checked') ? 
-        Number(Math.pow(6, (window.Diceware.num_dice_per_roll * (num_dice - 1)))) * 10 : 
-        Number(Math.pow(6, (window.Diceware.num_dice_per_roll * num_dice)));
+    let num_dice_for_digits = $('input#include-number').is(':checked') ? 1 : 0;
+    let num_dice_for_words = Number(num_dice) - num_dice_for_digits;
+    let num_passwords = Number(Math.pow(6, (window.Diceware.num_dice_per_roll * num_dice_for_words))) * Number(Math.pow(10, num_dice_for_digits));
     let passphrase = new Array();
     let rolls = new Array();
 
