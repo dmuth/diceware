@@ -11,6 +11,8 @@ module.exports = function(arg) {
     //
     return({
         rollDice: rollDice,
+        getBase6: getBase6,
+        convertBase6ToDice: convertBase6ToDice,
     });
 
 }
