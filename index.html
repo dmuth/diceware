@@ -350,20 +350,20 @@ For rolls of 5 dice, I am now using <a href="https://www.eff.org/deeplinks/2016/
 
 <p>
 I started off using <a href="http://world.std.com/~reinhold/diceware.wordlist.asc">the original wordlist</a>,
-but it contained a lot of symbols, punctuation, numbers, and 2 and 3 letter words.  I wanted to try a different
-wordlist with longer words, no non-alphabetic characters, and words more commonly used.  So then I tried
-<a href="http://norvig.com/ngrams/">Peter Norvig's</a> list of <a href="http://norvig.com/ngrams/count_1w.txt"
-		>the 1/3rd million most frequently used words</a>.
+but it contained a lot of symbols, punctuation, numbers, and 2 and 3 letter words that felt made
+the passwords it generated <em>more</em> difficult to remember.
+
 </p>
 
 <h3>FAQ: How many dice are rolled per word?</h3>
 
-The default is 5 dice, which allows for 7,776 different words per roll.  While I have some debug hooks
-in the code so that you can run Diceware with <a href="?dice=6">6 dice per word</a> and 
-<a href="?dice=7">7 dice per word</a> (for 46,655 and 279,935 possible words, respectively), the words
-used become more obscure, which makes them more difficult to remember, so I'm not entirely sure that is a good thing.
-But for now, the functionality is there, if there is a desire for it.
+<p>
+The default is 5 dice, which allows for 7,776 different words per roll.  
 
+I used to have functionality for 6 and 7 dice per word, that involved longer wordlists
+and the words became increasingly obscure.  I decided to remove that functionality because
+I felt it made the product harder to use and <em>less</em> accessible to the typical user.
+</p>
 
 <h3>FAQ: Is Air-gapped Operation Supported?</h3>
 
