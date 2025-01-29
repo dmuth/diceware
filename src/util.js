@@ -1,5 +1,3 @@
-
-
 let Promise = require("bluebird");
 
 module.exports = function(arg) {
@@ -11,6 +9,7 @@ module.exports = function(arg) {
         is_mobile: is_mobile,
         get_word: get_word,
         extract_get_data: extract_get_data,
+        copyToClipboard: copyToClipboard,
     });
 
 }
@@ -89,6 +88,30 @@ function extract_get_data(get_data) {
 	return(retval);
 
 } // End of extractGetData()
+
+/**
+* Copy text to clipboard and provide visual feedback
+*
+* @param {string} text The text to copy
+* @return {Promise} Resolves when copying is complete
+*/
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const $copyBtn = $('.copy-button');
+    const originalText = $copyBtn.html();
+    
+    $copyBtn
+      .html('<span class="glyphicon glyphicon-ok"></span> Copied!')
+      .fadeIn();
+    
+    setTimeout(() => {
+      $copyBtn.html(originalText);
+    }, 5000);
+  } catch (err) {
+    console.error('Failed to copy text:', err);
+  }
+}
 
 
 
