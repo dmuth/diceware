@@ -34,7 +34,6 @@ window.Diceware.num_dice_per_roll = 5;
 * Set the handlers 
 */
 function set_handlers() {
-
 	//
 	// Handler to mark the clicked number of dice button as active.
 	//
@@ -44,6 +43,21 @@ function set_handlers() {
 	});
 
 	jQuery("#roll_dice").on("click", display.rollDiceHandler);
+
+	// Use event delegation for copy button
+	console.log("Setting up copy button handler...");
+	jQuery(document).on("click", ".copy-button", async function() {
+		console.log("Copy button clicked!");
+		const passphrase = jQuery('.results .results_phrase_value').text();
+		console.log("Passphrase from the element: " + passphrase);
+		try {
+			await util.copyToClipboard(passphrase);
+			console.log("Done copying!");
+		} catch (err) {
+			console.error('Failed to copy:', err);
+		}
+	});
+	console.log("Copy button handler setup complete");
 
 } // End of set_handlers()
 
