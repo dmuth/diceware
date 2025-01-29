@@ -17,22 +17,17 @@ body {
 }
 
 .results_value {
-  font-size: 1.1em;
   margin-bottom: 8px;
-  color: #444;
+  font-size: 1.2em;
+  color: #666;
 }
 
 /* The individual words shown with dice rolls */
 .dice_word {
-  font-size: 1em;
+  font-size: 2em;
   color: #666;
 }
 
-/* The words list (before the passphrase) */
-.results_words_value {
-  font-size: 1.2em;
-  color: #666;
-}
 
 /* Passphrase styling */
 .passphrase_box {
@@ -55,19 +50,25 @@ body {
 
 /* Stats and copy button */
 .stats_container {
-  font-size: 0.85em;
-  color: #666;
+  color: #444;
   margin-top: 12px;
   display: flex;
   justify-content: center;
-  gap: 4px;
+  gap: 8px;
 }
 
-.stats_container .results_label,
-.stats_container .results_value {
+.stats_container .results_label {
   font-size: 0.85em;
-  margin: 0;
-  display: inline;
+  color: #666;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats_container .results_value {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  color: #444;
 }
 
 .copy_button_container {
@@ -123,7 +124,7 @@ body {
     line-height: 1.4;
   }
   
-  .results_words_value {
+  .results_value {
     font-size: 1.2em;
   }
 }
@@ -135,7 +136,7 @@ body {
     padding: 10px;
   }
   
-  .results_words_value {
+  .results_value {
     font-size: 1em;	
   }
 }
