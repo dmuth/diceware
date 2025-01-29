@@ -107,7 +107,7 @@ async function copyToClipboard(text) {
     
     setTimeout(() => {
       $copyBtn.html(originalText);
-    }, 2000);
+    }, 5000);
   } catch (err) {
     console.error('Failed to copy text:', err);
   }
