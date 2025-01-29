@@ -96,13 +96,21 @@ function extract_get_data(get_data) {
 * @return {Promise} Resolves when copying is complete
 */
 async function copyToClipboard(text) {
-  await navigator.clipboard.writeText(text);
-  const copyBtn = document.querySelector('.copy-button');
-  const originalText = copyBtn.innerHTML;
-  copyBtn.innerHTML = '<span class="glyphicon glyphicon-ok"></span> Copied!';
-  setTimeout(() => {
-    copyBtn.innerHTML = originalText;
-  }, 2000);
+  try {
+    await navigator.clipboard.writeText(text);
+    const $copyBtn = $('.copy-button');
+    const originalText = $copyBtn.html();
+    
+    $copyBtn
+      .html('<span class="glyphicon glyphicon-ok"></span> Copied!')
+      .fadeIn();
+    
+    setTimeout(() => {
+      $copyBtn.html(originalText);
+    }, 2000);
+  } catch (err) {
+    console.error('Failed to copy text:', err);
+  }
 }
 
 
