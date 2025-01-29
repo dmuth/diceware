@@ -7,25 +7,136 @@ body {
   text-align: center;
 }
 
-.results_words_key, .results_words_value, 
-	.results_phrase_key, .results_phrase_value,
-	.results_num_possible_key, .results_num_possible_value,
-	.dice_word
-	{
-	font-size: x-large;
+/* Results formatting */
+.results_label {
+  font-size: 0.85em;
+  color: #666;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+.results_value {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+/* The individual words shown with dice rolls */
+.dice_word {
+  font-size: 1em;
+  color: #666;
+}
+
+/* The words list (before the passphrase) */
+.results_words_value {
+  font-size: 1.2em;
+  color: #666;
+}
+
+/* Passphrase styling */
+.passphrase_box {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 24px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.passphrase_text {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2em;
+  font-weight: 500;
+  color: #2c3e50;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+/* Stats and copy button */
+.stats_container {
+  font-size: 0.85em;
+  color: #666;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.stats_container .results_label,
+.stats_container .results_value {
+  font-size: 0.85em;
+  margin: 0;
+  display: inline;
+}
+
+.copy_button_container {
+  margin-top: 12px;
+}
+
+.copy-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: #f8f9fa;
+  border-color: #ced4da;
+}
+
+/* Button styling */
 .btn.dice_button {
-	margin-left: 5px;
-	margin-bottom: 5px;
+  margin: 4px;
+  border-radius: 4px;
 }
 
 .dice_num {
-	margin-top: 0px;
+  margin-top: 0;
 }
 
 .main {
-    /* No idea why this defaulted to 14, but I'm fixing it here. */
-    font-size: 16px;
+  font-size: 16px;
+}
+
+/* Passphrase styling */
+.results_phrase_value {
+  font-weight: bold;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 10px auto;
+  font-family: 'Courier New', Courier, monospace;
+  word-break: break-word;
+  display: inline-block;
+  font-size: 2em;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .results_phrase_value {
+    font-size: 1.4em;
+    padding: 12px;
+    line-height: 1.4;
+  }
+  
+  .results_words_value {
+    font-size: 1.2em;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .results_phrase_value {
+    font-size: 1.2em;
+    padding: 10px;
+  }
+  
+  .results_words_value {
+    font-size: 1em;	
+  }
 }
 

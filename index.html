@@ -33,6 +33,7 @@
 	<meta name="twitter:description" content="Diceware is a password generator which creates passwords based on dicerolls keyed to a set of words." />
 	<meta name="twitter:image" content="https://diceware.dmuth.org/assets/img/dice.jpg" />
 
+
   </head>
   <body>
 
@@ -94,14 +95,22 @@
 	</div>
         <div id="results-num-dice" data-test-num-dice="" >0</div>
 
-		<div class="results_words_key" >Your words are: </div>
-		<div class="results_words_value" data-test="results-words" ></div>
+		<div class="results_words_key results_label">Your words are: </div>
+		<div class="results_words_value results_value"></div>
 
-		<div class="results_phrase_key" >Your passphrase is: </div>
-		<div class="results_phrase_value" data-test="results-phrase" ></div>
+		<div class="results_phrase_key results_label">Your passphrase is:</div>
+		<div class="results_phrase_value results_value passphrase_text"></div>
+		
+		<div class="stats_container">
+		  <div class="results_num_possible_key results_label"># of possible passwords: </div>
+		  <div class="results_num_possible_value"></div>
+		</div>
 
-		<div class="results_num_possible_key" ># of possible passwords: </div>
-		<div class="results_num_possible_value" ></div>
+		<div class="copy_button_container">
+			<button type="button" class="btn btn-sm btn-default copy-button">
+				<span class="glyphicon glyphicon-copy"></span> Copy
+			</button>
+		</div>
 
 	</div>
 
