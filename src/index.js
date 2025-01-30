@@ -45,6 +45,43 @@ function set_handlers() {
 
 	jQuery("#roll_dice").on("click", display.rollDiceHandler);
 
+  jQuery(".results_copy_button").on("click", function() {
+console.log("TEST :-)");
+
+/*
+    const tmp = $('<textarea>').css({
+        position: 'fixed', // Keep it in place to prevent scrolling issues
+        top: 0,
+        left: 0,
+        width: '1px',
+        height: '1px',
+        opacity: 0, // Make it invisible
+        pointerEvents: 'none' // Ensure it doesn't interfere with user interaction
+      });
+*/
+    let tmp = $("#results_copy_text");
+console.log(tmp);
+    //$("body").append(tmp);
+
+    // Get the text from the div and set it as the value of the textarea
+    //tempTextarea.val($('#textToCopy').text()).select();
+// TEST/TODO - Select text from element results_phrase_value
+    tmp.val("TEST VAL").select();
+
+    // Copy the text to the clipboard
+    try {
+      document.execCommand('copy');
+      console.log("Copied to clipboard!");
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+
+    // Remove the temporary textarea
+    //tmp.remove();
+/*
+*/
+    });
+
 } // End of set_handlers()
 
 

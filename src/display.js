@@ -147,21 +147,29 @@ function results(cb) {
 
 	jQuery(".results_phrase_key").hide().clone().appendTo(".results");
 	jQuery(".results_phrase_value").hide().clone().appendTo(".results");
+	jQuery(".results_copy_button").hide().clone(true).appendTo(".results");
 	jQuery(".results").append("<br clear=\"all\" />");
 
 	jQuery(".results_num_possible_key").hide().clone().appendTo(".results");
 	jQuery(".results_num_possible_value").hide().clone().appendTo(".results");
 
     jQuery(".results .results_words_key").fadeIn(500).promise().then(function() {
-        return(jQuery(".results .results_words_value").fadeIn(500).promise())
+      return(jQuery(".results .results_words_value").fadeIn(500).promise())
     }).then(function() {
-		return(jQuery(".results .results_phrase_key").fadeIn(400).promise());
+		  return(jQuery(".results .results_phrase_key").fadeIn(400).promise());
+
     }).then(function() {
-		return(jQuery(".results .results_phrase_value").fadeIn(400).promise());
+		  return(jQuery(".results .results_phrase_value").fadeIn(0).promise());
+
     }).then(function() {
-		return(jQuery(".results .results_num_possible_key").fadeIn(300).promise());
+		  return(jQuery(".results .results_copy_button").fadeIn(400).promise());
+
     }).then(function() {
-		return(jQuery(".results .results_num_possible_value").fadeIn(300).promise());
+		  return(jQuery(".results .results_num_possible_key").fadeIn(300).promise());
+
+    }).then(function() {
+		  return(jQuery(".results .results_num_possible_value").fadeIn(300).promise());
+
     }).then(function() {
         if (cb) {
             cb();

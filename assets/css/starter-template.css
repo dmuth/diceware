@@ -8,10 +8,13 @@ body {
 }
 
 .results_words_key, .results_words_value, 
-	.results_phrase_key, .results_phrase_value,
-	.results_num_possible_key, .results_num_possible_value,
-	.dice_word
+	.results_phrase_key, 
+	.results_num_possible_key, .results_num_possible_value
 	{
+	font-size: large;
+}
+
+.results_phrase_value, .dice_word {
 	font-size: x-large;
 }
 
