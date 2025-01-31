@@ -101,7 +101,7 @@
 		<div class="results_phrase_value" data-test="results-phrase" ></div>
 		
 		<button type="button" class="btn btn-primary copy-button">
-			<span class="glyphicon glyphicon-copy"></span> Copy
+			<span class="glyphicon glyphicon-copy"></span> Copy to Clipboard
 		</button>
 
 		<div class="results_num_possible_key" ># of possible passwords: </div>
@@ -409,7 +409,7 @@ Oh yeah!  I'll add to this list in the future, but here's what I got now:
 
 <ul>
 <li>
-<a href="https://strongphrase.net/">https://strongphrase.net/</a> - StrongPhrase.net  This website goes into more detail on password strengths and efforts requires to crack particular passwords.
+<a href="https://strongphrase.net/">https://strongphrase.net/</a> - StrongPhrase.net  This website goes into more detail on password strengths and efforts requires to crack particular passwords.  Also, the author of StrongPhrase <a href="https://github.com/dmuth/diceware/pull/57">contributed code for the clipboard feature</a>!
 </li>
 </ul>
 
@@ -467,13 +467,20 @@ Feel free to reach out to me if you have any comments, suggestions, bug reports,
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="./dist/bootstrap.min.js"></script>
 
-    <!-- Prevent caching during development -->
     <script>
-      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  
+      // If "debug" is in GET method data, add the current time to not use cached Javascript.
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const debug = location.search.indexOf("debug");
+
+      if (urlParams.get("debug")) {
+        console.log("Debugging set, busting Javascript cache...");
         document.write('<script src="./dist/bundle.js?v=' + new Date().getTime() + '"><\/script>');
       } else {
         document.write('<script src="./dist/bundle.js"><\/script>');
       }
+
     </script>
 
   </body>
