@@ -1,49 +1,49 @@
 
 .die {
-    width: 100px;
-    height: 100px;
-    background: #ff1111;
-    border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  background: #ff1111;
+  border-radius: 10px;
 	margin-left: 20px;
 	margin-bottom: 20px;
 }
 
 .dot {
-    position:absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 18px;
-    background: white;
-    box-shadow: inset 5px 0 10px white;
+  position:absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  background: white;
+  box-shadow: inset 5px 0 10px white;
 }
 
 .dot.center {
 	/* Orders of margins are: top right bottom left */
-    margin: 39px 0 0 41px;
+  margin: 39px 0 0 41px;
 }
 
 .dot.dtop {
-    margin-top: 14px;
+  margin-top: 14px;
 }
 
 .dot.dleft {
-    margin-left: 65px;
+  margin-left: 65px;
 }
 
 .dot.dright {
-    margin-left: 16px;
+  margin-left: 16px;
 }
 
 .dot.dbottom {
-    margin-top: 63px;
+  margin-top: 63px;
 }
 
 .dot.center.dleft {
-    margin: 38px 0 0 16px;
+  margin: 38px 0 0 16px;
 }
 
 .dot.center.dright {
-    margin: 38px 0 0 65px;
+  margin: 38px 0 0 65px;
 }
 
 .responsive {

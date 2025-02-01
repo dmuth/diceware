@@ -62,6 +62,9 @@ A local webserver can be set up by running `npm install http-server -g` to insta
     - `http-server`
     - `vim src/lib.js src/index.js`
         - Be sure to check in your changes before the next step!
+    - `ngrok http 8080` - Stand up an Ngrok endpoint
+      - Paste that URL into [my QR Code Generator](https://httpbin.dmuth.org/qrcode/)
+      - Scan the generated URL code on my iPhone and test from there.
 - Testing
     - `rm -fv src/index.js && git co src/index.js` - Get the new SHA1 hash that will be displayed in debug messages.
         - The hash can be crosschecked with the results of `git hash-object src/index.js`
