@@ -18,7 +18,7 @@ For more information on Diceware:
 
 # Can I run this on my own computer without using your website?
 
-Yes!  Go to https://github.com/dmuth/diceware/releases and download the latest `diceware.zip` file.
+Yes!  Go to [https://github.com/dmuth/diceware/releases](https://github.com/dmuth/diceware/releases) and download the latest `diceware.zip` file.
 When you unzip that file, the contents will be written to a directory called `diceware/`.  You 
 can then point a webserver on your machine to `diceware/index.html` in order to use Diceware.
 
@@ -26,15 +26,9 @@ Sadly, you cannot open `diceware/index.html` directly, as the CORS policy in Chr
 If you know of a way to fix that, please [open an issue](https://github.com/dmuth/diceware/issues). :-)
 
 
-# Will this work on an iPhone?
-
-Yep!  It should work on any mobile phone or tablet that supports Javascript, but I have only
-tested it on an iPhone 5S at this time.
-
-
 # Will this work in an air-gapped environment?
 
-Yes, copies of assets such as Bootstrap and jQuery have been made, and Diceware can now be run without
+Yes, copies of assets such as Bootstrap and jQuery have been made, and Diceware is designed to be run without
 requiring an Internet connection.
 
 
@@ -104,13 +98,21 @@ Wanna develop in Docker?  We got you covered.  Here are some helper scripts:
 - `bin/docker-push.sh` - Push to Docker Hub
 
 
+## Help Wanted
+
+I'm not much of a front-end dev these days, and my Javascript code is a little... unwieldly.
+
+If you have a solid understanding of front-end Javascript coding, and have any suggestions on how
+I can better architect things, feel free to give me a shout!
+
+
 # Who built this? / Contact
 
 My name is Douglas Muth, and I am a software engineer in Philadelphia, PA.
 
 There are several ways to get in touch with me:
 - Email to **doug.muth AT gmail DOT com** or **dmuth AT dmuth DOT org**
-- [Facebook](https://facebook.com/dmuth) 
+- [Bluesky](https://dmuth.bsky.social/)
 - [LinkedIn](https://linkedin.com/in/dmuth)
 
 Feel free to reach out to me if you have any comments, suggestions, or bug reports.
