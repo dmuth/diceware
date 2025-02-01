@@ -1,5 +1,3 @@
-
-
 let lib = require("./lib.js")();
 
 // Functions that relate to rolling dice
@@ -145,8 +143,20 @@ function results(cb) {
 	jQuery(".results_words_value").hide().clone().appendTo(".results");
 	jQuery(".results").append("<br clear=\"all\" />");
 
-	jQuery(".results_phrase_key").hide().clone().appendTo(".results");
-	jQuery(".results_phrase_value").hide().clone().appendTo(".results");
+	// Create a container for phrase and copy button
+	jQuery("<div class='phrase-container' style='margin-bottom: 15px;'></div>").appendTo(".results");
+	
+	// Add phrase key and value to container
+	jQuery(".results_phrase_key").hide().clone().appendTo(".results .phrase-container");
+	jQuery(".results_phrase_value").hide().clone().appendTo(".results .phrase-container");
+	
+	// Clone the copy button directly from source
+	const copyBtn = jQuery(".source .copy-button").clone();
+	jQuery("<div class='copy-button-container' style='text-align: center; margin-top: 10px;'></div>")
+		.hide()
+		.append(copyBtn)
+		.appendTo(".results .phrase-container");
+
 	jQuery(".results").append("<br clear=\"all\" />");
 
 	jQuery(".results_num_possible_key").hide().clone().appendTo(".results");
@@ -155,13 +165,15 @@ function results(cb) {
     jQuery(".results .results_words_key").fadeIn(500).promise().then(function() {
         return(jQuery(".results .results_words_value").fadeIn(500).promise())
     }).then(function() {
-		return(jQuery(".results .results_phrase_key").fadeIn(400).promise());
+        return(jQuery(".results .results_phrase_key").fadeIn(400).promise());
     }).then(function() {
-		return(jQuery(".results .results_phrase_value").fadeIn(400).promise());
+        return(jQuery(".results .results_phrase_value").fadeIn(400).promise());
     }).then(function() {
-		return(jQuery(".results .results_num_possible_key").fadeIn(300).promise());
+        return(jQuery(".results .copy-button-container").fadeIn(400).promise());
     }).then(function() {
-		return(jQuery(".results .results_num_possible_value").fadeIn(300).promise());
+        return(jQuery(".results .results_num_possible_key").fadeIn(300).promise());
+    }).then(function() {
+        return(jQuery(".results .results_num_possible_value").fadeIn(300).promise());
     }).then(function() {
         if (cb) {
             cb();

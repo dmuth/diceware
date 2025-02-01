@@ -97,8 +97,12 @@
 		<div class="results_words_key" >Your words are: </div>
 		<div class="results_words_value" data-test="results-words" ></div>
 
-		<div class="results_phrase_key" >Your passphrase is: </div>
+		<div class="results_phrase_key" >Your passphrase is:</div>
 		<div class="results_phrase_value" data-test="results-phrase" ></div>
+		
+		<button type="button" class="btn btn-primary copy-button">
+			<span class="glyphicon glyphicon-copy"></span> Copy to Clipboard
+		</button>
 
 		<div class="results_num_possible_key" ># of possible passwords: </div>
 		<div class="results_num_possible_value" ></div>
@@ -217,7 +221,6 @@ Diceware is a trademark of Arnold Reinhold.
 By all means, feel free to do so.  <a href="https://1password.com/">1Password</a> is an excellent product and I highly recommend it. 
 That said, there's no reason that Diceware cannot be used concurrently with a password manager. 
 But I <em>also</em> happen to like passwords I can remember. :-)
-</p>
 
 If you want the absolute highest levels of password security, consider using <a href="https://strongboxsafe.com/">Strongbox</a>.  One neat thing about Strongbox is that it comes with a built-in Diceware client!</p>
 
@@ -406,7 +409,7 @@ Oh yeah!  I'll add to this list in the future, but here's what I got now:
 
 <ul>
 <li>
-<a href="https://strongphrase.net/">https://strongphrase.net/</a> - StrongPhrase.net  This website goes into more detail on password strengths and efforts requires to crack particular passwords.
+<a href="https://strongphrase.net/">https://strongphrase.net/</a> - StrongPhrase.net  This website goes into more detail on password strengths and efforts requires to crack particular passwords.  Also, the author of StrongPhrase <a href="https://github.com/dmuth/diceware/pull/57">contributed code for the clipboard feature</a>!
 </li>
 </ul>
 
@@ -464,7 +467,21 @@ Feel free to reach out to me if you have any comments, suggestions, bug reports,
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="./dist/bootstrap.min.js"></script>
 
-	<script src="./dist/bundle.js"></script>
+    <script>
+  
+      // If "debug" is in GET method data, add the current time to not use cached Javascript.
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const debug = location.search.indexOf("debug");
+
+      if (urlParams.get("debug")) {
+        console.log("Debugging set, busting Javascript cache...");
+        document.write('<script src="./dist/bundle.js?v=' + new Date().getTime() + '"><\/script>');
+      } else {
+        document.write('<script src="./dist/bundle.js"><\/script>');
+      }
+
+    </script>
 
   </body>
 </html>
