@@ -4,7 +4,7 @@ RUN mkdir /tmp/diceware
 COPY . /tmp/diceware/
 WORKDIR /tmp/diceware
 
-RUN npm run build
+RUN npm install && npm run build
 
 FROM nginx:1.25-bullseye
 
