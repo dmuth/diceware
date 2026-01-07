@@ -234,20 +234,20 @@ If you prefer insults in your passphrases, check out the <a href="https://cheswi
 <li>Work/Shared Computer: Let's say you're using a computer that you do not own, and want to log into a personal account.  You may not want to install 1Password on that machine, so if you've generated that account's password with Diceware, it will be much easier to type in on the keyboard. </li>
 </ul>
 
-
 <h3>FAQ: What are some BAD use cases for Diceware?</h3>
 
-You should not use Diceware in any cases where it is highly likely an attacker can get a copy
-of your encrypted password and use high-volume cracking attempts against it.
-A bad case--possibly the worst case--for using Diceware would be to secure your BitCoin wallet,
-because all BitCoin nodes have a copy of the BitCoin Ledger, and an attacker 
-<a href="https://umanovskis.se/blog/post/leaky-faucet/">could attempt password cracking your wallet</a>.
+I would not recommand Diceware in cases where an attacker may be able to get a copy of your encrypted 
+password and use high-volume cracking attempts against it.
 </p>
 
-Better still, <a href="https://time.com/nextadvisor/investing/cryptocurrency/should-you-use-crypto-like-cash/">don't use BitCoin</a>.  
-(Seriously, <a href="https://web3isgoinggreat.com/">avoid crypto and NFTs</a>.)
+Regarding Bitcoin wallets, 
+<a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic">the minimum number of words for Bitcoin wallets is 12</a>, 
+which is 12 dice rolls, and that comes out to 128 bits of entropy.  If you use 24 words, that is 256 bits of entropy, which is considered
+secure against all known attacks today.  
 </p>
 
+Personally, <a href="https://www.web3isgoinggreat.com/">I recommend against cryptocurrency.</a>
+</p>
 
 <h3>FAQ: Should I add numbers or an exclamation point to my password?</h3>
 
