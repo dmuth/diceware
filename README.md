@@ -43,26 +43,44 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 ### In Summary
 
 - Development
-  - `npm run clean` - Cleanup after a previous run
-  - `npm install` - Install NPM packages used by Diceware
-  - `npm run dev-build` - Run webpack to pack Javascript files and watch for changes.
-  - `http-server`
-  - `vim src/lib.js src/index.js`
-    - Be sure to check in your changes before the next step!
-  - Stand up a webserver locally:
-    - `python -m http.server 8080`
-  - `ngrok http 8080` - Stand up an Ngrok endpoint to route your Python-based webserver
-    - Paste that URL into [my QR Code Generator](https://httpbin.dmuth.org/qrcode/)
-    - Scan the generated URL code on my iPhone and test from there.
+
+``` bash
+# Cleanup after a previous run
+npm run clean
+# Install NPM packages used by Diceware
+npm install
+# Run webpack to pack Javascript files and watch for changes.
+npm run dev-build
+# Be sure to check in your changes before the next step!
+vim src/lib.js src/index.js
+# Stand up a webserver locally
+python3 -m http.server 8080
+# Stand up an Ngrok endpoint to route your Python-based webserver
+# Paste that URL into my QR Code Generator: https://httpbin.dmuth.org/qrcode/
+# Scan the generated URL code on my iPhone and test from there.
+ngrok http 8080
+```
+
 - Testing
-  - `rm -fv src/index.js && git co src/index.js` - Get the new SHA1 hash that will be displayed in debug messages.
-    - The hash can be crosschecked with the results of `git hash-object src/index.js`
-  - `npm test` - Make sure you didn't break any of the core logic!
-  - `npx cypress run` - Run front-end testing
-    - If the tests break, run `npx cypress open` to run tests interactively.
+``` bash
+# Get the new SHA1 hash that will be displayed in debug messages.
+# The hash can be crosschecked with the results of `git hash-object src/index.js`
+rm -fv src/index.js && git co src/index.js
+# Make sure you didn't break any of the core logic!
+npm test
+# Run front-end testing
+# If the tests break, run `npx cypress open` to run tests interactively.
+npx cypress run
+```
+
 - Deployment
-  - `npm run build` - Webpack Javscript files in production mode (smaller file but takes longer)
-  - `./bin/go-sync-to-s3.sh` - Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
+
+``` bash
+# Webpack Javscript files in production mode (smaller file but takes longer)
+npm run build
+# Do this if you're me, to upload to S3.  If you're not me, you'll need to do something else, or possibly nothing at all.
+./bin/go-sync-to-s3.sh
+```
 
 ### In Practice
 
