@@ -1,89 +1,44 @@
 
 
-let Promise = require("bluebird");
-let randomNumber = require("random-number-csprng");
-
-
 module.exports = function(arg) {
 
     //
     // Export our functions.
     //
     return({
-        iCanHasGoodCrypto: iCanHasGoodCrypto,  
-        convertBigNumberToString: convertBigNumberToString,
-        getRandomValue: getRandomValue,
+        convertBigNumberToString,
+        getRandomValue,
     });
 
 }
 
 
 /**
-* Return true if we have a function that returns cryptographically random 
-* values. False otherwise.
-*/
-function iCanHasGoodCrypto() {
-
-	//
-	// If we don't have a Window variable, we're in Node.js, probably doing unit tests, so
-	// return true.
-	//
-	// Even if I screw this up and there exists a web browser that doesn't have window defined
-	// worst case is that a non-existant crypto.getRandomValues() function is called, and I'd rather
-	// have some sort of error versus a user accidentally using weak crypto.
-	//
-	if (typeof(window) == "undefined") {
-		return(true);
-	}
-
-	if (typeof(window) != "undefined") {
-		if (window.crypto && window.crypto.getRandomValues) { 
-			return(true);
-		}
-	}
-
-	return(false);
-
-} // End of i_can_has_good_crypto()
-
-
-/**
 * Return a random integer between 0 and max, inclusive.
 */
 function getRandomValue(max) {
-	return new Promise(function(resolve, reject) {
 
-	if (max <= 0) {
-		reject("max can't be less or equal to zero!");
-		return(null);
-	}
+    if (!Number.isInteger(max) || max < 0) {
+        throw new Error("max must be a non-negative integer");
+    }
 
-	if (iCanHasGoodCrypto()) {
+    const cryptoObj = globalThis.crypto;
+    if (!cryptoObj?.getRandomValues) {
+        throw new Error("Secure random number generation is unavailable");
+    }
 
-		Promise.try(function() {
-			return randomNumber(0, max);
+    const range = max + 1;
+    const maxUint32 = 0xFFFFFFFF;
+    const limit = maxUint32 - ((maxUint32 + 1) % range);
+    const array = new Uint32Array(1);
 
-		}).then(function(number) {
-			retval = number;
-			resolve(retval);
+    do {
+        cryptoObj.getRandomValues(array);
+    } while (array[0] > limit);
 
-		}).catch({code: "RandomGenerationError"}, function(err) {
-			reject(err);
+    return array[0] % range;
 
-		});
-
-	} else {
-		//
-		// Fall back to something way less secure.  The user has already 
-		// been warned.
-		//
-		retval = Math.floor(Math.random() * max);
-		resolve(retval);
-
-	}
-
-	}); // End of Promise()
-} // End of getRandomValue()
+}
 
 
 /**

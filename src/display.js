@@ -1,15 +1,12 @@
 let lib = require("./lib.js")();
 
 // Functions that relate to rolling dice
-dice = require("./dice.js")();
+const dice = require("./dice.js")();
 
-wordlist = require("./wordlist.js")();
+const wordlist = require("./wordlist.js")();
 
 // Misc utilities
-util = require("./util.js")();
-
-let Promise = require("bluebird");
-
+const util = require("./util.js")();
 
 module.exports = function(arg) {
 
@@ -23,7 +20,7 @@ module.exports = function(arg) {
 }
 
 /**
-* Dispaly all of our rows (dice rolls) and the results.
+* Display all of our rows (dice rolls) and the results.
 */
 function _rows(rows) {
 
@@ -244,39 +241,37 @@ function rollDiceHandler(e) {
 	// figure out to do a loop in Bluebird at this time. Ugh.
 	//
 	let items = [];
-	for (i=0; i<num_dice; i++) { items.push(null); }
+	for (let i=0; i<num_dice; i++) { items.push(null); }
 
-	Promise.map(items, function(element) {
+	Promise.all(items.map(function() {
 		//
 		// Do our dice rolls all at once.
 		//
-		return(dice.rollDice(window.Diceware.num_dice_per_roll));
-
-	}).then(function(data) {
+		return dice.rollDice(window.Diceware.num_dice_per_roll);
+	})).then(function(data) {
 		//
 		// Now that we have the results, get the word for each roll, 
 		// save the roll, and push the word onto the passphrase.
 		//
 		data.forEach(function(row) {
-
 			let roll = {};
 			roll.dice = row;
-            //console.log("Debug Dice Roll", JSON.stringify(roll.dice)); // Debugging
+			//console.log("Debug Dice Roll", JSON.stringify(roll.dice)); // Debugging
 			roll.word = util.get_word(wordlist.get, roll.dice.value);
 			rolls.push(roll);
 			passphrase.push(roll.word);
-	
 		});
 
-        //
-        // Store the number of dice rolled in a data attribute for 
-        // inspection by Cypress or another test.
-        //
-        let results_num_dice = jQuery("#results-num-dice");
-        results_num_dice.text(num_dice);
+		//
+		// Store the number of dice rolled in a data attribute for 
+		// inspection by Cypress or another test.
+		//
+		let results_num_dice = jQuery("#results-num-dice");
+		results_num_dice.text(num_dice);
 
 		rollDiceHandlerPost(rolls, passphrase, num_passwords);
-
+	}).catch(function(err) {
+		console.error("Error generating dice rolls:", err);
 	});
 
 } // End of rollDiceHandler()
@@ -302,7 +297,7 @@ function rollDiceHandlerPost(rolls, passphrase, num_passwords) {
 	// locale and then add in <wbr> tags so they too will wrap.
 	//
     num_passwords = lib.convertBigNumberToString(num_passwords);
-	num_passwords_html = num_passwords.toLocaleString("fullwide");
+	let num_passwords_html = num_passwords.toLocaleString("fullwide");
 	num_passwords_html = num_passwords_html.replace(/,/g, ",<wbr>");
 
 	jQuery(".results_num_possible_value").html(num_passwords_html);

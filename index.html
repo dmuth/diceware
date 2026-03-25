@@ -109,14 +109,6 @@
 
 	</div>
 
-	<div class="alert alert-danger bad_crypto" role="alert">
-	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-	<span class="sr-only">Error:</span>
-	Whoa there! Your browser doesn't have the getRandomValues() function.
-	This means that dice rolls you make <em>will not be cryptogrpahically secure!</em><br/>
-	Please try another browser. Otherwise, proceed at your own risk.
-	</div>
-
 	</div> <!--/ row -->
 
 	<div class="row">
@@ -214,6 +206,7 @@ Diceware is a trademark of Arnold Reinhold.
 </p>
 
 
+<a name="faq"></a>
 <h2>Frequently Asked Questions</h2>
 
 <h3>FAQ: Why not use 1Password or BitKeeper or something similar?</h3>
@@ -225,7 +218,6 @@ But I <em>also</em> happen to like passwords I can remember. :-)
 If you want the absolute highest levels of password security, consider using <a href="https://strongboxsafe.com/">Strongbox</a>.  One neat thing about Strongbox is that it comes with a built-in Diceware client!</p>
 
 If you prefer insults in your passphrases, check out the <a href="https://cheswick.com/insults">Insult Passphrase Generator</a> by Ron Hardin.  Each passphrase has ~42 bits of randomness.</p>
-
 
 <h3>FAQ: What are some good use cases for Diceware?</h3>
 
@@ -249,9 +241,21 @@ secure against all known attacks today.
 Personally, <a href="https://www.web3isgoinggreat.com/">I recommend against cryptocurrency.</a>
 </p>
 
+<a name="passkeys"></a>
+<h3>FAQ: What about Passkeys?</h3>
+
+Passkeys are great, and you should use them when available.  Not only do they mean you don't have to memorize
+a password, they are bound to the domain of the service that issued them, which provides superior resistance 
+to phishing atttacks. If you want to try them out, you can do so at <a href="https://www.passkeys.io/">passkeys.io</a>
+or <a href="https://support.google.com/accounts/answer/13548313?hl=en">start using them on Gmail</a>.
+</p>
+
+That said, not every service supports passkeys, and passwords are going to stay with us for a long time.
+
+
 <h3>FAQ: Should I add numbers or an exclamation point to my password?</h3>
 
-No, don't do that.  The short answer is that length makes your password more secure than special characters do.  But don't take it from me, <a href="https://www.engadget.com/2017-08-08-nist-new-password-guidelines.html">take it from the man who put us through password hell</a> and regrets every minute of it.
+Oh no, please don't do that.  The short answer is that length makes your password more secure than special characters do.  But don't take it from me, <a href="https://www.engadget.com/2017-08-08-nist-new-password-guidelines.html">take it from the man who put us through password hell</a> and regrets every minute of it.
 </p>
 
 <p>
@@ -322,7 +326,7 @@ this command: <tt style="background-color: #dddddd; ">python -m SimpleHTTPServer
 <a name="debug"></a>
 <h3>FAQ: Is there a way to roll the dice automatically?</h3>
 
-Yes, there is.  Append "?debug=n" to the URL to automatically roll the dice N times.
+Yes, there is.  Append <tt style="background-color: #dddddd; ">?debug=n</tt> to the URL to automatically roll the dice N times.
 <p/>
 <p/>
 
@@ -417,10 +421,6 @@ Oh yeah!  I'll add to this list in the future, but here's what I got now:
 
 Glad you asked!  <a href="https://www.dmuth.org/cybersecurity">I wrote a guide that covers cybersecurity and staying safe online.</a>
 
-<h3>What about Passkeys?</h3>
-
-Passkeys are great, and you should use them when available.  That said, not every service supports passkeys, and passwords are going to stay with us for a long time.
-
 <h2>Meta</h2>
 
 <h3>Have you built anything else?</h3>
@@ -437,7 +437,6 @@ Yep!  I've built a few things you may find interesting:
 <li><a href="https://septastats.com/">SEPTA Stats</a> - SFW Stats on Philadelphia Public Transit</li>
 <li><a href="https://github.com/dmuth/splunk-lab">Splunk Lab</a> - Stand up a Splunk instance in 30 seconds</a>
 <li><a href="https://github.com/dmuth/tarsplit">Tarsplit</a> - Split a tarball on file boundaries</li>
-<li><a href="https://github.com/dmuth/docker-in-vagrant">Docker in Vagrant</a> - Replacement for Docker Desktop for the Mac.
 <li>...or just <a href="https://github.com/dmuth">poke around my GitHub</a>!</li>
 </ul>
 

@@ -47,30 +47,35 @@ A local webserver can be set up by running `npm install http-server -g` to insta
 ``` bash
 # Cleanup after a previous run
 npm run clean
+
 # Install NPM packages used by Diceware
 npm install
+
 # Run webpack to pack Javascript files and watch for changes.
 npm run dev-build
-# Be sure to check in your changes before the next step!
+
+# Edit files as you see fit
 vim src/lib.js src/index.js
+
 # Stand up a webserver locally
 python3 -m http.server 8080
+
+#
 # Stand up an Ngrok endpoint to route your Python-based webserver
-# Paste that URL into my QR Code Generator: https://httpbin.dmuth.org/qrcode/
-# Scan the generated URL code on my iPhone and test from there.
-ngrok http 8080
+# Lock down the app to just me.
+#
+ngrok http 8080 --oauth=google --oauth-allow-email=doug.muth@gmail.com
 ```
 
 - Testing
+
 ``` bash
 # Get the new SHA1 hash that will be displayed in debug messages.
 # The hash can be crosschecked with the results of `git hash-object src/index.js`
 rm -fv src/index.js && git co src/index.js
+
 # Make sure you didn't break any of the core logic!
 npm test
-# Run front-end testing
-# If the tests break, run `npx cypress open` to run tests interactively.
-npx cypress run
 ```
 
 - Deployment
@@ -111,7 +116,7 @@ npm run clean; npm run build
 #### Releasing a New Build
 
 - `npm run release-build` to create the ZIP file `diceware.zip` with all assets in it, including `bundle.js` and the contents of `node_modules/`.
-- `gh release create v1.0.1` to upload a release to https://github.com/dmuth/diceware/releases.  
+- `gh release create v1.0.1` to upload a release to <https://github.com/dmuth/diceware/releases>.  
   - Change the tag for the version number accordingly.
 - `gh release upload v1.0.1 diceware.zip` to upload the ZIP file containing everything
 
@@ -120,8 +125,8 @@ npm run clean; npm run build
 Wanna develop in Docker?  We got you covered.  Here are some helper scripts:
 
 - `bin/docker-build.sh` - Build the Docker copntainer
-- `bin/docker-dev.sh` - Run in dev mode--listening on http://localhost:8000/
-- `bin/docker-prod.sh` - Run in prod mode--listening on http://localhost:80/
+- `bin/docker-dev.sh` - Run in dev mode--listening on <http://localhost:8000/>
+- `bin/docker-prod.sh` - Run in prod mode--listening on <http://localhost:80/>
 - `bin/docker-push.sh` - Push to Docker Hub
 
 ### Help Wanted

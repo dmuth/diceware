@@ -1,4 +1,3 @@
-let Promise = require("bluebird");
 
 module.exports = function(arg) {
 
@@ -67,25 +66,18 @@ function get_word(cb_wordlist, index) {
 */
 function extract_get_data(get_data) {
 
-	let retval = {};
+	const retval = {};
 
-	if (!location.search) {
-		return(retval);
-	}	
+    if (!get_data || get_data === "?") {
+        return retval;
+    }
 
-	let get = get_data.substring(1);
-	let pairs = get.split("&");
+    const params = new URLSearchParams(get_data);
+    for (const [key, value] of params.entries()) {
+        retval[key] = value;
+    }
 
-	for (let k in pairs) {
-		let row = pairs[k];
-		let pair = row.split("=");
-		let key = pair[0];
-		let value = pair[1];
-		retval[key] = value;
-
-	}
-
-	return(retval);
+    return retval;
 
 } // End of extractGetData()
 
@@ -96,6 +88,7 @@ function extract_get_data(get_data) {
 * @return {Promise} Resolves when copying is complete
 */
 async function copyToClipboard(text) {
+
   try {
     await navigator.clipboard.writeText(text);
     const $copyBtn = $('.copy-button');
@@ -108,8 +101,10 @@ async function copyToClipboard(text) {
     setTimeout(() => {
       $copyBtn.html(originalText);
     }, 5000);
+
   } catch (err) {
-    console.error('Failed to copy text:', err);
+    throw err;
+
   }
 }
 

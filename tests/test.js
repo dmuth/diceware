@@ -1,8 +1,6 @@
 
 var should = require('should');
 
-var Promise = require("bluebird");
-
 var lib = require("../src/lib.js")();
 var dice = require("../src/dice.js")();
 
@@ -11,33 +9,14 @@ describe("Diceware", function() {
 
 	describe("getRandomValue()", function() {
 
-		it("Should pass", function(done) {
+		it("Should pass", function() {
 
-			Promise.try(function() {
-				return(lib.getRandomValue(-1));
+			(() => lib.getRandomValue(-1))
+    			.should.throw(/max must be a non-negative integer/);
 
-			}).catch(function(err) {
-				err.should.match(/can't be less or equal to zero/);
-				return(lib.getRandomValue(0));
-
-			}).catch(function(err) {
-				err.should.match(/can't be less or equal to zero/);
-				return(lib.getRandomValue(1));
-
-			}).then(function(num) {
-				num.should.be.aboveOrEqual(0);
-				num.should.be.lessThanOrEqual(1);
-				return(lib.getRandomValue(999));
-
-			}).then(function(num) {
-				num.should.be.aboveOrEqual(0);
-				num.should.be.lessThanOrEqual(999);
-				done();
-
-			}).catch(function(err) {
-				done(err);
-
-			});
+			lib.getRandomValue(0).should.be.aboveOrEqual(0);
+			lib.getRandomValue(1).should.be.aboveOrEqual(0).and.lessThanOrEqual(1);
+			lib.getRandomValue(999).should.be.aboveOrEqual(0).and.lessThanOrEqual(999);
 
 		});
 
@@ -111,55 +90,52 @@ describe("Diceware", function() {
 
 			Promise.try(function() {
 
-				lib.getNumValuesFromNumDice(1).should.equal(6);
-				lib.getNumValuesFromNumDice(2).should.equal(36);
-				lib.getNumValuesFromNumDice(3).should.equal(216);
-				lib.getNumValuesFromNumDice(4).should.equal(1296);
-				lib.getNumValuesFromNumDice(5).should.equal(7776);
-				lib.getNumValuesFromNumDice(6).should.equal(46656);
-				lib.getNumValuesFromNumDice(7).should.equal(279936);
-				lib.getNumValuesFromNumDice(8).should.equal(1679616);
+				dice.getNumValuesFromNumDice(1).should.equal(6);
+				dice.getNumValuesFromNumDice(2).should.equal(36);
+				dice.getNumValuesFromNumDice(3).should.equal(216);
+				dice.getNumValuesFromNumDice(4).should.equal(1296);
+				dice.getNumValuesFromNumDice(5).should.equal(7776);
+				dice.getNumValuesFromNumDice(6).should.equal(46656);
+				dice.getNumValuesFromNumDice(7).should.equal(279936);
+				dice.getNumValuesFromNumDice(8).should.equal(1679616);
 
-				should.throws(function() { lib.getNumValuesFromNumDice(0); }, /zero/, "Zero");
-				should.throws(function() { lib.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
+				should.throws(function() { dice.getNumValuesFromNumDice(0); }, /zero/, "Zero");
+				should.throws(function() { dice.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
 
 				//
 				// Test out our helper function first
 				//
-				return(lib.rollDice(1));
-			}).then(function(dice) {
-	
-				dice.roll.length.should.be.equal(1);
-				return(lib.rollDice(3));
+				return(dice.rollDice(1));
+			}).then(function(dice_roll) {
+				dice_roll.roll.length.should.be.equal(1);
+				return(dice.rollDice(3));
 
-			}).then(function(dice) {
-				dice.roll.length.should.be.equal(3);
-				return(lib.rollDice(8));
+			}).then(function(dice_roll) {
+				dice_roll.roll.length.should.be.equal(3);
+				return(dice.rollDice(8));
 
-			}).then(function(dice) {
-				dice.roll.length.should.be.equal(8);
+			}).then(function(dice_roll) {
+				dice_roll.roll.length.should.be.equal(8);
 
 				//
 				// These may fail infrequently if the random number is zero.
 				//
-				return(lib.rollDice(3));
+				return(dice.rollDice(3));
 
-			}).then(function(dice) {
+			}).then(function(dice_roll) {
 				parseInt(dice.value).should.ok;
-				return(lib.rollDice(8));
+				return(dice.rollDice(8));
 		
-			}).then(function(dice) {
+			}).then(function(dice_roll) {
 				parseInt(dice.value).should.ok;
-
-				return(lib.rollDice(0));
+				return(dice.rollDice(0));
 
 			}).catch(function(error) {
 				error.should.match(/zero/);
-				return(lib.rollDice(-1));
+				return(dice.rollDice(-1));
 
 			}).catch(function(error) {
 				error.should.match(/negative/);
-
 				done();
 
 			}).catch(function(error) {
@@ -194,7 +170,4 @@ describe("Diceware", function() {
 
     });
 
-
 });
-
-
