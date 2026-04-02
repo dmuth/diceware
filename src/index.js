@@ -2,8 +2,6 @@
 * Our main Javascript file.
 */
 
-let Promise = require("bluebird");
-
 let lib = require("./lib.js")();
 
 
@@ -15,13 +13,13 @@ let lib = require("./lib.js")();
 window.Diceware = {};
 
 // Functions that relate to displaying dice
-display = require("./display.js")()
+const display = require("./display.js")()
 
 // Wordlist handling
-wordlist = require("./wordlist.js")()
+const wordlist = require("./wordlist.js")()
 
 // Misc utilities
-util = require("./util.js")();
+const util = require("./util.js")();
 
 
 //
@@ -54,7 +52,7 @@ function set_handlers() {
 			await util.copyToClipboard(passphrase);
 			console.log("Done copying!");
 		} catch (err) {
-			console.error('Failed to copy:', err);
+			console.error('Failed to copy to clipboard:', err);
 		}
 	});
 	console.log("Copy button handler setup complete");
@@ -72,10 +70,6 @@ function run_preflight_checks() {
 	//
 	if (!util.is_mobile()) {
 		jQuery("#github_ribbon").fadeIn(1000);
-	}
-
-	if (!lib.iCanHasGoodCrypto()) {
-		jQuery(".source .bad_crypto").clone().hide().fadeIn(800).appendTo(".message");
 	}
 
 } // End of run_preflight_checks()
@@ -110,11 +104,10 @@ function go() {
     //
     // Load the wordlist.
     //
-	let debug = location.search.indexOf("debug");
 	window.Diceware.get_data = util.extract_get_data(location.search);
 	console.log("GET Data: " + JSON.stringify(window.Diceware.get_data)); // Debugging
 
-    wordlist.load(file, window.Diceware.get_data, debug)
+    wordlist.load(file, window.Diceware.get_data)
 
 } // End of go()
 

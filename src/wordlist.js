@@ -1,7 +1,5 @@
 
 
-let Promise = require("bluebird");
-
 //
 // Our loaded wordlist.
 // This is an array of one word per line.
@@ -25,7 +23,7 @@ module.exports = function(arg) {
 /**
 * Figure out what filename we're loading.
 */
-get_filename = function() {
+function get_filename() {
 
     let retval = {};
 
@@ -33,7 +31,7 @@ get_filename = function() {
     // For now, we're using the 5 dice file from the EFF.
     // I expect to add support for multiple dice files in the future.
     //
-    file = "wordlist-eff-5-dice.txt";
+    let file = "wordlist-eff-5-dice.txt";
 
 	retval = {
         file: "EFF Wordlist",
@@ -48,7 +46,7 @@ get_filename = function() {
 /**
 * Load our wordlist with an XHR request.
 */
-load = function(file, get_data, debug) {
+function load(file, get_data) {
 
     jQuery("#roll_dice_text").html(`Loading wordlist '${file["file"]}'...`);
     jQuery("#roll_dice").prop("disabled", true);
@@ -56,7 +54,7 @@ load = function(file, get_data, debug) {
     fetch(file["filename"]).then(function(response) {
 
         if (!response.ok) {
-            throw Error(`HTTP ${response.status}: ${response.statusText}`);
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
         return(response.text());
 
