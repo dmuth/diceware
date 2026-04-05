@@ -25,19 +25,4 @@ module.exports = (env, argv) => ({
   optimization: {
     moduleIds: 'named', // Makes it easier to debug
   },
-  resolve: {
-    fallback: {
-      "crypto": require.resolve("crypto-browserify"),
-      "buffer": require.resolve("buffer/"),
-      "stream": require.resolve("stream-browserify"),
-      "vm": require.resolve("vm-browserify"),
-    }
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer'],
-      process: 'process/browser.js'
-    })
-  ]
 });
-

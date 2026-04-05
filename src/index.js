@@ -113,8 +113,10 @@ function go() {
 
 
 //
-// Run go() automatically, as that is the webpack way.
+// Run go() automatically in the browser, as that is the webpack way.
 //
-go();
-
+module.exports = { go };
+if (typeof window !== "undefined") {
+  go();
+}
 

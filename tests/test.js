@@ -86,62 +86,28 @@ describe("Diceware", function() {
 
 
 	describe("getNumValuesFromNumDice() and rollDice()", function() {
-		it("Gotta pass", function(done) {
+		it("Gotta pass", function() {
 
-			Promise.try(function() {
+			dice.getNumValuesFromNumDice(1).should.equal(6);
+			dice.getNumValuesFromNumDice(2).should.equal(36);
+			dice.getNumValuesFromNumDice(3).should.equal(216);
+			dice.getNumValuesFromNumDice(4).should.equal(1296);
+			dice.getNumValuesFromNumDice(5).should.equal(7776);
+			dice.getNumValuesFromNumDice(6).should.equal(46656);
+			dice.getNumValuesFromNumDice(7).should.equal(279936);
+			dice.getNumValuesFromNumDice(8).should.equal(1679616);
 
-				dice.getNumValuesFromNumDice(1).should.equal(6);
-				dice.getNumValuesFromNumDice(2).should.equal(36);
-				dice.getNumValuesFromNumDice(3).should.equal(216);
-				dice.getNumValuesFromNumDice(4).should.equal(1296);
-				dice.getNumValuesFromNumDice(5).should.equal(7776);
-				dice.getNumValuesFromNumDice(6).should.equal(46656);
-				dice.getNumValuesFromNumDice(7).should.equal(279936);
-				dice.getNumValuesFromNumDice(8).should.equal(1679616);
+			should.throws(() => { dice.getNumValuesFromNumDice(0); }, /zero/, "Zero");
+			should.throws(() => { dice.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
 
-				should.throws(function() { dice.getNumValuesFromNumDice(0); }, /zero/, "Zero");
-				should.throws(function() { dice.getNumValuesFromNumDice(-1); }, /negative/, "Negative value");
+			dice.rollDice(1).roll.length.should.be.equal(1);
+			dice.rollDice(3).roll.length.should.be.equal(3);
+			dice.rollDice(8).roll.length.should.be.equal(8);
 
-				//
-				// Test out our helper function first
-				//
-				return(dice.rollDice(1));
-			}).then(function(dice_roll) {
-				dice_roll.roll.length.should.be.equal(1);
-				return(dice.rollDice(3));
-
-			}).then(function(dice_roll) {
-				dice_roll.roll.length.should.be.equal(3);
-				return(dice.rollDice(8));
-
-			}).then(function(dice_roll) {
-				dice_roll.roll.length.should.be.equal(8);
-
-				//
-				// These may fail infrequently if the random number is zero.
-				//
-				return(dice.rollDice(3));
-
-			}).then(function(dice_roll) {
-				parseInt(dice.value).should.ok;
-				return(dice.rollDice(8));
-		
-			}).then(function(dice_roll) {
-				parseInt(dice.value).should.ok;
-				return(dice.rollDice(0));
-
-			}).catch(function(error) {
-				error.should.match(/zero/);
-				return(dice.rollDice(-1));
-
-			}).catch(function(error) {
-				error.should.match(/negative/);
-				done();
-
-			}).catch(function(error) {
-				done(error);
-
-			});
+			dice.rollDice(3).value.should.be.a.Number;
+			dice.rollDice(8).value.should.be.a.Number;
+			should.throws(() => { dice.rollDice(0); }, /zero/, "Zero");
+			should.throws(() => { dice.rollDice(-1); }, /negative/, "Negative value"	);
 
 		});
 	});

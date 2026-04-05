@@ -241,38 +241,28 @@ function rollDiceHandler(e) {
 	// figure out to do a loop in Bluebird at this time. Ugh.
 	//
 	let items = [];
-	for (let i=0; i<num_dice; i++) { items.push(null); }
+	for (let i=0; i<num_dice; i++) { 
+		items.push(dice.rollDice(window.Diceware.num_dice_per_roll)); 
+	}
 
-	Promise.all(items.map(function() {
-		//
-		// Do our dice rolls all at once.
-		//
-		return dice.rollDice(window.Diceware.num_dice_per_roll);
-	})).then(function(data) {
-		//
-		// Now that we have the results, get the word for each roll, 
-		// save the roll, and push the word onto the passphrase.
-		//
-		data.forEach(function(row) {
-			let roll = {};
-			roll.dice = row;
-			//console.log("Debug Dice Roll", JSON.stringify(roll.dice)); // Debugging
-			roll.word = util.get_word(wordlist.get, roll.dice.value);
-			rolls.push(roll);
-			passphrase.push(roll.word);
-		});
-
-		//
-		// Store the number of dice rolled in a data attribute for 
-		// inspection by Cypress or another test.
-		//
-		let results_num_dice = jQuery("#results-num-dice");
-		results_num_dice.text(num_dice);
-
-		rollDiceHandlerPost(rolls, passphrase, num_passwords);
-	}).catch(function(err) {
-		console.error("Error generating dice rolls:", err);
+	const words = wordlist.get();
+	items.forEach(function(row) {
+		let roll = {};
+		roll.dice = row;
+		//console.log("Debug Dice Roll", JSON.stringify(roll.dice)); // Debugging
+		roll.word = util.get_word(words, roll.dice.value);
+		rolls.push(roll);
+		passphrase.push(roll.word);
 	});
+
+	//
+	// Store the number of dice rolled in a data attribute for 
+	// inspection by Cypress or another test.
+	//
+	let results_num_dice = jQuery("#results-num-dice");
+	results_num_dice.text(num_dice);
+
+	rollDiceHandlerPost(rolls, passphrase, num_passwords);
 
 } // End of rollDiceHandler()
 
