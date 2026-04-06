@@ -52,7 +52,6 @@ function getBase6 (roll, num_dice) {
 
 		let die_value = Math.pow(6, i);
 		let value = Math.floor( dice_value_left / die_value);
-		let left = dice_value_left % die_value;
 
 		retval.push(value);
 		dice_value_left = dice_value_left - (die_value * value);
@@ -139,7 +138,7 @@ function rollDice(num_dice) {
 	let base6 = getBase6(random, num_dice);
 	let dice = convertBase6ToDice(base6, num_dice);
 
-	return Promise.resolve({
+	return({
 		value: random,
 		roll: dice,
 		});

@@ -44,9 +44,9 @@ function is_mobile() {
 *
 * @return string The word from the dicelist
 */
-function get_word(cb_wordlist, index) {
+function get_word(wordlist, index) {
 	
-	let retval = cb_wordlist()[index];
+	let retval = wordlist[index];
 
 	if (retval) {
 		retval = retval[0].toUpperCase() + retval.slice(1);

@@ -14,7 +14,7 @@
     "clean": "rm -rfv dist/*bundle.js* node_modules package-lock.json",
     "build": "webpack --mode production",
     "dev-build": "webpack --watch --mode development",
-    "release-build": "rm -fv diceware.zip ; zip -r ../diceware.zip *; mv ../diceware.zip ."
+    "release-build": "rm -rvf release && mkdir release && cp -r index.html favicon.ico README.md robots.txt release/ && cp -r dist release/ && cp -r assets release/ && cp -r fonts release/ && zip -r diceware.zip release && ls -l release/ && rm -rfv release"
   },
   "repository": {
     "type": "git",
